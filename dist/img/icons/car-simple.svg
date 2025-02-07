@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>CarSimple</title>
+    <g id="2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Homepage" transform="translate(-288, -1484)">
+            <g id="desktop/welcome-to-usjunkyards" transform="translate(239, 1304)">
+                <g id="Group-15" transform="translate(1, 148)">
+                    <g id="CarSimple" transform="translate(48, 32)">
+                        <rect id="Rectangle" x="0" y="0" width="64" height="64"></rect>
+                        <path d="M56,28 L8,28 L15.4725,11.1875 C15.7935513,10.465372 16.5097198,10 17.3,10 L46.7,10 C47.4902802,10 48.2064487,10.465372 48.5275,11.1875 L56,28 Z" id="Path" fill="#1272F4" fill-rule="nonzero" opacity="0.2"></path>
+                        <path d="M60,26 L57.3,26 L50.355,10.375 C49.7128973,8.93074395 48.2805605,8 46.7,8 L17.3,8 C15.7194395,8 14.2871027,8.93074395 13.645,10.375 L6.7,26 L4,26 C2.8954305,26 2,26.8954305 2,28 C2,29.1045695 2.8954305,30 4,30 L6,30 L6,50 C6,52.209139 7.790861,54 10,54 L16,54 C18.209139,54 20,52.209139 20,50 L20,46 L44,46 L44,50 C44,52.209139 45.790861,54 48,54 L54,54 C56.209139,54 58,52.209139 58,50 L58,30 L60,30 C61.1045695,30 62,29.1045695 62,28 C62,26.8954305 61.1045695,26 60,26 Z M17.3,12 L46.7,12 L52.9225,26 L11.0775,26 L17.3,12 Z M54,50 L48,50 L48,44 C48,42.8954305 47.1045695,42 46,42 L18,42 C16.8954305,42 16,42.8954305 16,44 L16,50 L10,50 L10,30 L54,30 L54,50 Z" id="Shape" fill="#1272F4" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

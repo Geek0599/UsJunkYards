@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="586px" height="123px" viewBox="0 0 586 123" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Path Copy</title>
+    <defs>
+        <linearGradient x1="50%" y1="0.510817308%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="98.5467657%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.600888207" stroke-dasharray="2,6">
+        <g id="Homepage" transform="translate(-667, -6746)" stroke="url(#linearGradient-1)" stroke-width="2">
+            <g id="desktop/Reviews" transform="translate(16, 6501)">
+                <g id="Group-42" transform="translate(328, 112)">
+                    <path d="M908,255 C833.236968,180.236531 729.98775,134 615.947944,134 C501.961065,134 398.754759,180.193624 324,254.895924" id="Path-Copy"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Signpost</title>
+    <g id="2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.65">
+        <g id="Online-Quote-Copy-7" transform="translate(-843, -780)">
+            <g id="Hero" transform="translate(16, 16)">
+                <g id="Group-2" transform="translate(433, 162)">
+                    <g id="Group-14" transform="translate(72, 487)">
+                        <g id="Group-8-Copy-6" transform="translate(298, 64)">
+                            <g id="Group-6" transform="translate(0, 31)">
+                                <g id="Signpost" transform="translate(24, 20)">
+                                    <path d="M22.5,10.5 L19.348125,14.0015625 C19.2060609,14.1595034 19.0036823,14.2497902 18.79125,14.25 L3.75,14.25 C3.33578644,14.25 3,13.9142136 3,13.5 L3,7.5 C3,7.08578644 3.33578644,6.75 3.75,6.75 L18.79125,6.75 C19.0036823,6.75020984 19.2060609,6.84049659 19.348125,6.9984375 L22.5,10.5 Z" id="Path" fill="#2C2833" fill-rule="nonzero" opacity="0.2"></path>
+                                    <path d="M23.0625,9.9984375 L19.9059375,6.496875 C19.6215908,6.18075057 19.2164413,6.00015409 18.79125,6 L12.75,6 L12.75,3 C12.75,2.58578644 12.4142136,2.25 12,2.25 C11.5857864,2.25 11.25,2.58578644 11.25,3 L11.25,6 L3.75,6 C2.92157288,6 2.25,6.67157288 2.25,7.5 L2.25,13.5 C2.25,14.3284271 2.92157288,15 3.75,15 L11.25,15 L11.25,21 C11.25,21.4142136 11.5857864,21.75 12,21.75 C12.4142136,21.75 12.75,21.4142136 12.75,21 L12.75,15 L18.79125,15 C19.2164413,14.9998459 19.6215908,14.8192494 19.9059375,14.503125 L23.0625,11.0015625 C23.3190127,10.7163828 23.3190127,10.2836172 23.0625,9.9984375 Z M18.79125,13.5 L3.75,13.5 L3.75,7.5 L18.79125,7.5 L21.49125,10.5 L18.79125,13.5 Z" id="Shape" fill="#2C2833" fill-rule="nonzero"></path>
+                                    <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Shape</title>
+    <g id="2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.65">
+        <g id="Junk-Yard-Page-Copy-3" transform="translate(-1271, -284)" fill="#2C2833" fill-rule="nonzero">
+            <g id="Hero" transform="translate(16, 16)">
+                <g id="Group-15" transform="translate(224, 122)">
+                    <g id="Group-11" transform="translate(1029, 40)">
+                        <g id="Clock" transform="translate(0, 104)">
+                            <path d="M12,2.25 C6.61522369,2.25 2.25,6.61522369 2.25,12 C2.25,17.3847763 6.61522369,21.75 12,21.75 C17.3847763,21.75 21.75,17.3847763 21.75,12 C21.7443161,6.61757981 17.3824202,2.25568393 12,2.25 L12,2.25 Z M12,20.25 C7.44365081,20.25 3.75,16.5563492 3.75,12 C3.75,7.44365081 7.44365081,3.75 12,3.75 C16.5563492,3.75 20.25,7.44365081 20.25,12 C20.2448336,16.5542075 16.5542075,20.2448336 12,20.25 Z M18,12 C18,12.4142136 17.6642136,12.75 17.25,12.75 L12,12.75 C11.5857864,12.75 11.25,12.4142136 11.25,12 L11.25,6.75 C11.25,6.33578644 11.5857864,6 12,6 C12.4142136,6 12.75,6.33578644 12.75,6.75 L12.75,11.25 L17.25,11.25 C17.6642136,11.25 18,11.5857864 18,12 Z" id="Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

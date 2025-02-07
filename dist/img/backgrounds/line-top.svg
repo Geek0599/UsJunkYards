@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1234px" height="257px" viewBox="0 0 1234 257" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Path</title>
+    <defs>
+        <linearGradient x1="50%" y1="0.510817308%" x2="50%" y2="98.5541891%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.600888207" stroke-dasharray="2,6">
+        <g id="Homepage" transform="translate(-343, -6612)" stroke="url(#linearGradient-1)" stroke-width="2">
+            <g id="desktop/Reviews" transform="translate(16, 6501)">
+                <g id="Group-42" transform="translate(328, 112)">
+                    <path d="M1232,255 C1074.28073,97.4406239 856.467307,0 615.890183,0 C375.424712,0 157.70182,97.3501994 0,254.780666" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
