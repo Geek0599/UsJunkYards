@@ -5,8 +5,8 @@
 	<title>State</title>
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
-	<link rel="preload" href="css/state.min.css" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/state.min.css?_v=20250207154033" crossorigin="anonymous">
+	<link rel="preload" href="css/state.min.css" as="style">
+	<link rel="stylesheet" href="css/state.min.css?_v=20250208160031">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
@@ -16,16 +16,16 @@
 	<meta name="apple-mobile-web-app-title" content="UsJunkYards">
 	<link rel="manifest" href="site.webmanifest">
 
-	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Semibold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2">
 
-	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2">
 
-	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2">
 
 </head>
 
@@ -177,7 +177,19 @@
 												<button type="submit" class="search__btn btn btn--bg">Find</button>
 											</div>
 										</form>
-										<div class="search__example">For example: <button data-paste-btn class="_icon-pointer-simple underline underline--thin"><span>New-York</span>, <span>10001</span>, <span>NY King Junk Yard</span></button></div>
+										<div class="search__example">For example:
+											<div class="search__example-row _icon-pointer-simple">
+												<div class="search__example-item">
+													<button data-paste-btn class="underline underline--thin"><span>New-York</span></button>,
+												</div>
+												<div class="search__example-item">
+													<button data-paste-btn class="underline underline--thin"><span>10001</span></button>,
+												</div>
+												<div class="search__example-item">
+													<button data-paste-btn class="underline underline--thin"><span>NY King Junk Yard</span></button>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="main__banner-aside banner">
@@ -1373,7 +1385,7 @@
 									<h3 class="we-buy-items__title title white-c">We will buy your car in any condition:</h3>
 									<div data-animation-spin class="we-buy-items__items-body">
 										<div class="we-buy-items__list-overflow">
-											<ul data-animation-items data-min-items="9" data-duration="1500" data-animation-duration="900" data-scale-element="0.95" data-delay-start="1500" data-anim-transition-function="cubic-bezier(0.000, 0.005, 0.000, 1.25)" class="we-buy-items__list">
+											<ul data-animation-items data-min-items="9" data-duration="1500" data-animation-duration="900" data-scale-element="0.95" data-delay-start="1500" data-anim-transition-function="cubic-bezier(.1,.7,.25,1.1)" class="we-buy-items__list">
 												<li class="we-buy-items__item sub-title">Flooded</li>
 												<li class="we-buy-items__item sub-title">Non Running</li>
 												<li class="we-buy-items__item sub-title">Totaled</li>
@@ -1764,8 +1776,9 @@
 									<p>Using the website, you agree with the terms and conditions outlined in our Terms and Conditions & Policy.</p>
 								</div>
 								<div class="footer-bottom__power-by">
-									<a href="#">
-										<img width="213" height="48" loading="lazy" decoding="async" src="img/icons/power-by.svg" alt="This site is part of USJunkCars">
+									<a href="#" class="power-by">
+										<span class="power-by__text">This site is part of <br>USJunkCars</span>
+										<img width="54" height="24" loading="lazy" decoding="async" src="img/icons/us-junk-cars.svg" alt="USJunkCars">
 									</a>
 									<img width="113" height="48" loading="lazy" decoding="async" src="img/icons/dmca.svg" alt="dmca protection">
 								</div>
@@ -1777,7 +1790,7 @@
 		</footer>
 	</div>
 
-	<script async src="js/state.min.js?_v=20250207154033"></script>
+	<script async src="js/state.min.js?_v=20250208160031"></script>
 </body>
 
 </html>

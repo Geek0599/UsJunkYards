@@ -251,7 +251,7 @@
                 let rowBy = getRowBy(itemsBody);
                 const delayStart = +itemsBody.dataset.delayStart || 0;
                 const animationDuration = Math.min(+itemsBody.dataset.animationDuration || duration, duration - 10);
-                const animTransitionTimingFunction = itemsBody.dataset.animTransitionFunction || "cubic-bezier(0.000, 0.005, 0.000, 1.25)";
+                const animTransitionTimingFunction = itemsBody.dataset.animTransitionFunction || "cubic-bezier(.1,.7,.25,1.1)";
                 const scaleElement = itemsBody.dataset.scaleElement || false;
                 let allElements = Array.from(itemsBody.children);
                 let elementsHeight = getElementsHeight(allElements, rowBy);
@@ -369,27 +369,10 @@
             }), 50);
         }
         function highlightCurrentTime(day, currentHour) {
-            day.querySelectorAll(".popular-times__time").forEach((el => {
-                el.classList.remove("popular-times__time--current");
-            }));
-            const timeBlocks = day.querySelectorAll(".popular-times__time");
-            timeBlocks.forEach((block => {
-                const timeLabel = block.querySelector(".popular-times__time-hour")?.textContent.trim();
-                if (timeLabel) {
-                    const hour = parseTimeLabel(timeLabel);
-                    if (hour === currentHour) block.classList.add("popular-times__time--current");
-                }
-            }));
-        }
-        function parseTimeLabel(label) {
-            const match = label.match(/(\d+)(am|pm)/);
-            if (match) {
-                let hour = parseInt(match[1]);
-                const isPM = match[2] === "pm";
-                if (hour === 12) return isPM ? 12 : 0;
-                return isPM ? hour + 12 : hour;
-            }
-            return NaN;
+            const times = day.querySelectorAll(".popular-times__time");
+            times.forEach((el => el.classList.remove("popular-times__time--current")));
+            let index = (currentHour - 4 + 24) % 24;
+            if (times[index]) times[index].classList.add("popular-times__time--current");
         }
         function setCurrentDayAsSelected(select) {
             let todayIndex = (new Date).getDay();

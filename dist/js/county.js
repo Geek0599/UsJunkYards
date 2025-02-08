@@ -441,7 +441,7 @@
                 let rowBy = getRowBy(itemsBody);
                 const delayStart = +itemsBody.dataset.delayStart || 0;
                 const animationDuration = Math.min(+itemsBody.dataset.animationDuration || duration, duration - 10);
-                const animTransitionTimingFunction = itemsBody.dataset.animTransitionFunction || "cubic-bezier(0.000, 0.005, 0.000, 1.25)";
+                const animTransitionTimingFunction = itemsBody.dataset.animTransitionFunction || "cubic-bezier(.1,.7,.25,1.1)";
                 const scaleElement = itemsBody.dataset.scaleElement || false;
                 let allElements = Array.from(itemsBody.children);
                 let elementsHeight = getElementsHeight(allElements, rowBy);

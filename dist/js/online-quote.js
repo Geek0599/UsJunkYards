@@ -344,11 +344,18 @@
                     btnSubmit && btnSubmit.addEventListener("click", (() => {
                         checkInputs(inputs, form);
                     }));
+                    btnSubmit && btnSubmit.addEventListener("update-validation", (() => {
+                        checkInputs(inputs, form);
+                    }));
                     inputs.forEach((input => {
-                        if ([ "text", "number", "email", "textarea" ].includes(input.type)) input.addEventListener("input", (() => {
-                            checkInput(input);
+                        if ([ "text", "number", "tel", "email", "textarea" ].includes(input.type)) input.addEventListener("input", (() => {
+                            setTimeout((() => {
+                                checkInput(input);
+                            }), 30);
                         })); else input.addEventListener("change", (() => {
-                            checkInput(input);
+                            setTimeout((() => {
+                                checkInput(input);
+                            }), 30);
                         }));
                     }));
                     form.addEventListener("reset", (e => {
@@ -369,7 +376,7 @@
                     const value = input.value;
                     if (input.value !== "") removeError(input); else isError = addError(input);
                     if (input.hasAttribute("data-num-format")) if (parseFloat(value) > 0) removeError(input); else isError = addError(input);
-                    if (input.hasAttribute("data-text-format")) if (/^[a-zA-Zа-яА-ЯёЁїЇєЄіІґҐ\s]+$/.test(value)) removeError(input); else isError = addError(input);
+                    if (input.hasAttribute("data-text-format")) if (/^[a-zA-Z\s]+$/.test(value)) removeError(input); else isError = addError(input);
                     if (input.type === "email" && emailTest(input)) isError = addError(input);
                     if (input.hasAttribute("data-minlength") && value.length < input.dataset.minlength) isError = addError(input);
                     if (input.hasAttribute("data-maxlenght") && value.length > input.dataset.maxlenght) isError = addError(input);
@@ -385,9 +392,7 @@
                         const minValue = input.getAttribute("data-min-value");
                         if (Number(input.value) < Number(minValue)) isError = addError(input);
                     }
-                    if (input.inputmask) setTimeout((() => {
-                        if (input.inputmask.isComplete()) removeError(input); else isError = addError(input);
-                    }), 30);
+                    if (input.inputmask) if (input.inputmask.isComplete()) removeError(input); else isError = addError(input);
                     return isError;
                 }
             }
@@ -405,6 +410,15 @@
             function emailTest(formRequiredItem) {
                 return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
             }
+        }
+        function setInputmode() {
+            const items = document.querySelectorAll("[data-inputmode]");
+            if (items.length > 0) setTimeout((() => {
+                items.forEach((item => {
+                    const mode = item.dataset.inputmode;
+                    mode ? item.setAttribute("inputmode", mode) : null;
+                }));
+            }), 50);
         }
         __webpack_require__(740);
         __webpack_require__(678);
@@ -4028,14 +4042,12 @@
                         selector.click();
                     }), 300);
                 }));
-                setTimeout((() => {
-                    selector.setAttribute("inputmode", "numeric");
-                }), 100);
             }
         }
         hoverTooltipOnStatesMap();
         clickOnLabelKeyEnter();
         project_scripts_formValidate();
+        setInputmode();
         initInputMask();
     })();
 })();

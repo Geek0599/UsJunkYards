@@ -5,8 +5,8 @@
 	<title>Online Quote</title>
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
-	<link rel="preload" href="css/online-quote.min.css" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/online-quote.min.css?_v=20250207154033" crossorigin="anonymous">
+	<link rel="preload" href="css/online-quote.min.css" as="style">
+	<link rel="stylesheet" href="css/online-quote.min.css?_v=20250208160031">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
@@ -16,16 +16,16 @@
 	<meta name="apple-mobile-web-app-title" content="UsJunkYards">
 	<link rel="manifest" href="site.webmanifest">
 
-	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Semibold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Semibold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2">
 
-	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2">
 
-	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2">
 
 </head>
 
@@ -142,7 +142,7 @@
 							</div>
 							<div class="online-quote__form w-block w-block--adaptive banner quote-form">
 								<div class="quote-form__title sub-title">Or fill out an online form, and we will contact you!</div>
-								<form data-validate action="#" class="quote-form__form">
+								<form data-validate action="#" enctype="multipart/form-data" class="quote-form__form">
 									<div class="quote-form__steps">
 										<div class="quote-form__step">
 											<div class="quote-form__step-title">Give us basic information about your car</div>
@@ -153,7 +153,7 @@
 														<div class="form-item__icon">
 															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/car.svg" alt="car icon">
 														</div>
-														<input required data-minlength="4" data-maxlength="4" data-min-value="1930" data-max-value="2025" id="year" name="year" type="number" placeholder="Enter Year" class="form-item__input">
+														<input required data-inputmode="numeric" data-minlength="4" data-maxlength="4" data-min-value="1930" data-max-value="2025" id="year" name="year" type="number" placeholder="Enter Year" class="form-item__input">
 													</div>
 												</div>
 												<div class="quote-form__item form-item">
@@ -251,7 +251,7 @@
 														<div class="form-item__icon">
 															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/user.svg" alt="user icon">
 														</div>
-														<input required data-text-format id="name" name="name" type="text" placeholder="Your Name" class="form-item__input">
+														<input required data-text-format data-minlength="2" id="name" name="name" type="text" placeholder="Your Name" class="form-item__input">
 													</div>
 												</div>
 												<div class="quote-form__item form-item">
@@ -260,7 +260,7 @@
 														<div class="form-item__icon">
 															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/zip.svg" alt="zip icon">
 														</div>
-														<input required data-minlength="5" data-maxlength="5" id="zip" name="zip" type="number" placeholder="Zip Code" class="form-item__input">
+														<input required data-inputmode="numeric" data-minlength="5" data-maxlength="5" id="zip" name="zip" type="number" placeholder="Zip Code" class="form-item__input">
 													</div>
 												</div>
 												<div class="quote-form__item form-item">
@@ -269,7 +269,7 @@
 														<div class="form-item__icon">
 															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/phone.svg" alt="phone icon">
 														</div>
-														<input required data-phone-mask id="phone" name="phone" type="tel" class="form-item__input">
+														<input required data-phone-mask data-inputmode="numeric" id="phone" name="phone" type="tel" class="form-item__input">
 													</div>
 												</div>
 											</div>
@@ -861,7 +861,19 @@
 											<button type="submit" class="search__btn btn">Find</button>
 										</div>
 									</form>
-									<div class="search__example search__example--color">For example: <button data-paste-btn class="_icon-pointer-simple underline underline--thin"><span>New-York</span>, <span>10001</span>, <span>NY King Junk Yard</span></button></div>
+									<div class="search__example search__example--color">For example:
+										<div class="search__example-row _icon-pointer-simple">
+											<div class="search__example-item">
+												<button data-paste-btn class="underline underline--thin"><span>New-York</span></button>,
+											</div>
+											<div class="search__example-item">
+												<button data-paste-btn class="underline underline--thin"><span>10001</span></button>,
+											</div>
+											<div class="search__example-item">
+												<button data-paste-btn class="underline underline--thin"><span>NY King Junk Yard</span></button>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="states-map__list list-items">
@@ -1026,8 +1038,9 @@
 									<p>Using the website, you agree with the terms and conditions outlined in our Terms and Conditions & Policy.</p>
 								</div>
 								<div class="footer-bottom__power-by">
-									<a href="#">
-										<img width="213" height="48" loading="lazy" decoding="async" src="img/icons/power-by.svg" alt="This site is part of USJunkCars">
+									<a href="#" class="power-by">
+										<span class="power-by__text">This site is part of <br>USJunkCars</span>
+										<img width="54" height="24" loading="lazy" decoding="async" src="img/icons/us-junk-cars.svg" alt="USJunkCars">
 									</a>
 									<img width="113" height="48" loading="lazy" decoding="async" src="img/icons/dmca.svg" alt="dmca protection">
 								</div>
@@ -1039,7 +1052,7 @@
 		</footer>
 	</div>
 
-	<script async src="js/online-quote.min.js?_v=20250207154033"></script>
+	<script async src="js/online-quote.min.js?_v=20250208160031"></script>
 </body>
 
 </html>
