@@ -1299,18 +1299,11 @@ body {
 
 .main-content__title {
   margin-bottom: 0.380952381em;
-  font-size-adjust: 0.33;
-  opacity: 0;
 }
 
 .main-content__title .state-plate {
   margin-top: 0.4375rem;
   margin-bottom: 0.4375rem;
-}
-
-.loaded-fonts .main-content__title {
-  font-size-adjust: unset;
-  opacity: 1;
 }
 
 .main-content__reviews {
@@ -5446,6 +5439,16 @@ body {
 
   .main-content__title .min-mob {
     display: none;
+  }
+
+  .main-content__title {
+    font-size-adjust: 0.33;
+    opacity: 0;
+  }
+
+  .loaded-fonts .main-content__title {
+    font-size-adjust: unset;
+    opacity: 1;
   }
 
   .main-content__reviews {
