@@ -5636,6 +5636,7 @@ body {
 
   .service-availability__title {
     max-width: 83%;
+    margin: 0 auto;
   }
 
   .testimonials {

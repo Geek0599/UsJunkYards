@@ -7435,6 +7435,7 @@ html.with-fancybox body.hide-scrollbar {
 
   .service-availability__title {
     max-width: 83%;
+    margin: 0 auto;
   }
 
   .list-cards {
