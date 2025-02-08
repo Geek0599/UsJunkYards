@@ -235,7 +235,7 @@
         headerMenu();
         pasteExampleIntoInput();
         headerScroll();
-        loadedForntsClass();
+        loadedFontsClass();
         function headerMenu() {
             const menu = document.querySelector(".menu-icon__menu");
             const header = document.querySelector("header.header");
@@ -280,7 +280,7 @@
                 }
             }));
         }
-        async function loadedForntsClass() {
+        async function loadedFontsClass() {
             await document.fonts.ready;
             document.documentElement.classList.add("loaded-fonts");
         }
