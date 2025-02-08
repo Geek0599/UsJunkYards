@@ -5443,12 +5443,10 @@ body {
 
   .main-content__title {
     font-size-adjust: 0.33;
-    opacity: 0;
   }
 
   .loaded-fonts .main-content__title {
     font-size-adjust: unset;
-    opacity: 1;
   }
 
   .main-content__reviews {
