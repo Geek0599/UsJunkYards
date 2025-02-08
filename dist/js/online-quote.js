@@ -348,15 +348,7 @@
                         checkInputs(inputs, form);
                     }));
                     inputs.forEach((input => {
-                        if ([ "text", "number", "tel", "email", "textarea" ].includes(input.type)) input.addEventListener("input", (() => {
-                            setTimeout((() => {
-                                checkInput(input);
-                            }), 30);
-                        })); else input.addEventListener("change", (() => {
-                            setTimeout((() => {
-                                checkInput(input);
-                            }), 30);
-                        }));
+                        if ([ "text", "number", "tel", "email", "textarea" ].includes(input.type)) input.addEventListener("input", (() => checkInput(input))); else input.addEventListener("change", (() => checkInput(input)));
                     }));
                     form.addEventListener("reset", (e => {
                         inputs.forEach((input => checkInput(input)));
@@ -392,7 +384,9 @@
                         const minValue = input.getAttribute("data-min-value");
                         if (Number(input.value) < Number(minValue)) isError = addError(input);
                     }
-                    if (input.inputmask) if (input.inputmask.isComplete()) removeError(input); else isError = addError(input);
+                    if (input.inputmask) setTimeout((() => {
+                        if (input.inputmask.isComplete()) removeError(input); else isError = addError(input);
+                    }), 30);
                     return isError;
                 }
             }
