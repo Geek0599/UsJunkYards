@@ -2844,9 +2844,6 @@ body {
 .info-banner__image {
   width: 100%;
   max-width: 19.1875rem;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 43.6079545455%;
-          flex: 0 0 43.6079545455%;
 }
 
 .info-banner__content {
@@ -6070,6 +6067,12 @@ html.with-fancybox body.hide-scrollbar {
     border-radius: 4px;
   }
 
+  .info-banner__image {
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 43.6079545455%;
+            flex: 0 0 43.6079545455%;
+  }
+
   .info-banner__title br {
     display: none;
   }
@@ -7049,12 +7052,6 @@ html.with-fancybox body.hide-scrollbar {
             align-items: flex-start;
   }
 
-  .info-banner__image {
-    -webkit-transform: scale(-1, 1);
-        -ms-transform: scale(-1, 1);
-            transform: scale(-1, 1);
-  }
-
   .info-banner__content {
     padding-top: 0;
   }
@@ -7128,7 +7125,7 @@ html.with-fancybox body.hide-scrollbar {
   }
 
   .main-content__title {
-    font-size-adjust: 0.36;
+    font-size-adjust: 0.4;
   }
 
   .loaded-fonts .main-content__title {
@@ -7411,6 +7408,10 @@ html.with-fancybox body.hide-scrollbar {
   }
 
   .info-banner__image {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-top: 1.5rem;
     max-width: 12.5rem;
   }
 
@@ -7747,6 +7748,14 @@ html.with-fancybox body.hide-scrollbar {
   .info__full-banner {
     text-align: center;
     line-height: 120%;
+  }
+}
+
+@media (max-width: 37.5em) and (min-width: 29.99875em) {
+  .info-banner__image {
+    -webkit-transform: scale(-1, 1);
+        -ms-transform: scale(-1, 1);
+            transform: scale(-1, 1);
   }
 }
 

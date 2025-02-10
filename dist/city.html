@@ -18,8 +18,8 @@
 
 	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-	<link rel="preload" href="css/city.min.css?_v=20250210123139" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/city.min.css?_v=20250210123139" crossorigin="anonymous">
+	<link rel="preload" href="css/city.min.css?_v=20250210132419" as="style" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/city.min.css?_v=20250210132419" crossorigin="anonymous">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -230,7 +230,11 @@
 							<div class="info__columns">
 								<div class="info__column info-card w-block">
 									<div class="info-card__icon">
-										<img width="64" height="64" loading="lazy" decoding="async" src="img/icons/clock.svg" alt="clock icon">
+										<picture>
+											<source srcset="img/welcome/car-green-mobile.webp, img/welcome/car-green-mobile@2x.webp 2x" type="image/webp" media="(max-width: 479.98px)">
+											<source srcset="img/welcome/car-green.webp, img/welcome/car-green@2x.webp 2x" type="image/webp">
+											<img class="img" width="322" height="231" loading="lazy" decoding="async" src="img/welcome/car-green.png" srcset="img/welcome/car-green@2x.png 2x" alt="green car">
+										</picture>
 									</div>
 									<h3 class="info-card__title title">Fast & Hassle-Free Car Selling in Birmingham, (Alabama)</h3>
 									<div class="info-card__text text">
@@ -250,7 +254,11 @@
 							<div class="info__banners">
 								<div class="info__banner info-banner w-block info-banner--green-bg">
 									<div class="info-banner__image">
-										<picture><source srcset="img/welcome/car-green.webp, img/welcome/car-green@2x.webp 2x" type="image/webp"><img class="img" width="322" height="231" loading="lazy" decoding="async" src="img/welcome/car-green.png" srcset="img/welcome/car-green@2x.png 2x" alt="green car"></picture>
+										<picture>
+											<source srcset="img/welcome/car-yellow-mobile.webp, img/welcome/car-yellow-mobile@2x.webp 2x" type="image/webp" media="(max-width: 479.98px)">
+											<source srcset="img/welcome/car-yellow.webp, img/welcome/car-yellow@2x.webp 2x" type="image/webp">
+											<img class="img" width="307" height="231" loading="lazy" decoding="async" src="img/welcome/car-yellow.png" srcset="img/welcome/car-yellow@2x.png 2x" alt="yellow car">
+										</picture>
 									</div>
 									<h3 class="info-banner__content">
 										<span class="info-banner__sub-title sub-title">You can</span>
@@ -1423,7 +1431,7 @@
 		</footer>
 	</div>
 
-	<script async src="js/city.min.js?_v=20250210123139"></script>
+	<script async src="js/city.min.js?_v=20250210132419"></script>
 </body>
 
 </html>
