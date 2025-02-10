@@ -5624,6 +5624,10 @@ body {
     margin-bottom: 2rem;
   }
 
+  .main--home .banner {
+    margin-bottom: -1.5rem;
+  }
+
   .content-details__list {
     -ms-grid-columns: 1fr;
     grid-template-columns: 1fr;
@@ -5642,7 +5646,7 @@ body {
   }
 
   .main-content__title {
-    font-size-adjust: 0.33;
+    font-size-adjust: 0.36;
   }
 
   .loaded-fonts .main-content__title {
@@ -5700,7 +5704,7 @@ body {
   }
 
   .banner__image-ibg_contain img {
-    width: 140.6844106464%;
+    width: 127.5956284153%;
   }
 
   .call-us-banner__quote-body::before {
@@ -6118,7 +6122,7 @@ body {
 
 @media (max-width: 24.375em) {
   .banner__image-ibg_contain img {
-    width: 149.8098859316%;
+    width: 136.8821292776%;
   }
 
   .header-mobile-bar__body {
