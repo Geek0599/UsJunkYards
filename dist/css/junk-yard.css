@@ -173,6 +173,7 @@
   --green-bg: #CBF4D7;
   --orange-bg: #FFEED9;
   --orange-light: #FFA518;
+  --orange-light-hover: #F48D10;
   --orange-light-bg: #FFFAF2;
   --orange: #FF5100;
   --purple: #BD6AFF;
@@ -1817,6 +1818,8 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 190%;
+  -webkit-transition: background 0.2s ease, border 0.2s ease;
+  transition: background 0.2s ease, border 0.2s ease;
 }
 
 @supports (margin-top: clamp( 2.25rem , 1.6059411146rem  +  2.1030494217vw , 3.5rem )) {
@@ -1839,6 +1842,53 @@ body {
   -webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
           transform: rotate(45deg);
+}
+
+.list-items__btn-all._extended .list-items__btn-icon--show {
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+  opacity: 0;
+}
+
+.list-items__btn-all._extended .list-items__btn-icon--hide {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  opacity: 1;
+}
+
+.list-items__btn-icon {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.list-items__btn-icon--show,
+.list-items__btn-icon--hide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  -webkit-transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+  transition: opacity 0.3s ease, -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, -webkit-transform 0.3s ease;
+}
+
+.list-items__btn-icon--show {
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  opacity: 1;
+}
+
+.list-items__btn-icon--hide {
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+  opacity: 0;
 }
 
 .breadcrumbs {
@@ -1994,7 +2044,8 @@ body {
 }
 
 .header--partial-hidden .actions-header__btn,
-.header--partial-hidden .menu-icon__btn {
+.header--partial-hidden .menu-icon__btn,
+.header--partial-hidden .header-mobile-bar {
   display: none;
   visibility: hidden;
 }
@@ -3089,6 +3140,10 @@ body {
   display: -ms-grid;
   display: grid;
   gap: 1rem;
+}
+
+.list-cards__list-hidden {
+  display: none;
 }
 
 .list-cards__actions-more {
@@ -7822,7 +7877,7 @@ html.with-fancybox body.hide-scrollbar {
   }
 
   .row-card--sponsored .row-card__btn:hover {
-    background-color: var(--orange-light);
+    background-color: var(--orange-light-hover);
   }
 }
 

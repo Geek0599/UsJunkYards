@@ -339,43 +339,48 @@
                 const btnSubmit = form.querySelector('button[type="submit"]');
                 if (inputs.length) {
                     form.addEventListener("submit", (e => {
-                        e.preventDefault();
+                        checkInputs(inputs, form, e);
                     }));
-                    btnSubmit && btnSubmit.addEventListener("click", (() => {
+                    btnSubmit && btnSubmit.addEventListener("click", (e => {
                         checkInputs(inputs, form);
                     }));
                     btnSubmit && btnSubmit.addEventListener("update-validation", (() => {
                         checkInputs(inputs, form);
                     }));
                     inputs.forEach((input => {
-                        if ([ "text", "number", "tel", "email", "textarea" ].includes(input.type)) input.addEventListener("input", (() => checkInput(input))); else input.addEventListener("change", (() => checkInput(input)));
+                        input.addEventListener("input", (() => formatInput(input)));
+                        input.addEventListener("change", (() => checkInput(input)));
                     }));
                     form.addEventListener("reset", (e => {
                         inputs.forEach((input => checkInput(input)));
                     }));
                 }
             }));
-            function checkInputs(inputs, form) {
+            function checkInputs(inputs, form, event) {
                 let errors = 0;
                 inputs.forEach((input => {
                     if (checkInput(input)) errors++;
                 }));
-                errors === 0 ? form.submit() : null;
+                if (errors && event) event.preventDefault();
+            }
+            function formatInput(input) {
+                if (input.hasAttribute("data-maxlength")) {
+                    const maxLength = input.getAttribute("data-maxlength");
+                    if (input.value.length > maxLength) input.value = input.value.slice(0, maxLength);
+                }
+                if (input.hasAttribute("data-number-format")) input.value = input.value.replace(/\D/g, "");
             }
             function checkInput(input) {
+                console.log(input);
                 if (input.required) {
                     let isError = false;
                     const value = input.value;
                     if (input.value !== "") removeError(input); else isError = addError(input);
-                    if (input.hasAttribute("data-num-format")) if (parseFloat(value) > 0) removeError(input); else isError = addError(input);
+                    if (input.hasAttribute("data-number-format")) if (parseFloat(value) > 0) removeError(input); else isError = addError(input);
                     if (input.hasAttribute("data-text-format")) if (/^[a-zA-Z\s]+$/.test(value)) removeError(input); else isError = addError(input);
                     if (input.type === "email" && emailTest(input)) isError = addError(input);
                     if (input.hasAttribute("data-minlength") && value.length < input.dataset.minlength) isError = addError(input);
                     if (input.hasAttribute("data-maxlenght") && value.length > input.dataset.maxlenght) isError = addError(input);
-                    if (input.type === "number" && input.hasAttribute("data-maxlength")) {
-                        const maxLength = input.getAttribute("data-maxlength");
-                        if (input.value.length > maxLength) input.value = input.value.slice(0, maxLength);
-                    }
                     if (input.hasAttribute("data-max-value")) {
                         const maxValue = input.getAttribute("data-max-value");
                         if (Number(input.value) > Number(maxValue)) isError = addError(input);

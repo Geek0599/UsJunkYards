@@ -205,6 +205,10 @@
             }));
         }
     }
+    function menuClose() {
+        bodyUnlock();
+        document.documentElement.classList.remove("menu-open");
+    }
     function uniqArray(array) {
         return array.filter((function(item, index, self) {
             return self.indexOf(item) === index;
@@ -258,6 +262,34 @@
                 }), delay);
             }
         };
+    }
+    function gotoblock_gotoBlock(headerSelector = false, targetBlock, offsetTop = 0, speed = 500) {
+        const targetBlockElement = document.querySelector(targetBlock);
+        if (targetBlockElement) {
+            let headerItem = "";
+            let headerItemHeight = 0;
+            if (headerSelector) {
+                headerItem = headerSelector;
+                headerItemHeight = document.querySelector(headerItem).offsetHeight;
+            }
+            let options = {
+                speedAsDuration: true,
+                speed,
+                header: headerItem,
+                offset: offsetTop,
+                easing: "easeOutQuad"
+            };
+            document.documentElement.classList.contains("menu-open") ? menuClose() : null;
+            if (typeof SmoothScroll !== "undefined") (new SmoothScroll).animateScroll(targetBlockElement, "", options); else {
+                let targetBlockElementPosition = targetBlockElement.getBoundingClientRect().top + scrollY;
+                targetBlockElementPosition = headerItemHeight ? targetBlockElementPosition - headerItemHeight : targetBlockElementPosition;
+                targetBlockElementPosition = offsetTop ? targetBlockElementPosition - offsetTop : targetBlockElementPosition;
+                window.scrollTo({
+                    top: targetBlockElementPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
     }
     function formRating() {
         const ratings = document.querySelectorAll(".rating");
@@ -594,7 +626,7 @@
             totalHeight -= rowGap;
             return totalHeight;
         }
-        function setMaxHeight(gridContainer, gridItems, row, btnShowHide, savedWidth) {
+        function setMaxHeight(gridContainer, gridItems, row, btnShowHide, savedWidth, isToggle = false) {
             if (savedWidth && window.innerWidth == savedWidth) return; else {
                 savedWidth = window.innerWidth;
                 const height = calculateHeight(gridContainer, gridItems, row);
@@ -603,7 +635,7 @@
                     btnShowHide.removeAttribute("style");
                     gridContainer.style.height = height + "px";
                     gridContainer.style.overflow = "hidden";
-                    gridContainer.style.transition = "height 0.5s ease";
+                    if (isToggle) gridContainer.style.transition = "height 0.5s ease"; else gridContainer.style.transition = "none";
                 } else {
                     btnShowHide.style.display = "none";
                     gridContainer.removeAttribute("style");
@@ -615,9 +647,10 @@
             const toggleText = btnShowHide.getAttribute("data-btn-showhide");
             if (!isOpen) {
                 extentGridHeight(gridContainer);
+                gridContainer.style.transition = "height 0.5s ease";
                 btnShowHide.classList.add("_extended");
             } else {
-                setMaxHeight(gridContainer, gridItems, row, btnShowHide);
+                setMaxHeight(gridContainer, gridItems, row, btnShowHide, null, true);
                 btnShowHide.classList.remove("_extended");
             }
             if (toggleText) {
@@ -630,6 +663,16 @@
         function extentGridHeight(gridContainer) {
             gridContainer.style.height = gridContainer.scrollHeight + "px";
         }
+    }
+    function scrollToBlock() {
+        const btns = document.querySelectorAll("[data-go-to]");
+        if (btns.length > 0) btns.forEach((btn => {
+            btn.addEventListener("click", (e => {
+                const params = btn.dataset.goTo.split(",");
+                const isMobileHeader = window.innerWidth <= 479.98 ? false : "header .header__container";
+                gotoblock_gotoBlock(isMobileHeader, ...params);
+            }));
+        }));
     }
     function ssr_window_esm_isObject(obj) {
         return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
@@ -4108,6 +4151,7 @@
     rowVerticalAnim();
     hoverTooltipOnStatesMap();
     showMoreHideGridElems();
+    scrollToBlock();
     testimonialsSlider();
     spollers();
 })();
