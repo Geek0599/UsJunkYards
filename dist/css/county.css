@@ -2513,6 +2513,9 @@ body {
   height: 1.5rem;
   cursor: pointer;
   z-index: 5;
+}
+
+.loaded .icon-menu {
   -webkit-transition: background 0.3s ease 0s;
   transition: background 0.3s ease 0s;
 }
@@ -5266,6 +5269,10 @@ body {
 @media (max-width: 29.99875em) {
   .wrapper:has(header._header-full-scroll) {
     padding-bottom: 5rem;
+  }
+
+  .wrapper:has(header.header--partial-hidden) {
+    padding-bottom: 0.5rem;
   }
 
   .based-reviews {
