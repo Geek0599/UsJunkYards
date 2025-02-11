@@ -337,19 +337,23 @@
             if (validateForms.length) validateForms.forEach((form => {
                 const inputs = form.querySelectorAll("input,select,textarea");
                 const btnSubmit = form.querySelector('button[type="submit"]');
-                if (inputs.length) {
+                if (inputs.length > 0) {
                     form.addEventListener("submit", (e => {
                         checkInputs(inputs, form, e);
                     }));
                     btnSubmit && btnSubmit.addEventListener("click", (e => {
                         checkInputs(inputs, form);
                     }));
-                    btnSubmit && btnSubmit.addEventListener("update-validation", (() => {
-                        checkInputs(inputs, form);
-                    }));
                     inputs.forEach((input => {
                         input.addEventListener("input", (() => formatInput(input)));
-                        input.addEventListener("change", (() => checkInput(input)));
+                        input.addEventListener("change", (() => setTimeout((() => {
+                            checkInput(input);
+                        }), 0)));
+                        input.addEventListener("blur", (() => {
+                            setTimeout((() => {
+                                if (input.value !== "") checkInput(input);
+                            }), 0);
+                        }));
                     }));
                     form.addEventListener("reset", (e => {
                         inputs.forEach((input => checkInput(input)));
@@ -371,29 +375,30 @@
                 if (input.hasAttribute("data-number-format")) input.value = input.value.replace(/\D/g, "");
             }
             function checkInput(input) {
-                console.log(input);
+                const value = input.value.trim();
+                let isError = false;
                 if (input.required) {
-                    let isError = false;
-                    const value = input.value;
-                    if (input.value !== "") removeError(input); else isError = addError(input);
-                    if (input.hasAttribute("data-number-format")) if (parseFloat(value) > 0) removeError(input); else isError = addError(input);
-                    if (input.hasAttribute("data-text-format")) if (/^[a-zA-Z\s]+$/.test(value)) removeError(input); else isError = addError(input);
-                    if (input.type === "email" && emailTest(input)) isError = addError(input);
-                    if (input.hasAttribute("data-minlength") && value.length < input.dataset.minlength) isError = addError(input);
-                    if (input.hasAttribute("data-maxlenght") && value.length > input.dataset.maxlenght) isError = addError(input);
-                    if (input.hasAttribute("data-max-value")) {
-                        const maxValue = input.getAttribute("data-max-value");
-                        if (Number(input.value) > Number(maxValue)) isError = addError(input);
-                    }
-                    if (input.hasAttribute("data-min-value")) {
-                        const minValue = input.getAttribute("data-min-value");
-                        if (Number(input.value) < Number(minValue)) isError = addError(input);
-                    }
+                    if (value === "") isError = true;
+                    if (input.hasAttribute("data-number-format")) if (!/^\d+$/.test(value)) isError = true;
+                    if (input.hasAttribute("data-text-format")) if (!/^[a-zA-Z\s]+$/.test(value)) isError = true;
+                    if (input.type === "email") if (value !== "" && !isEmailValid(input)) isError = true;
+                    const minLength = input.hasAttribute("data-minlength") ? Number(input.dataset.minlength) : null;
+                    const maxLength = input.hasAttribute("data-maxlength") ? Number(input.dataset.maxlength) : null;
+                    if (minLength !== null && value.length < minLength) isError = true;
+                    if (maxLength !== null && value.length > maxLength) isError = true;
+                    const minValue = input.hasAttribute("data-min-value") ? Number(input.dataset.minValue) : null;
+                    const maxValue = input.hasAttribute("data-max-value") ? Number(input.dataset.maxValue) : null;
+                    if (minValue !== null && Number(value) < minValue) isError = true;
+                    if (maxValue !== null && Number(value) > maxValue) isError = true;
                     if (input.inputmask) setTimeout((() => {
-                        if (input.inputmask.isComplete()) removeError(input); else isError = addError(input);
-                    }), 30);
-                    return isError;
-                }
+                        if (!input.inputmask.isComplete()) addError(input); else removeError(input);
+                    }), 50);
+                    if (input.required) if (isError) addError(input); else removeError(input);
+                } else if (input.type === "email") if (value !== "" && !isEmailValid(input)) {
+                    isError = true;
+                    addError(input);
+                } else if (value === "") removeStatus(input); else removeError(input);
+                return isError;
             }
             function addError(input) {
                 input.classList.remove("_validated");
@@ -406,8 +411,13 @@
                 input.classList.add("_validated");
                 input.setAttribute("aria-invalid", "false");
             }
-            function emailTest(formRequiredItem) {
-                return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(formRequiredItem.value);
+            function removeStatus(input) {
+                input.classList.remove("_no-validated");
+                input.classList.remove("_validated");
+                input.removeAttribute("aria-invalid");
+            }
+            function isEmailValid(formRequiredItem) {
+                return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/.test(formRequiredItem.value);
             }
         }
         function setInputmode() {
