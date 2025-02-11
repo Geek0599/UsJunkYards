@@ -342,7 +342,7 @@
                         checkInputs(inputs, form, e);
                     }));
                     btnSubmit && btnSubmit.addEventListener("click", (e => {
-                        checkInputs(inputs, form);
+                        checkInputs(inputs, form, e);
                     }));
                     inputs.forEach((input => {
                         input.addEventListener("input", (() => formatInput(input)));
@@ -360,21 +360,14 @@
                     }));
                 }
             }));
-            function checkInputs(inputs, form, event) {
+            async function checkInputs(inputs, form, event) {
+                if (event) event.preventDefault();
+                form.reportValidity();
                 let errors = 0;
-                inputs.forEach((input => {
-                    if (checkInput(input)) errors++;
-                }));
-                if (errors && event) event.preventDefault();
+                for (const input of inputs) if (await checkInput(input)) errors++;
+                if (!errors) form.submit();
             }
-            function formatInput(input) {
-                if (input.hasAttribute("data-maxlength")) {
-                    const maxLength = input.getAttribute("data-maxlength");
-                    if (input.value.length > maxLength) input.value = input.value.slice(0, maxLength);
-                }
-                if (input.hasAttribute("data-number-format")) input.value = input.value.replace(/\D/g, "");
-            }
-            function checkInput(input) {
+            async function checkInput(input) {
                 const value = input.value.trim();
                 let isError = false;
                 if (input.required) {
@@ -390,15 +383,23 @@
                     const maxValue = input.hasAttribute("data-max-value") ? Number(input.dataset.maxValue) : null;
                     if (minValue !== null && Number(value) < minValue) isError = true;
                     if (maxValue !== null && Number(value) > maxValue) isError = true;
-                    if (input.inputmask) setTimeout((() => {
-                        if (!input.inputmask.isComplete()) addError(input); else removeError(input);
-                    }), 50);
+                    if (input.inputmask) await new Promise((resolve => setTimeout((() => {
+                        if (!input.inputmask.isComplete()) isError = true;
+                        resolve();
+                    }), 50)));
                     if (input.required) if (isError) addError(input); else removeError(input);
                 } else if (input.type === "email") if (value !== "" && !isEmailValid(input)) {
                     isError = true;
                     addError(input);
                 } else if (value === "") removeStatus(input); else removeError(input);
                 return isError;
+            }
+            function formatInput(input) {
+                if (input.hasAttribute("data-maxlength")) {
+                    const maxLength = input.getAttribute("data-maxlength");
+                    if (input.value.length > maxLength) input.value = input.value.slice(0, maxLength);
+                }
+                if (input.hasAttribute("data-number-format")) input.value = input.value.replace(/\D/g, "");
             }
             function addError(input) {
                 input.classList.remove("_validated");
@@ -4046,6 +4047,9 @@
                     mask: "+1 999-999-9999",
                     clearMaskOnLostFocus: false
                 }).mask(selector);
+                selector.addEventListener("input", (() => {
+                    if (selector.value !== "") selector.dataset.filled = "true"; else selector.dataset.filled = "false";
+                }));
                 selector.addEventListener("focus", (() => {
                     setTimeout((function() {
                         selector.click();

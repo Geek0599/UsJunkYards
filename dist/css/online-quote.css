@@ -3642,7 +3642,7 @@ body {
   -webkit-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(250, 5, 41, 0.8), inset 0 0 0 2px #FFFFFF;
           box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(250, 5, 41, 0.8), inset 0 0 0 2px #FFFFFF;
   background-color: var(--gray-bg);
-  color: var(--red-second);
+  color: var(--red-second) !important;
 }
 
 .form-item__input._no-validated:focus,
@@ -3676,6 +3676,26 @@ body {
   background-color: var(--white);
   -webkit-box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(25, 46, 91, 0.15), inset 0 0 0 2px #FFFFFF;
           box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.06), inset 0 0 0 1px rgba(25, 46, 91, 0.15), inset 0 0 0 2px #FFFFFF;
+}
+
+.form-item__input:not(select):not(:-moz-placeholder-shown):not(input[data-phone-mask]), .form-item__select:not(select):not(:-moz-placeholder-shown):not(input[data-phone-mask]), .form-item__textarea:not(select):not(:-moz-placeholder-shown):not(input[data-phone-mask]) {
+  color: var(--black);
+}
+
+.form-item__input:not(select):not(:-ms-input-placeholder):not(input[data-phone-mask]), .form-item__select:not(select):not(:-ms-input-placeholder):not(input[data-phone-mask]), .form-item__textarea:not(select):not(:-ms-input-placeholder):not(input[data-phone-mask]) {
+  color: var(--black);
+}
+
+.form-item__input:not(select):not(:placeholder-shown):not(input[data-phone-mask]),
+.form-item__select:not(select):not(:placeholder-shown):not(input[data-phone-mask]),
+.form-item__textarea:not(select):not(:placeholder-shown):not(input[data-phone-mask]) {
+  color: var(--black);
+}
+
+.form-item__input[data-filled=true],
+.form-item__select[data-filled=true],
+.form-item__textarea[data-filled=true] {
+  color: var(--black);
 }
 
 .form-item__select {
