@@ -18,8 +18,8 @@
 
 	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-	<link rel="preload" href="css/online-quote.min.css?_v=20250211170423" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/online-quote.min.css?_v=20250211170423" crossorigin="anonymous">
+	<link rel="preload" href="css/online-quote.min.css?_v=20250212105733" as="style" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/online-quote.min.css?_v=20250212105733" crossorigin="anonymous">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -251,7 +251,7 @@
 														<div class="form-item__icon">
 															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/user.svg" alt="user icon">
 														</div>
-														<input required data-text-format data-minlength="2" id="name" name="name" type="text" placeholder="Your Name" class="form-item__input">
+														<input required data-text-format data-minlength="2" id="name" autocomplete="name" name="name" type="text" placeholder="Your Name" class="form-item__input">
 													</div>
 												</div>
 												<div class="quote-form__item form-item">
@@ -260,7 +260,7 @@
 														<div class="form-item__icon">
 															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/zip.svg" alt="zip icon">
 														</div>
-														<input required data-number-format data-inputmode="numeric" data-minlength="5" data-maxlength="5" id="zip" name="zip" type="text" placeholder="Zip Code" class="form-item__input">
+														<input required data-number-format data-inputmode="numeric" data-minlength="5" data-maxlength="5" autocomplete="postal-code" id="zip" name="zip" type="text" placeholder="Zip Code" class="form-item__input">
 													</div>
 												</div>
 												<div class="quote-form__item form-item">
@@ -269,7 +269,7 @@
 														<div class="form-item__icon">
 															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/phone.svg" alt="phone icon">
 														</div>
-														<input required data-phone-mask data-inputmode="numeric" id="phone" name="phone" type="tel" class="form-item__input">
+														<input required data-phone-mask data-inputmode="numeric" autocomplete="tel" id="phone" name="phone" type="tel" class="form-item__input">
 													</div>
 												</div>
 											</div>
@@ -287,7 +287,7 @@
 													<div class="form-item__icon">
 														<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/email.svg" alt="email icon">
 													</div>
-													<input id="email" name="email" type="email" placeholder="Your Email" class="form-item__input">
+													<input id="email" name="email" autocomplete="email" type="email" placeholder="Your Email" class="form-item__input">
 												</div>
 											</div>
 											<div class="quote-form__item form-item">
@@ -1052,7 +1052,7 @@
 		</footer>
 	</div>
 
-	<script async src="js/online-quote.min.js?_v=20250211170423"></script>
+	<script async src="js/online-quote.min.js?_v=20250212105733"></script>
 </body>
 
 </html>
