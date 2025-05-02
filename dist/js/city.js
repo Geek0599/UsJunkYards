@@ -171,8 +171,8 @@
         }));
         function initRating(rating) {
             let ratingActive = rating.querySelector(".rating__active");
-            let ratingValue = rating.querySelector(".rating__value");
-            function setRatingActiveWidth(index = ratingValue.innerHTML) {
+            let ratingValue = rating.dataset.rating || rating.querySelector(".rating__value");
+            function setRatingActiveWidth(index = rating.dataset.rating || ratingValue.innerHTML) {
                 const ratingActiveWidth = index / .05;
                 ratingActive.style.width = `${ratingActiveWidth}%`;
             }
@@ -188,7 +188,7 @@
                     }));
                     item.addEventListener("click", (async () => {
                         if (rating.dataset.ajax) await setRatingValue(item.value, rating); else {
-                            ratingValue.innerHTML = item.value;
+                            rating.dataset.rating ? rating.dataset.rating = item.value : ratingValue.innerHTML = item.value;
                             setRatingActiveWidth();
                         }
                     }));
@@ -204,7 +204,7 @@
                     });
                     if (response.ok) {
                         const result = await response.json();
-                        ratingValue.innerHTML = result.newRating;
+                        rating.dataset.rating ? rating.dataset.rating = result.newRating : ratingValue.innerHTML = result.newRating;
                         setRatingActiveWidth();
                     } else console.log("Error");
                 } catch (error) {
