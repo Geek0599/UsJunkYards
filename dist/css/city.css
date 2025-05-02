@@ -1,7 +1,7 @@
 @font-face {
   font-family: "Manrope";
   font-display: swap;
-  src: url("../fonts/Manrope-Bold.woff") format("woff");
+  src: url("../fonts/Manrope-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
 }
@@ -9,7 +9,7 @@
 @font-face {
   font-family: "Manrope";
   font-display: swap;
-  src: url("../fonts/Manrope-SemiBold.woff") format("woff");
+  src: url("../fonts/Manrope-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
 }
@@ -17,7 +17,7 @@
 @font-face {
   font-family: "Manrope";
   font-display: swap;
-  src: url("../fonts/Manrope-Medium.woff") format("woff");
+  src: url("../fonts/Manrope-Medium.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
 }
@@ -25,7 +25,7 @@
 @font-face {
   font-family: "SairaCondensed";
   font-display: swap;
-  src: url("../fonts/SairaCondensed-Regular.woff") format("woff");
+  src: url("../fonts/SairaCondensed-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
@@ -33,7 +33,7 @@
 @font-face {
   font-family: "Manrope";
   font-display: swap;
-  src: url("../fonts/Manrope-Regular.woff") format("woff");
+  src: url("../fonts/Manrope-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
@@ -41,7 +41,7 @@
 @font-face {
   font-family: "SairaCondensed";
   font-display: swap;
-  src: url("../fonts/SairaCondensed-Black.woff") format("woff");
+  src: url("../fonts/SairaCondensed-Black.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
 }
@@ -49,7 +49,7 @@
 @font-face {
   font-family: "icons";
   font-display: swap;
-  src: url("../fonts/icons.woff") format("woff");
+  src: url("../fonts/icons.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
@@ -57,7 +57,7 @@
 @font-face {
   font-family: "Manrope";
   font-display: swap;
-  src: url("../fonts/Manrope-ExtraBold.woff") format("woff");
+  src: url("../fonts/Manrope-ExtraBold.woff2") format("woff2");
   font-weight: 800;
   font-style: normal;
 }

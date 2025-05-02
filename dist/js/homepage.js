@@ -156,68 +156,59 @@
             }
         }
     }
-    function rating() {
-        const ratings = document.querySelectorAll(".rating");
-        if (ratings.length > 0) initRatings();
-        function initRatings() {
-            let ratingActive, ratingValue;
-            for (let index = 0; index < ratings.length; index++) {
-                const rating = ratings[index];
-                initRating(rating);
-            }
-            function initRating(rating) {
-                initRatingVars(rating);
-                setRatingActiveWidth();
-                if (rating.classList.contains("rating_set")) setRating(rating);
-            }
-            function initRatingVars(rating) {
-                ratingActive = rating.querySelector(".rating__active");
-                ratingValue = rating.querySelector(".rating__value");
-            }
+    function initRatings() {
+        const ratings = document.querySelectorAll(".rating:not(.rating_initialized)");
+        if (ratings.length > 0) ratings.forEach((rating => {
+            initRating(rating);
+            rating.classList.add("rating_initialized");
+        }));
+        function initRating(rating) {
+            let ratingActive = rating.querySelector(".rating__active");
+            let ratingValue = rating.querySelector(".rating__value");
             function setRatingActiveWidth(index = ratingValue.innerHTML) {
                 const ratingActiveWidth = index / .05;
                 ratingActive.style.width = `${ratingActiveWidth}%`;
             }
-            function setRating(rating) {
+            setRatingActiveWidth();
+            if (rating.classList.contains("rating_set")) {
                 const ratingItems = rating.querySelectorAll(".rating__item");
-                for (let index = 0; index < ratingItems.length; index++) {
-                    const ratingItem = ratingItems[index];
-                    ratingItem.addEventListener("mouseenter", (function(e) {
-                        initRatingVars(rating);
-                        setRatingActiveWidth(ratingItem.value);
+                ratingItems.forEach((item => {
+                    item.addEventListener("mouseenter", (() => {
+                        setRatingActiveWidth(item.value);
                     }));
-                    ratingItem.addEventListener("mouseleave", (function(e) {
+                    item.addEventListener("mouseleave", (() => {
                         setRatingActiveWidth();
                     }));
-                    ratingItem.addEventListener("click", (function(e) {
-                        initRatingVars(rating);
-                        if (rating.dataset.ajax) setRatingValue(ratingItem.value, rating); else {
-                            ratingValue.innerHTML = index + 1;
+                    item.addEventListener("click", (async () => {
+                        if (rating.dataset.ajax) await setRatingValue(item.value, rating); else {
+                            ratingValue.innerHTML = item.value;
                             setRatingActiveWidth();
                         }
                     }));
-                }
+                }));
             }
-            async function setRatingValue(value, rating) {
-                if (!rating.classList.contains("rating_sending")) {
-                    rating.classList.add("rating_sending");
+        }
+        async function setRatingValue(value, rating) {
+            if (!rating.classList.contains("rating_sending")) {
+                rating.classList.add("rating_sending");
+                try {
                     let response = await fetch("rating.json", {
                         method: "GET"
                     });
                     if (response.ok) {
                         const result = await response.json();
-                        const newRating = result.newRating;
-                        ratingValue.innerHTML = newRating;
+                        ratingValue.innerHTML = result.newRating;
                         setRatingActiveWidth();
-                        rating.classList.remove("rating_sending");
-                    } else {
-                        console.log("Error");
-                        rating.classList.remove("rating_sending");
-                    }
+                    } else console.log("Error");
+                } catch (error) {
+                    console.log("Error:", error);
+                } finally {
+                    rating.classList.remove("rating_sending");
                 }
             }
         }
     }
+    window.initRatings = initRatings;
     function DynamicAdapt(type) {
         this.type = type;
         this.resizeTimeout;
@@ -280,7 +271,7 @@
     da.init();
     isWebp();
     addLoadedClass();
-    rating();
+    initRatings();
     headerMenu();
     pasteExampleIntoInput();
     headerScroll();
