@@ -1,5 +1,12 @@
 (() => {
     "use strict";
+    function addLoadedClass() {
+        window.addEventListener("load", (function() {
+            setTimeout((function() {
+                document.documentElement.classList.add("loaded");
+            }), 0);
+        }));
+    }
     function isWebp() {
         function testWebP(callback) {
             let webP = new Image;
@@ -13,13 +20,35 @@
             document.documentElement.classList.add(className);
         }));
     }
-    function addLoadedClass() {
-        window.addEventListener("load", (function() {
-            setTimeout((function() {
-                document.documentElement.classList.add("loaded");
-            }), 0);
-        }));
-    }
+    let bodyLockStatus = true;
+    let bodyLockToggle = (delay = 500) => {
+        if (document.documentElement.classList.contains("lock")) bodyUnlock(delay); else bodyLock(delay);
+    };
+    let bodyUnlock = (delay = 500) => {
+        if (bodyLockStatus) {
+            bodyLockStatus = false;
+            if (delay) setTimeout((function() {
+                bodyLockStatus = true;
+                document.documentElement.style.removeProperty("--scrollbar-compensate");
+                document.documentElement.classList.remove("lock");
+            }), delay); else {
+                bodyLockStatus = true;
+                document.documentElement.style.removeProperty("--scrollbar-compensate");
+                document.documentElement.classList.remove("lock");
+            }
+        }
+    };
+    let bodyLock = (delay = 500) => {
+        if (bodyLockStatus) {
+            const scrollbarCompensate = window.innerWidth - document.querySelector(".wrapper").offsetWidth;
+            if (scrollbarCompensate > 0) document.documentElement.style.setProperty("--scrollbar-compensate", scrollbarCompensate + "px");
+            document.documentElement.classList.add("lock");
+            bodyLockStatus = false;
+            if (delay) setTimeout((function() {
+                bodyLockStatus = true;
+            }), delay); else bodyLockStatus = true;
+        }
+    };
     let _slideUp = (target, duration = 500, showmore = 0) => {
         if (!target.classList.contains("_slide")) {
             target.classList.add("_slide");
@@ -89,130 +118,20 @@
     let _slideToggle = (target, duration = 500) => {
         if (target.hidden) return _slideDown(target, duration); else return _slideUp(target, duration);
     };
-    let bodyLockStatus = true;
-    let bodyLockToggle = (delay = 500) => {
-        if (document.documentElement.classList.contains("lock")) bodyUnlock(delay); else bodyLock(delay);
-    };
-    let bodyUnlock = (delay = 500) => {
-        let body = document.querySelector("body");
-        if (bodyLockStatus) {
-            let lock_padding = document.querySelectorAll("[data-lp]");
-            setTimeout((() => {
-                for (let index = 0; index < lock_padding.length; index++) {
-                    const el = lock_padding[index];
-                    el.style.paddingRight = "0px";
-                }
-                body.style.paddingRight = "0px";
-                document.documentElement.classList.remove("lock");
-            }), delay);
-            bodyLockStatus = false;
-            setTimeout((function() {
-                bodyLockStatus = true;
-            }), delay);
-        }
-    };
-    let bodyLock = (delay = 500) => {
-        let body = document.querySelector("body");
-        if (bodyLockStatus) {
-            let lock_padding = document.querySelectorAll("[data-lp]");
-            for (let index = 0; index < lock_padding.length; index++) {
-                const el = lock_padding[index];
-                el.style.paddingRight = window.innerWidth - document.querySelector(".wrapper").offsetWidth + "px";
-            }
-            body.style.paddingRight = window.innerWidth - document.querySelector(".wrapper").offsetWidth + "px";
-            document.documentElement.classList.add("lock");
-            bodyLockStatus = false;
-            setTimeout((function() {
-                bodyLockStatus = true;
-            }), delay);
-        }
-    };
-    function spollers() {
-        const spollersArray = document.querySelectorAll("[data-spollers]");
-        if (spollersArray.length > 0) {
-            const spollersRegular = Array.from(spollersArray).filter((function(item, index, self) {
-                return !item.dataset.spollers.split(",")[0];
-            }));
-            if (spollersRegular.length) initSpollers(spollersRegular);
-            let mdQueriesArray = dataMediaQueries(spollersArray, "spollers");
-            if (mdQueriesArray && mdQueriesArray.length) mdQueriesArray.forEach((mdQueriesItem => {
-                mdQueriesItem.matchMedia.addEventListener("change", (function() {
-                    initSpollers(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-                }));
-                initSpollers(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-            }));
-            function initSpollers(spollersArray, matchMedia = false) {
-                spollersArray.forEach((spollersBlock => {
-                    spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
-                    if (matchMedia.matches || !matchMedia) {
-                        spollersBlock.classList.add("_spoller-init");
-                        initSpollerBody(spollersBlock);
-                        spollersBlock.addEventListener("click", setSpollerAction);
-                    } else {
-                        spollersBlock.classList.remove("_spoller-init");
-                        initSpollerBody(spollersBlock, false);
-                        spollersBlock.removeEventListener("click", setSpollerAction);
-                    }
-                }));
-            }
-            function initSpollerBody(spollersBlock, hideSpollerBody = true) {
-                let spollerTitles = spollersBlock.querySelectorAll("[data-spoller]");
-                if (spollerTitles.length) {
-                    spollerTitles = Array.from(spollerTitles).filter((item => item.closest("[data-spollers]") === spollersBlock));
-                    spollerTitles.forEach((spollerTitle => {
-                        if (hideSpollerBody) {
-                            spollerTitle.removeAttribute("tabindex");
-                            if (!spollerTitle.classList.contains("_spoller-active")) spollerTitle.nextElementSibling.hidden = true;
-                        } else {
-                            spollerTitle.setAttribute("tabindex", "-1");
-                            spollerTitle.nextElementSibling.hidden = false;
-                        }
-                    }));
-                }
-            }
-            function setSpollerAction(e) {
-                const el = e.target;
-                if (el.closest("[data-spoller]")) {
-                    const spollerTitle = el.closest("[data-spoller]");
-                    const spollersBlock = spollerTitle.closest("[data-spollers]");
-                    const oneSpoller = spollersBlock.hasAttribute("data-one-spoller");
-                    const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-                    if (!spollersBlock.querySelectorAll("._slide").length) {
-                        if (oneSpoller && !spollerTitle.classList.contains("_spoller-active")) hideSpollersBody(spollersBlock);
-                        spollerTitle.classList.toggle("_spoller-active");
-                        _slideToggle(spollerTitle.nextElementSibling, spollerSpeed);
-                    }
-                    e.preventDefault();
-                }
-            }
-            function hideSpollersBody(spollersBlock) {
-                const spollerActiveTitle = spollersBlock.querySelector("[data-spoller]._spoller-active");
-                const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-                if (spollerActiveTitle && !spollersBlock.querySelectorAll("._slide").length) {
-                    spollerActiveTitle.classList.remove("_spoller-active");
-                    _slideUp(spollerActiveTitle.nextElementSibling, spollerSpeed);
-                }
-            }
-            const spollersClose = document.querySelectorAll("[data-spoller-close]");
-            if (spollersClose.length) document.addEventListener("click", (function(e) {
-                const el = e.target;
-                if (!el.closest("[data-spollers]")) spollersClose.forEach((spollerClose => {
-                    const spollersBlock = spollerClose.closest("[data-spollers]");
-                    const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-                    spollerClose.classList.remove("_spoller-active");
-                    _slideUp(spollerClose.nextElementSibling, spollerSpeed);
-                }));
-            }));
-        }
-    }
     function menuClose() {
         bodyUnlock();
         document.documentElement.classList.remove("menu-open");
     }
-    function uniqArray(array) {
-        return array.filter((function(item, index, self) {
-            return self.indexOf(item) === index;
-        }));
+    function throttle(mainFunction, delay) {
+        let timerFlag = null;
+        return (...args) => {
+            if (timerFlag === null) {
+                mainFunction(...args);
+                timerFlag = setTimeout((() => {
+                    timerFlag = null;
+                }), delay);
+            }
+        };
     }
     function dataMediaQueries(array, dataSetValue) {
         const media = Array.from(array).filter((function(item, index, self) {
@@ -252,46 +171,7 @@
             }
         }
     }
-    function throttle(mainFunction, delay) {
-        let timerFlag = null;
-        return (...args) => {
-            if (timerFlag === null) {
-                mainFunction(...args);
-                timerFlag = setTimeout((() => {
-                    timerFlag = null;
-                }), delay);
-            }
-        };
-    }
-    function gotoblock_gotoBlock(headerSelector = false, targetBlock, offsetTop = 0, speed = 500) {
-        const targetBlockElement = document.querySelector(targetBlock);
-        if (targetBlockElement) {
-            let headerItem = "";
-            let headerItemHeight = 0;
-            if (headerSelector) {
-                headerItem = headerSelector;
-                headerItemHeight = document.querySelector(headerItem).offsetHeight;
-            }
-            let options = {
-                speedAsDuration: true,
-                speed,
-                header: headerItem,
-                offset: offsetTop,
-                easing: "easeOutQuad"
-            };
-            document.documentElement.classList.contains("menu-open") ? menuClose() : null;
-            if (typeof SmoothScroll !== "undefined") (new SmoothScroll).animateScroll(targetBlockElement, "", options); else {
-                let targetBlockElementPosition = targetBlockElement.getBoundingClientRect().top + scrollY;
-                targetBlockElementPosition = headerItemHeight ? targetBlockElementPosition - headerItemHeight : targetBlockElementPosition;
-                targetBlockElementPosition = offsetTop ? targetBlockElementPosition - offsetTop : targetBlockElementPosition;
-                window.scrollTo({
-                    top: targetBlockElementPosition,
-                    behavior: "smooth"
-                });
-            }
-        }
-    }
-    function formRating() {
+    function rating() {
         const ratings = document.querySelectorAll(".rating");
         if (ratings.length > 0) initRatings();
         function initRatings() {
@@ -413,6 +293,9 @@
     };
     const da = new DynamicAdapt("max");
     da.init();
+    isWebp();
+    addLoadedClass();
+    rating();
     headerMenu();
     pasteExampleIntoInput();
     headerScroll();
@@ -465,10 +348,103 @@
         await document.fonts.ready;
         document.documentElement.classList.add("loaded-fonts");
     }
-    window["FLS"] = false;
-    isWebp();
-    addLoadedClass();
-    formRating();
+    function spollers() {
+        const spollersArray = document.querySelectorAll("[data-spollers]");
+        if (spollersArray.length > 0) {
+            const spollersRegular = Array.from(spollersArray).filter((function(item, index, self) {
+                return !item.dataset.spollers.split(",")[0];
+            }));
+            if (spollersRegular.length) initSpollers(spollersRegular);
+            let mdQueriesArray = dataMediaQueries(spollersArray, "spollers");
+            if (mdQueriesArray && mdQueriesArray.length) mdQueriesArray.forEach((mdQueriesItem => {
+                mdQueriesItem.matchMedia.addEventListener("change", (function() {
+                    initSpollers(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+                }));
+                initSpollers(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+            }));
+            function initSpollers(spollersArray, matchMedia = false) {
+                spollersArray.forEach((spollersBlock => {
+                    spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
+                    if (matchMedia.matches || !matchMedia) {
+                        spollersBlock.classList.add("_spoller-init");
+                        initSpollerBody(spollersBlock);
+                        spollersBlock.addEventListener("click", setSpollerAction);
+                    } else {
+                        spollersBlock.classList.remove("_spoller-init");
+                        initSpollerBody(spollersBlock, false);
+                        spollersBlock.removeEventListener("click", setSpollerAction);
+                    }
+                }));
+            }
+            function initSpollerBody(spollersBlock, hideSpollerBody = true) {
+                let spollerTitles = spollersBlock.querySelectorAll("[data-spoller]");
+                if (spollerTitles.length) {
+                    spollerTitles = Array.from(spollerTitles).filter((item => item.closest("[data-spollers]") === spollersBlock));
+                    spollerTitles.forEach((spollerTitle => {
+                        if (hideSpollerBody) {
+                            spollerTitle.removeAttribute("tabindex");
+                            if (!spollerTitle.classList.contains("_spoller-active")) spollerTitle.nextElementSibling.hidden = true;
+                        } else {
+                            spollerTitle.setAttribute("tabindex", "-1");
+                            spollerTitle.nextElementSibling.hidden = false;
+                        }
+                    }));
+                }
+            }
+            function setSpollerAction(e) {
+                const el = e.target;
+                if (el.closest("[data-spoller]")) {
+                    const spollerTitle = el.closest("[data-spoller]");
+                    const spollersBlock = spollerTitle.closest("[data-spollers]");
+                    const oneSpoller = spollersBlock.hasAttribute("data-one-spoller");
+                    const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
+                    if (!spollersBlock.querySelectorAll("._slide").length) {
+                        if (oneSpoller && !spollerTitle.classList.contains("_spoller-active")) hideSpollersBody(spollersBlock);
+                        spollerTitle.classList.toggle("_spoller-active");
+                        _slideToggle(spollerTitle.nextElementSibling, spollerSpeed);
+                    }
+                    e.preventDefault();
+                }
+            }
+            function hideSpollersBody(spollersBlock) {
+                const spollerActiveTitle = spollersBlock.querySelector("[data-spoller]._spoller-active");
+                const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
+                if (spollerActiveTitle && !spollersBlock.querySelectorAll("._slide").length) {
+                    spollerActiveTitle.classList.remove("_spoller-active");
+                    _slideUp(spollerActiveTitle.nextElementSibling, spollerSpeed);
+                }
+            }
+            const spollersClose = document.querySelectorAll("[data-spoller-close]");
+            if (spollersClose.length) document.addEventListener("click", (function(e) {
+                const el = e.target;
+                if (!el.closest("[data-spollers]")) spollersClose.forEach((spollerClose => {
+                    const spollersBlock = spollerClose.closest("[data-spollers]");
+                    const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
+                    spollerClose.classList.remove("_spoller-active");
+                    _slideUp(spollerClose.nextElementSibling, spollerSpeed);
+                }));
+            }));
+        }
+    }
+    function gotoBlock(noHeader = false, targetBlock, offsetTop = 0, speed = 500) {
+        const targetBlockElement = document.querySelector(targetBlock);
+        if (targetBlockElement) {
+            let headerItem = "";
+            let headerItemHeight = 0;
+            if (noHeader) {
+                headerItem = "header.header";
+                headerItemHeight = document.querySelector(headerItem).offsetHeight;
+            }
+            document.documentElement.classList.contains("menu-open") ? menuClose() : null;
+            let targetBlockElementPosition = targetBlockElement.getBoundingClientRect().top + scrollY;
+            targetBlockElementPosition = headerItemHeight ? targetBlockElementPosition - headerItemHeight : targetBlockElementPosition;
+            targetBlockElementPosition = offsetTop ? targetBlockElementPosition - offsetTop : targetBlockElementPosition;
+            window.scrollTo({
+                top: targetBlockElementPosition,
+                behavior: "smooth"
+            });
+        }
+    }
     function rowVerticalAnim() {
         setTimeout((() => {
             const itemsWrappers = document.querySelectorAll("[data-animation-spin]");
@@ -598,9 +574,10 @@
     }
     function showMoreHideGridElems() {
         const wrapperBlock = document.querySelectorAll("[data-showmore-wrapper]");
+        const transitionTime = "500";
         if (wrapperBlock.length) wrapperBlock.forEach((block => {
             const gridContainer = block.querySelector("[data-showmore-container]");
-            const gridItems = gridContainer.querySelectorAll("[data-showmore-container] > *");
+            const gridItems = gridContainer.children;
             const btnShowHide = block.querySelector("[data-btn-showhide]");
             const rowParameters = gridContainer.getAttribute("data-showmore-container").split(",");
             const row = {
@@ -608,50 +585,134 @@
                 tablet: rowParameters[1],
                 mobile: rowParameters[2]
             };
-            if (wrapperBlock) {
+            if (gridItems && gridItems.length) {
+                if (document.readyState === "complete") requestAnimationFrame((() => {
+                    requestAnimationFrame((() => {
+                        setMaxHeight(gridContainer, gridItems, row, btnShowHide);
+                    }));
+                })); else window.addEventListener("load", (() => {
+                    document.fonts.ready.then((() => {
+                        requestAnimationFrame((() => {
+                            requestAnimationFrame((() => {
+                                setMaxHeight(gridContainer, gridItems, row, btnShowHide);
+                            }));
+                        }));
+                    }));
+                }), {
+                    once: true
+                });
                 setMaxHeight(gridContainer, gridItems, row, btnShowHide);
+                setTimeout((() => setMaxHeight(gridContainer, gridItems, row, btnShowHide)), 500);
                 let savedWidth = window.innerWidth;
-                const debouncedSetMaxHeight = throttle(setMaxHeight, 20);
-                window.addEventListener("resize", (() => debouncedSetMaxHeight(gridContainer, gridItems, row, btnShowHide, savedWidth)));
+                const debouncedSetMaxHeight = throttle(((gridContainer, gridItems, row, btnShowHide) => {
+                    requestAnimationFrame((() => {
+                        const updatedWidth = window.innerWidth;
+                        if (savedWidth !== updatedWidth) {
+                            savedWidth = updatedWidth;
+                            setMaxHeight(gridContainer, gridItems, row, btnShowHide);
+                            setTimeout((() => {
+                                setMaxHeight(gridContainer, gridItems, row, btnShowHide);
+                            }), 35);
+                        }
+                    }));
+                }), 20);
+                window.addEventListener("resize", (() => debouncedSetMaxHeight(gridContainer, gridItems, row, btnShowHide)));
                 btnShowHide.addEventListener("click", (() => toggleHeight(btnShowHide, gridContainer, gridItems, row)));
             }
         }));
         function calculateHeight(gridContainer, gridItems, row) {
-            const rowGap = parseFloat(getComputedStyle(gridContainer).rowGap);
             let rowOnMaxWidth = row.pc;
             if (window.innerWidth <= 992) rowOnMaxWidth = row.tablet;
             if (window.innerWidth <= 480) rowOnMaxWidth = row.mobile;
-            let totalHeight = 0;
-            for (let i = 0; i < rowOnMaxWidth; i++) totalHeight += gridItems[i].offsetHeight + rowGap;
-            totalHeight -= rowGap;
+            let totalHeight = calculateRowsHeight(gridContainer, gridItems, +rowOnMaxWidth);
             return totalHeight;
         }
-        function setMaxHeight(gridContainer, gridItems, row, btnShowHide, savedWidth, isToggle = false) {
-            if (savedWidth && window.innerWidth == savedWidth) return; else {
-                savedWidth = window.innerWidth;
-                const height = calculateHeight(gridContainer, gridItems, row);
-                if (height < gridContainer.scrollHeight) {
-                    btnShowHide.classList.remove("_extended");
-                    btnShowHide.removeAttribute("style");
-                    gridContainer.style.height = height + "px";
-                    gridContainer.style.overflow = "hidden";
-                    if (isToggle) gridContainer.style.transition = "height 0.5s ease"; else gridContainer.style.transition = "none";
-                } else {
-                    btnShowHide.style.display = "none";
-                    gridContainer.removeAttribute("style");
+        function calculateRowsHeight(container, items, rowsToCalculate) {
+            if (!container || !items || !rowsToCalculate || rowsToCalculate < 1) return 0;
+            const computedStyle = window.getComputedStyle(container);
+            const isGrid = computedStyle.display === "grid";
+            const isFlex = computedStyle.display === "flex" && computedStyle.flexWrap === "wrap";
+            if (!isGrid && !isFlex) return 0;
+            const rowGap = Math.round(parseFloat(computedStyle.rowGap) || parseFloat(computedStyle.gap) || 0);
+            let totalHeight = 0;
+            let rowStartIndices = [ 0 ];
+            let totalRows = 0;
+            if (isGrid) {
+                const gridTemplateColumns = computedStyle.gridTemplateColumns.split(" ").length;
+                const itemsPerRow = gridTemplateColumns;
+                totalRows = Math.ceil(items.length / itemsPerRow);
+                const actualRowsToCalculate = Math.min(rowsToCalculate, totalRows);
+                for (let row = 0; row < actualRowsToCalculate; row++) {
+                    let maxHeightInRow = 0;
+                    const startIndex = row * itemsPerRow;
+                    const endIndex = Math.min(startIndex + itemsPerRow, items.length);
+                    for (let i = startIndex; i < endIndex; i++) {
+                        const itemHeight = Math.round(items[i].getBoundingClientRect().height);
+                        maxHeightInRow = Math.max(maxHeightInRow, itemHeight);
+                    }
+                    totalHeight += maxHeightInRow;
+                    if (row < actualRowsToCalculate - 1) totalHeight += rowGap;
+                }
+            } else if (isFlex) {
+                const containerWidth = container.getBoundingClientRect().width;
+                let currentRowWidth = 0;
+                for (let i = 0; i < items.length; i++) {
+                    const itemWidth = items[i].getBoundingClientRect().width;
+                    const marginLeft = Math.round(parseFloat(window.getComputedStyle(items[i]).marginLeft) || 0);
+                    const marginRight = Math.round(parseFloat(window.getComputedStyle(items[i]).marginRight) || 0);
+                    const totalItemWidth = itemWidth + marginLeft + marginRight;
+                    if (currentRowWidth + totalItemWidth <= containerWidth) currentRowWidth += totalItemWidth; else {
+                        rowStartIndices.push(i);
+                        currentRowWidth = totalItemWidth;
+                        if (rowStartIndices.length > rowsToCalculate) break;
+                    }
+                }
+                totalRows = rowStartIndices.length + (currentRowWidth > 0 ? 1 : 0);
+                const actualRowsToCalculate = Math.min(rowsToCalculate, totalRows);
+                for (let row = 0; row < actualRowsToCalculate; row++) {
+                    let maxHeightInRow = 0;
+                    const startIndex = rowStartIndices[row];
+                    const nextRowStart = rowStartIndices[row + 1] || items.length;
+                    for (let i = startIndex; i < nextRowStart; i++) {
+                        const itemHeight = Math.round(items[i].getBoundingClientRect().height);
+                        maxHeightInRow = Math.max(maxHeightInRow, itemHeight);
+                    }
+                    totalHeight += maxHeightInRow;
+                    if (row < actualRowsToCalculate - 1) totalHeight += rowGap;
                 }
             }
+            return Math.round(totalHeight);
+        }
+        function setMaxHeight(gridContainer, gridItems, row, btnShowHide, isTransition = false) {
+            const height = calculateHeight(gridContainer, gridItems, row);
+            if (height < gridContainer.scrollHeight) {
+                btnShowHide.classList.remove("_extended");
+                btnShowHide.removeAttribute("style");
+                gridContainer.style.height = height + "px";
+                gridContainer.style.overflow = "hidden";
+                if (isTransition) gridContainer.style.transition = `height ${transitionTime}ms ease`; else gridContainer.style.transition = "none";
+            } else {
+                btnShowHide.style.display = "none";
+                gridContainer.removeAttribute("style");
+            }
+            return height;
         }
         function toggleHeight(btnShowHide, gridContainer, gridItems, row) {
             const isOpen = btnShowHide.classList.contains("_extended");
             const toggleText = btnShowHide.getAttribute("data-btn-showhide");
             if (!isOpen) {
                 extentGridHeight(gridContainer);
-                gridContainer.style.transition = "height 0.5s ease";
+                gridContainer.style.transition = `height ${transitionTime}ms ease`;
                 btnShowHide.classList.add("_extended");
             } else {
-                setMaxHeight(gridContainer, gridItems, row, btnShowHide, null, true);
+                const rect = gridContainer.getBoundingClientRect();
+                const isInView = rect.top >= 0 && rect.left >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && rect.right <= (window.innerWidth || document.documentElement.clientWidth);
+                const height = setMaxHeight(gridContainer, gridItems, row, btnShowHide, true);
                 btnShowHide.classList.remove("_extended");
+                if (!isInView) {
+                    const top = rect.height - height;
+                    scroll(-top, transitionTime);
+                }
             }
             if (toggleText) {
                 const isItSpan = btnShowHide.querySelector("span");
@@ -659,6 +720,44 @@
                 btnShowHide.setAttribute("data-btn-showhide", initialText);
                 isItSpan ? isItSpan.textContent = toggleText : btnShowHide.textContent = toggleText;
             }
+        }
+        function scroll(pixels, duration) {
+            const start = window.pageYOffset;
+            const distance = pixels;
+            const startTime = performance.now();
+            function ease(t) {
+                const x1 = .25, y1 = .1;
+                const x2 = .25, y2 = 1;
+                function calcX(t) {
+                    const mt = 1 - t;
+                    const mt2 = mt * mt;
+                    const t2 = t * t;
+                    return 3 * mt2 * t * x1 + 3 * mt * t2 * x2 + t * t2;
+                }
+                function calcY(t) {
+                    const mt = 1 - t;
+                    const mt2 = mt * mt;
+                    const t2 = t * t;
+                    return 3 * mt2 * t * y1 + 3 * mt * t2 * y2 + t * t2;
+                }
+                let uMin = 0;
+                let uMax = 1;
+                for (let i = 0; i < 20; i++) {
+                    const u = (uMin + uMax) / 2;
+                    const x = calcX(u);
+                    if (x < t) uMin = u; else uMax = u;
+                }
+                const u = (uMin + uMax) / 2;
+                return calcY(u);
+            }
+            function animation(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const easedProgress = ease(progress);
+                window.scrollTo(0, start + distance * easedProgress);
+                if (progress < 1) requestAnimationFrame(animation);
+            }
+            requestAnimationFrame(animation);
         }
         function extentGridHeight(gridContainer) {
             gridContainer.style.height = gridContainer.scrollHeight + "px";
@@ -670,9 +769,22 @@
             btn.addEventListener("click", (e => {
                 const params = btn.dataset.goTo.split(",");
                 const isMobileHeader = window.innerWidth <= 479.98 ? false : "header .header__container";
-                gotoblock_gotoBlock(isMobileHeader, ...params);
+                gotoBlock(isMobileHeader, ...params);
             }));
         }));
+    }
+    function sortSelect() {
+        const sortSelectWrapper = document.querySelector("[data-sort]");
+        if (sortSelectWrapper) {
+            const select = sortSelectWrapper.querySelector("select");
+            const icon = sortSelectWrapper.querySelector("img");
+            select && icon && select.addEventListener("change", (e => {
+                const iconName = select.options[select.selectedIndex].dataset.icon;
+                icon.src = icon.src.substring(0, icon.src.lastIndexOf("/") + 1) + iconName + ".svg";
+                icon.alt = icon.alt ? icon.alt.replace(/^\S+/, iconName) : iconName;
+                console.log(`Type sort value -- ${e.target.value}`);
+            }));
+        }
     }
     function ssr_window_esm_isObject(obj) {
         return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
@@ -3052,7 +3164,7 @@
         el.classList.add(...classNames);
         swiper.emitContainerClasses();
     }
-    function swiper_core_removeClasses() {
+    function removeClasses() {
         const swiper = this;
         const {el, classNames} = swiper;
         el.classList.remove(...classNames);
@@ -3060,7 +3172,7 @@
     }
     var classes = {
         addClasses,
-        removeClasses: swiper_core_removeClasses
+        removeClasses
     };
     function checkOverflow() {
         const swiper = this;
@@ -4154,4 +4266,5 @@
     scrollToBlock();
     testimonialsSlider();
     spollers();
+    sortSelect();
 })();

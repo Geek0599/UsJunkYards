@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/input-alphabet-za</title>
+    <g id="Main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.65">
+        <g id="Styleguide" transform="translate(-1302, -2665)">
+            <g id="Group-6-Copy-3" transform="translate(1278, 2645)">
+                <g id="icon/input-alphabet-za" transform="translate(24, 20)">
+                    <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                    <path d="M4.86885,11 L2.6665,11 L6,3 L8,3 L11.3334,11 L9.13113,11 L8.7213,10 L5.27869,10 L4.86885,11 Z M6.09836,8 L7.90163,8 L7,5.8 L6.09836,8 Z M21.9999,8 L17.9999,3 L13.9999,8 L16.9999,8 L16.9999,21 L18.9999,21 L18.9999,8 L21.9999,8 Z M10.9999,13 L2.99992,13 L2.99992,15 L7.85414,15 L2.99992,19 L2.99992,21 L10.9999,21 L10.9999,19 L6.14605,19 L10.9999,15 L10.9999,13 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,5 +1,12 @@
 (() => {
     "use strict";
+    function addLoadedClass() {
+        window.addEventListener("load", (function() {
+            setTimeout((function() {
+                document.documentElement.classList.add("loaded");
+            }), 0);
+        }));
+    }
     function isWebp() {
         function testWebP(callback) {
             let webP = new Image;
@@ -13,13 +20,35 @@
             document.documentElement.classList.add(className);
         }));
     }
-    function addLoadedClass() {
-        window.addEventListener("load", (function() {
-            setTimeout((function() {
-                document.documentElement.classList.add("loaded");
-            }), 0);
-        }));
-    }
+    let bodyLockStatus = true;
+    let bodyLockToggle = (delay = 500) => {
+        if (document.documentElement.classList.contains("lock")) bodyUnlock(delay); else bodyLock(delay);
+    };
+    let bodyUnlock = (delay = 500) => {
+        if (bodyLockStatus) {
+            bodyLockStatus = false;
+            if (delay) setTimeout((function() {
+                bodyLockStatus = true;
+                document.documentElement.style.removeProperty("--scrollbar-compensate");
+                document.documentElement.classList.remove("lock");
+            }), delay); else {
+                bodyLockStatus = true;
+                document.documentElement.style.removeProperty("--scrollbar-compensate");
+                document.documentElement.classList.remove("lock");
+            }
+        }
+    };
+    let bodyLock = (delay = 500) => {
+        if (bodyLockStatus) {
+            const scrollbarCompensate = window.innerWidth - document.querySelector(".wrapper").offsetWidth;
+            if (scrollbarCompensate > 0) document.documentElement.style.setProperty("--scrollbar-compensate", scrollbarCompensate + "px");
+            document.documentElement.classList.add("lock");
+            bodyLockStatus = false;
+            if (delay) setTimeout((function() {
+                bodyLockStatus = true;
+            }), delay); else bodyLockStatus = true;
+        }
+    };
     let _slideUp = (target, duration = 500, showmore = 0) => {
         if (!target.classList.contains("_slide")) {
             target.classList.add("_slide");
@@ -89,127 +118,6 @@
     let _slideToggle = (target, duration = 500) => {
         if (target.hidden) return _slideDown(target, duration); else return _slideUp(target, duration);
     };
-    let bodyLockStatus = true;
-    let bodyLockToggle = (delay = 500) => {
-        if (document.documentElement.classList.contains("lock")) bodyUnlock(delay); else bodyLock(delay);
-    };
-    let bodyUnlock = (delay = 500) => {
-        let body = document.querySelector("body");
-        if (bodyLockStatus) {
-            let lock_padding = document.querySelectorAll("[data-lp]");
-            setTimeout((() => {
-                for (let index = 0; index < lock_padding.length; index++) {
-                    const el = lock_padding[index];
-                    el.style.paddingRight = "0px";
-                }
-                body.style.paddingRight = "0px";
-                document.documentElement.classList.remove("lock");
-            }), delay);
-            bodyLockStatus = false;
-            setTimeout((function() {
-                bodyLockStatus = true;
-            }), delay);
-        }
-    };
-    let bodyLock = (delay = 500) => {
-        let body = document.querySelector("body");
-        if (bodyLockStatus) {
-            let lock_padding = document.querySelectorAll("[data-lp]");
-            for (let index = 0; index < lock_padding.length; index++) {
-                const el = lock_padding[index];
-                el.style.paddingRight = window.innerWidth - document.querySelector(".wrapper").offsetWidth + "px";
-            }
-            body.style.paddingRight = window.innerWidth - document.querySelector(".wrapper").offsetWidth + "px";
-            document.documentElement.classList.add("lock");
-            bodyLockStatus = false;
-            setTimeout((function() {
-                bodyLockStatus = true;
-            }), delay);
-        }
-    };
-    function spollers() {
-        const spollersArray = document.querySelectorAll("[data-spollers]");
-        if (spollersArray.length > 0) {
-            const spollersRegular = Array.from(spollersArray).filter((function(item, index, self) {
-                return !item.dataset.spollers.split(",")[0];
-            }));
-            if (spollersRegular.length) initSpollers(spollersRegular);
-            let mdQueriesArray = dataMediaQueries(spollersArray, "spollers");
-            if (mdQueriesArray && mdQueriesArray.length) mdQueriesArray.forEach((mdQueriesItem => {
-                mdQueriesItem.matchMedia.addEventListener("change", (function() {
-                    initSpollers(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-                }));
-                initSpollers(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
-            }));
-            function initSpollers(spollersArray, matchMedia = false) {
-                spollersArray.forEach((spollersBlock => {
-                    spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
-                    if (matchMedia.matches || !matchMedia) {
-                        spollersBlock.classList.add("_spoller-init");
-                        initSpollerBody(spollersBlock);
-                        spollersBlock.addEventListener("click", setSpollerAction);
-                    } else {
-                        spollersBlock.classList.remove("_spoller-init");
-                        initSpollerBody(spollersBlock, false);
-                        spollersBlock.removeEventListener("click", setSpollerAction);
-                    }
-                }));
-            }
-            function initSpollerBody(spollersBlock, hideSpollerBody = true) {
-                let spollerTitles = spollersBlock.querySelectorAll("[data-spoller]");
-                if (spollerTitles.length) {
-                    spollerTitles = Array.from(spollerTitles).filter((item => item.closest("[data-spollers]") === spollersBlock));
-                    spollerTitles.forEach((spollerTitle => {
-                        if (hideSpollerBody) {
-                            spollerTitle.removeAttribute("tabindex");
-                            if (!spollerTitle.classList.contains("_spoller-active")) spollerTitle.nextElementSibling.hidden = true;
-                        } else {
-                            spollerTitle.setAttribute("tabindex", "-1");
-                            spollerTitle.nextElementSibling.hidden = false;
-                        }
-                    }));
-                }
-            }
-            function setSpollerAction(e) {
-                const el = e.target;
-                if (el.closest("[data-spoller]")) {
-                    const spollerTitle = el.closest("[data-spoller]");
-                    const spollersBlock = spollerTitle.closest("[data-spollers]");
-                    const oneSpoller = spollersBlock.hasAttribute("data-one-spoller");
-                    const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-                    if (!spollersBlock.querySelectorAll("._slide").length) {
-                        if (oneSpoller && !spollerTitle.classList.contains("_spoller-active")) hideSpollersBody(spollersBlock);
-                        spollerTitle.classList.toggle("_spoller-active");
-                        _slideToggle(spollerTitle.nextElementSibling, spollerSpeed);
-                    }
-                    e.preventDefault();
-                }
-            }
-            function hideSpollersBody(spollersBlock) {
-                const spollerActiveTitle = spollersBlock.querySelector("[data-spoller]._spoller-active");
-                const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-                if (spollerActiveTitle && !spollersBlock.querySelectorAll("._slide").length) {
-                    spollerActiveTitle.classList.remove("_spoller-active");
-                    _slideUp(spollerActiveTitle.nextElementSibling, spollerSpeed);
-                }
-            }
-            const spollersClose = document.querySelectorAll("[data-spoller-close]");
-            if (spollersClose.length) document.addEventListener("click", (function(e) {
-                const el = e.target;
-                if (!el.closest("[data-spollers]")) spollersClose.forEach((spollerClose => {
-                    const spollersBlock = spollerClose.closest("[data-spollers]");
-                    const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
-                    spollerClose.classList.remove("_spoller-active");
-                    _slideUp(spollerClose.nextElementSibling, spollerSpeed);
-                }));
-            }));
-        }
-    }
-    function uniqArray(array) {
-        return array.filter((function(item, index, self) {
-            return self.indexOf(item) === index;
-        }));
-    }
     function dataMediaQueries(array, dataSetValue) {
         const media = Array.from(array).filter((function(item, index, self) {
             if (item.dataset[dataSetValue]) return item.dataset[dataSetValue].split(",")[0];
@@ -248,7 +156,7 @@
             }
         }
     }
-    function formRating() {
+    function rating() {
         const ratings = document.querySelectorAll(".rating");
         if (ratings.length > 0) initRatings();
         function initRatings() {
@@ -370,6 +278,9 @@
     };
     const da = new DynamicAdapt("max");
     da.init();
+    isWebp();
+    addLoadedClass();
+    rating();
     headerMenu();
     pasteExampleIntoInput();
     headerScroll();
@@ -422,10 +333,84 @@
         await document.fonts.ready;
         document.documentElement.classList.add("loaded-fonts");
     }
-    window["FLS"] = false;
-    isWebp();
-    addLoadedClass();
-    formRating();
+    function spollers() {
+        const spollersArray = document.querySelectorAll("[data-spollers]");
+        if (spollersArray.length > 0) {
+            const spollersRegular = Array.from(spollersArray).filter((function(item, index, self) {
+                return !item.dataset.spollers.split(",")[0];
+            }));
+            if (spollersRegular.length) initSpollers(spollersRegular);
+            let mdQueriesArray = dataMediaQueries(spollersArray, "spollers");
+            if (mdQueriesArray && mdQueriesArray.length) mdQueriesArray.forEach((mdQueriesItem => {
+                mdQueriesItem.matchMedia.addEventListener("change", (function() {
+                    initSpollers(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+                }));
+                initSpollers(mdQueriesItem.itemsArray, mdQueriesItem.matchMedia);
+            }));
+            function initSpollers(spollersArray, matchMedia = false) {
+                spollersArray.forEach((spollersBlock => {
+                    spollersBlock = matchMedia ? spollersBlock.item : spollersBlock;
+                    if (matchMedia.matches || !matchMedia) {
+                        spollersBlock.classList.add("_spoller-init");
+                        initSpollerBody(spollersBlock);
+                        spollersBlock.addEventListener("click", setSpollerAction);
+                    } else {
+                        spollersBlock.classList.remove("_spoller-init");
+                        initSpollerBody(spollersBlock, false);
+                        spollersBlock.removeEventListener("click", setSpollerAction);
+                    }
+                }));
+            }
+            function initSpollerBody(spollersBlock, hideSpollerBody = true) {
+                let spollerTitles = spollersBlock.querySelectorAll("[data-spoller]");
+                if (spollerTitles.length) {
+                    spollerTitles = Array.from(spollerTitles).filter((item => item.closest("[data-spollers]") === spollersBlock));
+                    spollerTitles.forEach((spollerTitle => {
+                        if (hideSpollerBody) {
+                            spollerTitle.removeAttribute("tabindex");
+                            if (!spollerTitle.classList.contains("_spoller-active")) spollerTitle.nextElementSibling.hidden = true;
+                        } else {
+                            spollerTitle.setAttribute("tabindex", "-1");
+                            spollerTitle.nextElementSibling.hidden = false;
+                        }
+                    }));
+                }
+            }
+            function setSpollerAction(e) {
+                const el = e.target;
+                if (el.closest("[data-spoller]")) {
+                    const spollerTitle = el.closest("[data-spoller]");
+                    const spollersBlock = spollerTitle.closest("[data-spollers]");
+                    const oneSpoller = spollersBlock.hasAttribute("data-one-spoller");
+                    const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
+                    if (!spollersBlock.querySelectorAll("._slide").length) {
+                        if (oneSpoller && !spollerTitle.classList.contains("_spoller-active")) hideSpollersBody(spollersBlock);
+                        spollerTitle.classList.toggle("_spoller-active");
+                        _slideToggle(spollerTitle.nextElementSibling, spollerSpeed);
+                    }
+                    e.preventDefault();
+                }
+            }
+            function hideSpollersBody(spollersBlock) {
+                const spollerActiveTitle = spollersBlock.querySelector("[data-spoller]._spoller-active");
+                const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
+                if (spollerActiveTitle && !spollersBlock.querySelectorAll("._slide").length) {
+                    spollerActiveTitle.classList.remove("_spoller-active");
+                    _slideUp(spollerActiveTitle.nextElementSibling, spollerSpeed);
+                }
+            }
+            const spollersClose = document.querySelectorAll("[data-spoller-close]");
+            if (spollersClose.length) document.addEventListener("click", (function(e) {
+                const el = e.target;
+                if (!el.closest("[data-spollers]")) spollersClose.forEach((spollerClose => {
+                    const spollersBlock = spollerClose.closest("[data-spollers]");
+                    const spollerSpeed = spollersBlock.dataset.spollersSpeed ? parseInt(spollersBlock.dataset.spollersSpeed) : 500;
+                    spollerClose.classList.remove("_spoller-active");
+                    _slideUp(spollerClose.nextElementSibling, spollerSpeed);
+                }));
+            }));
+        }
+    }
     function rowVerticalAnim() {
         setTimeout((() => {
             const itemsWrappers = document.querySelectorAll("[data-animation-spin]");
@@ -2931,7 +2916,7 @@
         el.classList.add(...classNames);
         swiper.emitContainerClasses();
     }
-    function swiper_core_removeClasses() {
+    function removeClasses() {
         const swiper = this;
         const {el, classNames} = swiper;
         el.classList.remove(...classNames);
@@ -2939,7 +2924,7 @@
     }
     var classes = {
         addClasses,
-        removeClasses: swiper_core_removeClasses
+        removeClasses
     };
     function checkOverflow() {
         const swiper = this;

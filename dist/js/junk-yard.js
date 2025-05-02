@@ -1,5 +1,12 @@
 (() => {
     "use strict";
+    function addLoadedClass() {
+        window.addEventListener("load", (function() {
+            setTimeout((function() {
+                document.documentElement.classList.add("loaded");
+            }), 0);
+        }));
+    }
     function isWebp() {
         function testWebP(callback) {
             let webP = new Image;
@@ -13,52 +20,36 @@
             document.documentElement.classList.add(className);
         }));
     }
-    function addLoadedClass() {
-        window.addEventListener("load", (function() {
-            setTimeout((function() {
-                document.documentElement.classList.add("loaded");
-            }), 0);
-        }));
-    }
     let bodyLockStatus = true;
     let bodyLockToggle = (delay = 500) => {
         if (document.documentElement.classList.contains("lock")) bodyUnlock(delay); else bodyLock(delay);
     };
     let bodyUnlock = (delay = 500) => {
-        let body = document.querySelector("body");
         if (bodyLockStatus) {
-            let lock_padding = document.querySelectorAll("[data-lp]");
-            setTimeout((() => {
-                for (let index = 0; index < lock_padding.length; index++) {
-                    const el = lock_padding[index];
-                    el.style.paddingRight = "0px";
-                }
-                body.style.paddingRight = "0px";
-                document.documentElement.classList.remove("lock");
-            }), delay);
             bodyLockStatus = false;
-            setTimeout((function() {
+            if (delay) setTimeout((function() {
                 bodyLockStatus = true;
-            }), delay);
+                document.documentElement.style.removeProperty("--scrollbar-compensate");
+                document.documentElement.classList.remove("lock");
+            }), delay); else {
+                bodyLockStatus = true;
+                document.documentElement.style.removeProperty("--scrollbar-compensate");
+                document.documentElement.classList.remove("lock");
+            }
         }
     };
     let bodyLock = (delay = 500) => {
-        let body = document.querySelector("body");
         if (bodyLockStatus) {
-            let lock_padding = document.querySelectorAll("[data-lp]");
-            for (let index = 0; index < lock_padding.length; index++) {
-                const el = lock_padding[index];
-                el.style.paddingRight = window.innerWidth - document.querySelector(".wrapper").offsetWidth + "px";
-            }
-            body.style.paddingRight = window.innerWidth - document.querySelector(".wrapper").offsetWidth + "px";
+            const scrollbarCompensate = window.innerWidth - document.querySelector(".wrapper").offsetWidth;
+            if (scrollbarCompensate > 0) document.documentElement.style.setProperty("--scrollbar-compensate", scrollbarCompensate + "px");
             document.documentElement.classList.add("lock");
             bodyLockStatus = false;
-            setTimeout((function() {
+            if (delay) setTimeout((function() {
                 bodyLockStatus = true;
-            }), delay);
+            }), delay); else bodyLockStatus = true;
         }
     };
-    function formRating() {
+    function rating() {
         const ratings = document.querySelectorAll(".rating");
         if (ratings.length > 0) initRatings();
         function initRatings() {
@@ -180,6 +171,9 @@
     };
     const da = new DynamicAdapt("max");
     da.init();
+    isWebp();
+    addLoadedClass();
+    rating();
     headerMenu();
     pasteExampleIntoInput();
     headerScroll();
@@ -232,10 +226,6 @@
         await document.fonts.ready;
         document.documentElement.classList.add("loaded-fonts");
     }
-    window["FLS"] = false;
-    isWebp();
-    addLoadedClass();
-    formRating();
     function rowVerticalAnim() {
         setTimeout((() => {
             const itemsWrappers = document.querySelectorAll("[data-animation-spin]");
@@ -411,6 +401,35 @@
                     if (hiddenItems.length <= showMoreValue) showMoreBtn.classList.add("hidden");
                 }));
             }));
+        }
+    }
+    function sortSelect() {
+        const sortSelectWrapper = document.querySelector("[data-sort]");
+        if (sortSelectWrapper) {
+            const select = sortSelectWrapper.querySelector("select");
+            const icon = sortSelectWrapper.querySelector("img");
+            select && icon && select.addEventListener("change", (e => {
+                const iconName = select.options[select.selectedIndex].dataset.icon;
+                icon.src = icon.src.substring(0, icon.src.lastIndexOf("/") + 1) + iconName + ".svg";
+                icon.alt = icon.alt ? icon.alt.replace(/^\S+/, iconName) : iconName;
+                console.log(`Type sort value -- ${e.target.value}`);
+            }));
+        }
+    }
+    function setSelectWidth() {
+        const select = document.getElementById("select-day");
+        if (!select) return;
+        const measurer = document.createElement("span");
+        measurer.classList.add(select.className);
+        measurer.style.position = "fixed";
+        measurer.style.visibility = "hidden";
+        measurer.style.whiteSpace = "nowrap";
+        document.body.appendChild(measurer);
+        setWidth();
+        select.addEventListener("change", setWidth);
+        function setWidth() {
+            measurer.textContent = select.options[select.selectedIndex].text;
+            select.style.width = `${measurer.offsetWidth + 2}px`;
         }
     }
     function ssr_window_esm_isObject(obj) {
@@ -2791,7 +2810,7 @@
         el.classList.add(...classNames);
         swiper.emitContainerClasses();
     }
-    function swiper_core_removeClasses() {
+    function removeClasses() {
         const swiper = this;
         const {el, classNames} = swiper;
         el.classList.remove(...classNames);
@@ -2799,7 +2818,7 @@
     }
     var classes = {
         addClasses,
-        removeClasses: swiper_core_removeClasses
+        removeClasses
     };
     function checkOverflow() {
         const swiper = this;
@@ -3883,6 +3902,54 @@
                     unlock: () => slider.classList.remove("swiper--lock")
                 }
             });
+        }
+    }
+    function newsSlider() {
+        const sliderBlock = document.querySelector('[data-slider="news-slider"]');
+        if (sliderBlock) {
+            const slider = sliderBlock.querySelector(`[data-slider]`);
+            const sliderMob = sliderBlock.querySelector(`[data-slider-mob]`);
+            const sliderPagination = sliderBlock.querySelector("[data-slider-pagination]");
+            const btnNext = sliderBlock.querySelector("[data-slider-nextbtn]");
+            const btnPrev = sliderBlock.querySelector("[data-slider-prevbtn]");
+            if (slider) {
+                new swiper_core_Swiper(slider, {
+                    modules: [ navigation_Navigation ],
+                    slidesPerView: 1,
+                    spaceBetween: 160,
+                    speed: 800,
+                    lazy: true,
+                    autoHeight: true,
+                    navigation: {
+                        prevEl: btnPrev,
+                        nextEl: btnNext
+                    }
+                });
+                new swiper_core_Swiper(sliderMob, {
+                    modules: [ pagination_Pagination ],
+                    observer: true,
+                    observeParents: true,
+                    slidesPerView: 1,
+                    autoHeight: true,
+                    spaceBetween: 32,
+                    speed: 600,
+                    lazy: true,
+                    pagination: {
+                        el: sliderPagination,
+                        clickable: true
+                    }
+                });
+                const cards = document.querySelectorAll(".news-card");
+                const fragment = document.createDocumentFragment();
+                cards.forEach((card => {
+                    const wrapper = document.createElement("div");
+                    wrapper.classList.add("news-slider__slide", "swiper-slide");
+                    wrapper.appendChild(card.cloneNode(true));
+                    fragment.appendChild(wrapper);
+                }));
+                const swiperWrapperMob = sliderMob.querySelector(".swiper-wrapper");
+                swiperWrapperMob.appendChild(fragment);
+            }
         }
     }
     const t = (t, e = 1e4) => (t = parseFloat(t + "") || 0, Math.round((t + Number.EPSILON) * e) / e), e = function(t) {
@@ -8614,7 +8681,7 @@
         writable: !0,
         value: new Map
     });
-    function initFancybox() {
+    function initGallaryFancybox() {
         Oe.bind("[data-fancybox]", {
             contentClick: "iterateZoom",
             Images: {
@@ -8628,5 +8695,8 @@
     selectDayPopularTimes();
     showMoreStaticElems();
     junkYardSlider();
-    initFancybox();
+    newsSlider();
+    initGallaryFancybox();
+    sortSelect();
+    setSelectWidth();
 })();

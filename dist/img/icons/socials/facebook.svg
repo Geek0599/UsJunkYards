@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/facebook</title>
+    <g id="Main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Styleguide" transform="translate(-722, -3137)">
+            <g id="info-copy" transform="translate(176, 2833)">
+                <g id="Group-24-Copy" transform="translate(490, 304)">
+                    <g id="Blue-Square" transform="translate(56, 0)">
+                        <rect id="Background" fill="#1877F2" x="0" y="0" width="48" height="48" rx="12"></rect>
+                        <g id="s/Facebook-app/White" transform="translate(12, 12)" fill="#FFFFFF">
+                            <path d="M14.6575781,4.6875 C11.9165156,4.6875 10.125,6.34875 10.125,9.35625 L10.125,12 L7.07812031,12 L7.078125,15.46875 L10.1249953,15.46875 L10.125,23.8541484 C4.38822656,22.9539844 -1.77635684e-15,17.9895469 -1.77635684e-15,12 C-1.77635684e-15,5.37257812 5.37257812,0 12,0 C18.6274219,0 24,5.37257812 24,12 C24,17.9895469 19.6117734,22.9539844 13.875,23.8541484 L13.875,15.46875 L16.6710937,15.46875 L17.2031203,12 L13.8749953,12 L13.8749953,9.74899219 C13.8749953,8.80000781 14.3398781,7.875 15.8305734,7.875 L17.3437453,7.875 L17.34375,4.921875 C17.34375,4.921875 15.9704766,4.6875 14.6575781,4.6875 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

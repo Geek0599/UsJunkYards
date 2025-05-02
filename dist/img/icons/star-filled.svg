@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icon/star-empty-lightbg</title>
+    <g id="Main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.65">
+        <g id="Styleguide" transform="translate(-751, -2553)">
+            <g id="Group-6" transform="translate(727, 2533)">
+                <g id="icon/star-empty-lightbg" transform="translate(24, 20)">
+                    <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                    <g id="Group">
+                        <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+                        <polygon id="Path" fill="#000000" fill-rule="nonzero" points="12.0006 18.26 4.94715 22.2082 6.52248 14.2799 0.587891 8.7918 8.61493 7.84006 12.0006 0.5 15.3862 7.84006 23.4132 8.7918 17.4787 14.2799 19.054 22.2082"></polygon>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
