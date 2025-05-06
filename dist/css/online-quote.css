@@ -3252,7 +3252,7 @@ body {
   outline: 0;
 }
 
-.states-map__map .state-map-link:focus path {
+.states-map__map .state-map-link:focus .state-fill {
   fill: var(--white);
 }
 
@@ -3260,6 +3260,7 @@ body {
   fill: var(--map-bg);
   stroke: var(--white);
   stroke-width: 6;
+  /* pointer-events: all; */
 }
 
 .states-map__map .state-border {
@@ -5366,7 +5367,7 @@ body::after {
     text-decoration: underline;
   }
 
-  .states-map__map .state-map-link:hover path {
+  .states-map__map .state-map-link:hover .state-fill {
     fill: var(--white);
   }
 
