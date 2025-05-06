@@ -4014,9 +4014,126 @@
             });
         }
     }
+    function initPopupSimple() {
+        class PopupSimple {
+            constructor(bodyLock, bodyUnlock) {
+                this.bodyLock = bodyLock;
+                this.bodyUnlock = bodyUnlock;
+                this.popUps = document.querySelectorAll(".popup");
+                this.popUpsLinks = document.querySelectorAll("[data-popup]");
+                this.lastFocusedElement = null;
+                this.init();
+            }
+            init() {
+                window.addEventListener("click", (e => {
+                    const target = e.target;
+                    if (target.closest(".popup") && !target.closest(".popup").hasAttribute("data-no-close-outside") && !target.closest(".popup__content") && target.closest(".popup").classList.contains("popup_show")) this.close(null, target.closest(".popup"));
+                    if (target.closest("[data-close]") && target.closest(".popup").classList.contains("popup_show")) this.close(null, target.closest(".popup"));
+                }));
+                if (this.popUps.length) {
+                    this.popUpsLinks.forEach((popUpLink => {
+                        popUpLink.addEventListener("click", (e => {
+                            e.preventDefault();
+                            const popupId = popUpLink.dataset.popup || popUpLink.hash;
+                            if (popupId) this.open(popupId);
+                        }));
+                    }));
+                    this.popUps.forEach((popup => {
+                        this.initPopupEvents(popup);
+                    }));
+                    document.addEventListener("keydown", (e => {
+                        if (e.key === "Escape") {
+                            e.preventDefault();
+                            this.popUps = document.querySelectorAll(".popup");
+                            this.popUps.forEach((popup => {
+                                if (popup.classList.contains("popup_show") && !popup.hasAttribute("data-no-close-outside")) this.close(null, popup);
+                            }));
+                        }
+                    }));
+                }
+            }
+            initPopupEvents(popup) {
+                popup.addEventListener("keydown", (event => {
+                    if (event.key === "Tab") {
+                        const focusableElements = popup.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])");
+                        if (focusableElements.length === 0) return;
+                        const firstElement = focusableElements[0];
+                        const lastElement = focusableElements[focusableElements.length - 1];
+                        if (event.shiftKey && document.activeElement === firstElement) {
+                            lastElement.focus();
+                            event.preventDefault();
+                        } else if (!event.shiftKey && document.activeElement === lastElement) {
+                            firstElement.focus();
+                            event.preventDefault();
+                        }
+                    }
+                }));
+            }
+            open(popUpID, popupElement) {
+                const popUp = popupElement ? popupElement : document.querySelector(popUpID);
+                if (popUp) {
+                    this.lastFocusedElement = document.activeElement;
+                    popUp.setAttribute("aria-hidden", "false");
+                    document.documentElement.classList.add("popup-open");
+                    popUp.classList.add("popup_show");
+                    this.bodyLock(0);
+                    const popupContent = popUp.querySelector(".popup__content");
+                    if (popupContent) {
+                        popupContent.setAttribute("tabindex", "-1");
+                        setTimeout((() => {
+                            popupContent.focus();
+                        }), 50);
+                    }
+                }
+            }
+            close(popUpID, popupElement, delay = 300) {
+                const popUp = popupElement ? popupElement : document.querySelector(popUpID);
+                if (popUp) {
+                    popUp.setAttribute("aria-hidden", "true");
+                    document.documentElement.classList.remove("popup-open");
+                    popUp.classList.remove("popup_show");
+                    const popupContent = popUp.querySelector(".popup__content");
+                    popupContent ? popupContent.removeAttribute("tabindex") : null;
+                    if (this.lastFocusedElement) this.lastFocusedElement.focus();
+                    if (popUp.id === "custom-alert") {
+                        this.bodyUnlock(0);
+                        setTimeout((() => {
+                            popUp.remove();
+                        }), 300);
+                    } else this.bodyUnlock(delay);
+                }
+            }
+            showAlert({title = "Warning!", text = "", textBtn = "Close", typeIcon = "warn"}) {
+                this.hideOtherAlerts();
+                const icons = {
+                    warn: "warn.svg",
+                    error: "error.svg"
+                };
+                const isDev = "production" === "development";
+                const basePath = isDev ? "/img/icons" : "/markup-assets/dist/img/icons";
+                const alertPopupTemplate = `<div id="custom-alert" role="dialog" aria-modal="true" aria-label="${title}" class="popup">\n\t\t\t\t\t\t  <div class="popup__wrapper">\n\t\t\t\t\t\t\t\t<div class="popup__content text-center">\n\t\t\t\t\t\t\t\t\t <div class="popup__icon">\n\t\t\t\t\t\t\t\t\t\t  <img width="75" height="75" src="${basePath}/${icons[typeIcon]}" alt="${typeIcon} icon">\n\t\t\t\t\t\t\t\t\t </div>\n\t\t\t\t\t\t\t\t\t <div class="popup__title sub-title">${title}</div>\n\t\t\t\t\t\t\t\t\t <div class="popup__text text text--lh">${text}</div>\n\t\t\t\t\t\t\t\t\t <div class="popup__actions">\n\t\t\t\t\t\t\t\t\t\t  <button data-close type="button" class="popup__btn btn">${textBtn}</button>\n\t\t\t\t\t\t\t\t\t </div>\n\t\t\t\t\t\t\t\t</div>\n\t\t\t\t\t\t  </div>\n\t\t\t\t\t </div>`;
+                document.body.insertAdjacentHTML("beforeend", alertPopupTemplate);
+                const newPopup = document.querySelector("#custom-alert");
+                this.initPopupEvents(newPopup);
+                setTimeout((() => {
+                    this.open("#custom-alert", newPopup);
+                }), 50);
+            }
+            hideAlert() {
+                const alertPopup = document.querySelector("#custom-alert");
+                this.close(null, alertPopup);
+            }
+            hideOtherAlerts() {
+                const isOtherAlerts = document.querySelectorAll("#custom-alert");
+                if (isOtherAlerts.length > 0) isOtherAlerts.forEach((el => el.remove()));
+            }
+        }
+        window.popupSimple = new PopupSimple(bodyLock, bodyUnlock);
+    }
     rowVerticalAnim();
     scrollToBlock();
     testimonialsSlider();
     spollers();
     sortSelect();
+    initPopupSimple();
 })();

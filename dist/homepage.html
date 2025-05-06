@@ -18,8 +18,74 @@
 
 	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-	<link rel="preload" href="css/homepage.min.css?_v=20250506132609" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/homepage.min.css?_v=20250506132609" crossorigin="anonymous">
+	<style>
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-Bold.woff2") format("woff2");
+			font-weight: 700;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-SemiBold.woff2") format("woff2");
+			font-weight: 600;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-Medium.woff2") format("woff2");
+			font-weight: 500;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "SairaCondensed";
+			font-display: swap;
+			src: url("./fonts/SairaCondensed-Regular.woff2") format("woff2");
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-Regular.woff2") format("woff2");
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "SairaCondensed";
+			font-display: swap;
+			src: url("./fonts/SairaCondensed-Black.woff2") format("woff2");
+			font-weight: 900;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "icons";
+			font-display: swap;
+			src: url("./fonts/icons.woff2") format("woff2");
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-ExtraBold.woff2") format("woff2");
+			font-weight: 800;
+			font-style: normal;
+		}
+	</style>
+
+	<link rel="preload" href="css/homepage.min.css?_v=20250506143636" as="style" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/homepage.min.css?_v=20250506143636" crossorigin="anonymous">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -178,6 +244,16 @@
 										<div class="banner__text text">
 											Or book our professional car removal services online!
 										</div>
+										<div class="banner__text banner__text--color text">
+											<div class="schedule-time">
+												<i class="schedule-time__icon _icon-time"></i>
+												<div class="schedule-time__content">
+													<div class="schedule-time__item">
+														<p>24/7 Available</p>
+													</div>
+												</div>
+											</div>
+										</div>
 										<div class="banner__actions">
 											<a href="tel:18888530481" class="banner__btn btn btn--bg btn--icon-left _icon-call-phone"><span>1-888-853-0481</span></a>
 											<a href="#" class="banner__btn btn _icon-chevron"><span>Online Quote</span></a>
@@ -259,7 +335,7 @@
 								today and get $500 or more Cash for your junk car!
 							</div>
 							<div class="info__banners">
-								<div class="info__banner info-banner w-block info-banner--green-bg">
+								<a data-popup href="#popup-sell-car" class="info__banner info-banner w-block info-banner--green-bg">
 									<div class="info-banner__image">
 										<picture>
 											<source srcset="img/welcome/car-green-mobile.webp, img/welcome/car-green-mobile@2x.webp 2x" type="image/webp" media="(max-width: 479.98px)">
@@ -275,8 +351,8 @@
 											According to the state law of USA
 										</span>
 									</h3>
-								</div>
-								<div class="info__banner info-banner w-block info-banner--orange-bg">
+								</a>
+								<a data-popup href="#popup-sell-car" class="info__banner info-banner w-block info-banner--orange-bg">
 									<div class="info-banner__image">
 										<picture>
 											<source srcset="img/welcome/car-yellow-mobile.webp, img/welcome/car-yellow-mobile@2x.webp 2x" type="image/webp" media="(max-width: 479.98px)">
@@ -292,7 +368,7 @@
 											Average price
 										</span>
 									</h3>
-								</div>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -1077,7 +1153,7 @@
 											</g>
 										</svg>
 									</div>
-									<div data-paste class="states-map__search search">
+									<div data-paste class="states-map__search search search--color">
 										<form action="#" class="search__form">
 											<div class="search__item search__item--bg _icon-search">
 												<input data-paste-input required type="text" name="search" placeholder="Zip or City Name" class="search__input">
@@ -1384,8 +1460,8 @@
 											</div>
 										</div>
 									</div>
-									<button data-slider-prevbtn aria-label="slide previous" type="button" class="slider-testimonials__btn arrow-btn swiper-button-prev _icon-chevron-rounded"></button>
-									<button data-slider-nextbtn aria-label="slide next" type="button" class="slider-testimonials__btn arrow-btn swiper-button-next _icon-chevron-rounded"></button>
+									<button data-slider-prevbtn aria-label="slide previous" type="button" class="slider-testimonials__btn swiper-button-prev _icon-chevron-rounded"></button>
+									<button data-slider-nextbtn aria-label="slide next" type="button" class="slider-testimonials__btn swiper-button-next _icon-chevron-rounded"></button>
 								</div>
 								<div data-slider-pagination class="slider-testimonials__pagination swiper-pagination"></div>
 							</div>
@@ -1423,7 +1499,7 @@
 														Fred Robertson Wrecker Service
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1453,7 +1529,7 @@
 														Weil Wrecker Service, Inc.
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1483,7 +1559,7 @@
 														Barry's U Pull It Auto Parts
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1513,7 +1589,7 @@
 														Pull-A-Part
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1543,7 +1619,7 @@
 														LKQ Pick Your Part - Huntsville
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1573,7 +1649,7 @@
 														Heritage Used Car & Truck Parts LLC
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1603,7 +1679,7 @@
 														Rocket Towing and Recovery
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1633,7 +1709,7 @@
 														Evans Automotive Services
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1663,7 +1739,7 @@
 														Mike's Wrecker Service
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1693,7 +1769,7 @@
 														FM 600 Wrecking
 													</a>
 												</div>
-												<div class="row-card__rating-body rating">
+												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
 														<div class="rating__body">
 															<div class="rating__active"></div>
@@ -1842,8 +1918,43 @@
 			</div>
 		</footer>
 	</div>
+	<div id="popup-sell-car" role="dialog" aria-hidden="true" aria-modal="true" aria-label="You can sell your JunkCar" class="popup">
+		<div class="popup__wrapper">
+			<div class="popup__content">
+				<div class="popup__row">
+					<div class="popup__title title-second">You can sell your JunkCar</div>
+					<button data-close="" aria-label="Close this popup" class="popup__btn-cross _icon-close"></button>
+				</div>
+				<a href="tel:+18888530481" class="popup__banner popup__banner--mb call-now">
+					<span class="call-now__title">Call now for Instant Offer</span>
+					<span class="call-now__phone sub-title call-phone _icon-phone  underline">
+						<span>1-888-853-0481</span>
+					</span>
+					<div class="call-now__schedule text-gray">
+						<div class="schedule-time">
+							<i class="schedule-time__icon _icon-time"></i>
+							<div class="schedule-time__content">
+								<div class="schedule-time__item">
+									<p>Monday - Saturday: 8:30-9PM</p>
+								</div>
 
-	<script async src="js/homepage.min.js?_v=20250506132609"></script>
+								<div class="schedule-time__item">
+									<p>Sunday: 10-4PM</p>
+									<span>(ET)</span>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</a>
+				<p class="popup__text text text--lh">Or book our professional car removal services online!</p>
+				<div class="popup__actions">
+					<a href="https://uat.usjunkyards.com/online-quote/" class="popup__btn btn _icon-chevron"><span>Online Quote</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script async src="js/homepage.min.js?_v=20250506143636"></script>
 </body>
 
 </html>

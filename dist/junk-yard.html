@@ -18,8 +18,74 @@
 
 	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-	<link rel="preload" href="css/junk-yard.min.css?_v=20250506132609" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/junk-yard.min.css?_v=20250506132609" crossorigin="anonymous">
+	<style>
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-Bold.woff2") format("woff2");
+			font-weight: 700;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-SemiBold.woff2") format("woff2");
+			font-weight: 600;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-Medium.woff2") format("woff2");
+			font-weight: 500;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "SairaCondensed";
+			font-display: swap;
+			src: url("./fonts/SairaCondensed-Regular.woff2") format("woff2");
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-Regular.woff2") format("woff2");
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "SairaCondensed";
+			font-display: swap;
+			src: url("./fonts/SairaCondensed-Black.woff2") format("woff2");
+			font-weight: 900;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "icons";
+			font-display: swap;
+			src: url("./fonts/icons.woff2") format("woff2");
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "Manrope";
+			font-display: swap;
+			src: url("./fonts/Manrope-ExtraBold.woff2") format("woff2");
+			font-weight: 800;
+			font-style: normal;
+		}
+	</style>
+
+	<link rel="preload" href="css/junk-yard.min.css?_v=20250506143636" as="style" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/junk-yard.min.css?_v=20250506143636" crossorigin="anonymous">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -248,7 +314,7 @@
 											</li>
 											<li class="content-details__item">
 												<div class="content-details__title">Phone:</div>
-												<div class="content-details__value"><a href="tel:+12052514060">+1 205-251-4060</a></div>
+												<div class="content-details__value"><a data-popup href="#popup-call">+1 205-251-4060</a></div>
 											</li>
 											<li class="content-details__item">
 												<div class="content-details__title">Methods of Payment:</div>
@@ -1330,7 +1396,7 @@
 												<div class="testimonials-card__user-name sub-title">Zakary Denesik</div>
 											</div>
 											<div class="testimonials-card__text text">My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. Their professional and efficient team made the entire process seem effortless. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.</div>
-											<div class="testimonials-card__location _icon-time">
+											<div class="testimonials-card__location _icon-time text-gray">
 												Feb 23, 2025
 											</div>
 										</div>
@@ -1347,7 +1413,7 @@
 												<div class="testimonials-card__user-name sub-title">Zakary Denesik</div>
 											</div>
 											<div class="testimonials-card__text text">My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. Their professional and efficient team made the entire process seem effortless. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.</div>
-											<div class="testimonials-card__location _icon-time">
+											<div class="testimonials-card__location _icon-time text-gray">
 												Feb 23, 2025
 											</div>
 											<div class="testimonials-card__answer">
@@ -1371,7 +1437,7 @@
 											<div class="testimonials-card__text text">
 												My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.
 											</div>
-											<div class="testimonials-card__location _icon-time">
+											<div class="testimonials-card__location _icon-time text-gray">
 												Feb 23, 2025
 											</div>
 										</div>
@@ -1390,46 +1456,7 @@
 											<div class="testimonials-card__text text">
 												My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.
 											</div>
-											<div class="testimonials-card__location _icon-time">
-												Feb 23, 2025
-											</div>
-										</div>
-									</li>
-
-									<li class="testimonials-list__item">
-										<div class="testimonials-card w-block w-block--gray">
-											<div class="testimonials-card__head _icon-quote-narrow">
-												<div class="testimonials-rating__stars rating" role="img" aria-label="Rating: 3.5 out of 5">
-													<div class="rating__body">
-														<div class="rating__active"></div>
-														<div class="rating__value" aria-hidden="true">3.5</div>
-													</div>
-												</div>
-												<div class="testimonials-card__user-name sub-title">Zakary Denesik</div>
-											</div>
-											<div class="testimonials-card__text text">
-												My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.
-											</div>
-											<div class="testimonials-card__location _icon-time">
-												Feb 23, 2025
-											</div>
-										</div>
-									</li>
-									<li class="testimonials-list__item">
-										<div class="testimonials-card w-block w-block--gray">
-											<div class="testimonials-card__head _icon-quote-narrow">
-												<div class="testimonials-rating__stars rating" role="img" aria-label="Rating: 3.5 out of 5">
-													<div class="rating__body">
-														<div class="rating__active"></div>
-														<div class="rating__value" aria-hidden="true">3.5</div>
-													</div>
-												</div>
-												<div class="testimonials-card__user-name sub-title">Zakary Denesik</div>
-											</div>
-											<div class="testimonials-card__text text">
-												My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.
-											</div>
-											<div class="testimonials-card__location _icon-time">
+											<div class="testimonials-card__location _icon-time text-gray">
 												Feb 23, 2025
 											</div>
 										</div>
@@ -1449,7 +1476,46 @@
 											<div class="testimonials-card__text text">
 												My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.
 											</div>
-											<div class="testimonials-card__location _icon-time">
+											<div class="testimonials-card__location _icon-time text-gray">
+												Feb 23, 2025
+											</div>
+										</div>
+									</li>
+									<li class="testimonials-list__item">
+										<div class="testimonials-card w-block w-block--gray">
+											<div class="testimonials-card__head _icon-quote-narrow">
+												<div class="testimonials-rating__stars rating" role="img" aria-label="Rating: 3.5 out of 5">
+													<div class="rating__body">
+														<div class="rating__active"></div>
+														<div class="rating__value" aria-hidden="true">3.5</div>
+													</div>
+												</div>
+												<div class="testimonials-card__user-name sub-title">Zakary Denesik</div>
+											</div>
+											<div class="testimonials-card__text text">
+												My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.
+											</div>
+											<div class="testimonials-card__location _icon-time text-gray">
+												Feb 23, 2025
+											</div>
+										</div>
+									</li>
+
+									<li class="testimonials-list__item">
+										<div class="testimonials-card w-block w-block--gray">
+											<div class="testimonials-card__head _icon-quote-narrow">
+												<div class="testimonials-rating__stars rating" role="img" aria-label="Rating: 3.5 out of 5">
+													<div class="rating__body">
+														<div class="rating__active"></div>
+														<div class="rating__value" aria-hidden="true">3.5</div>
+													</div>
+												</div>
+												<div class="testimonials-card__user-name sub-title">Zakary Denesik</div>
+											</div>
+											<div class="testimonials-card__text text">
+												My recent rendezvous with USJunkYards in bidding adieu to my 2014 Ford Fiesta was nothing short of thrilling. A fair quote, coupled with a pickup within a few hours, solidifies my intent to return and recommend them highly.
+											</div>
+											<div class="testimonials-card__location _icon-time text-gray">
 												Feb 23, 2025
 											</div>
 										</div>
@@ -1480,7 +1546,7 @@
 															<div class="news-card__head-text text">Nov 14, 2024</div>
 														</div>
 													</div>
-													<div class="news-card__img-ibg">
+													<div class="news-card__img-ibg_contain">
 														<picture><source srcset="img/junk-yard/02.webp" type="image/webp"><img width="437" height="274" loading="lazy" decoding="async" src="img/junk-yard/02.jpg" alt="junk-yard"></picture>
 													</div>
 													<h2 class="news-card__title sub-title">Promotion on uninterruptible power supply kits!</h2>
@@ -1502,7 +1568,7 @@
 															<div class="news-card__head-text text">Nov 14, 2024</div>
 														</div>
 													</div>
-													<div class="news-card__img-ibg">
+													<div class="news-card__img-ibg_contain">
 														<picture><source srcset="img/junk-yard/02.webp" type="image/webp"><img width="437" height="274" loading="lazy" decoding="async" src="img/junk-yard/02.jpg" alt="junk-yard"></picture>
 													</div>
 													<div class="news-card__text text">
@@ -1521,7 +1587,7 @@
 															<div class="news-card__head-text text">Nov 14, 2024</div>
 														</div>
 													</div>
-													<div class="news-card__img-ibg">
+													<div class="news-card__img-ibg_contain">
 														<picture><source srcset="img/junk-yard/02.webp" type="image/webp"><img width="437" height="274" loading="lazy" decoding="async" src="img/junk-yard/02.jpg" alt="junk-yard"></picture>
 													</div>
 													<h2 class="news-card__title sub-title">Promotion on uninterruptible power supply kits!</h2>
@@ -1558,7 +1624,7 @@
 															<div class="news-card__head-text text">Nov 14, 2024</div>
 														</div>
 													</div>
-													<div class="news-card__img-ibg">
+													<div class="news-card__img-ibg_contain">
 														<picture><source srcset="img/junk-yard/02.webp" type="image/webp"><img width="437" height="274" loading="lazy" decoding="async" src="img/junk-yard/02.jpg" alt="junk-yard"></picture>
 													</div>
 													<h2 class="news-card__title sub-title">Promotion on uninterruptible power supply kits!</h2>
@@ -1582,7 +1648,7 @@
 															<div class="news-card__head-text text">Nov 14, 2024</div>
 														</div>
 													</div>
-													<div class="news-card__img-ibg">
+													<div class="news-card__img-ibg_contain">
 														<picture><source srcset="img/junk-yard/02.webp" type="image/webp"><img width="437" height="274" loading="lazy" decoding="async" src="img/junk-yard/02.jpg" alt="junk-yard"></picture>
 													</div>
 													<div class="news-card__text text">
@@ -2148,8 +2214,21 @@
 			</div>
 		</footer>
 	</div>
-
-	<script async src="js/junk-yard.min.js?_v=20250506132609"></script>
+	<div id="popup-call" role="dialog" aria-hidden="false" aria-modal="true" aria-label="Do you want to Buy Parts or Sell Your Car?" class="popup">
+		<div class="popup__wrapper">
+			<div class="popup__content" tabindex="-1">
+				<div class="popup__row">
+					<div class="popup__title popup__title--indent title-second">Choose an Option</div>
+					<button data-close="" aria-label="Close popup" type="button" class="popup__btn-cross _icon-close"></button>
+				</div>
+				<div class="popup__actions">
+					<a href="tel:+18009622277" class="popup__btn btn btn--bg">Buy parts</a>
+					<a href="tel:+18888530481" class="popup__btn btn">Sell Car</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script async src="js/junk-yard.min.js?_v=20250506143636"></script>
 </body>
 
 </html>
