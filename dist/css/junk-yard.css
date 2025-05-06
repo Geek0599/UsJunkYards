@@ -77,6 +77,18 @@
   display: inline-block;
 }
 
+._icon-close:before {
+  content: "\e914";
+}
+
+._icon-phone:before {
+  content: "\e913";
+}
+
+._icon-quote-narrow:before {
+  content: "\e910";
+}
+
 ._icon-quote:before {
   content: "\e90c";
 }
@@ -2848,9 +2860,11 @@ body {
 }
 
 .socials__link {
-  opacity: 0.8;
-  -webkit-transition: opacity 0.3s ease;
-  transition: opacity 0.3s ease;
+  display: block;
+}
+
+.socials__link img {
+  width: 3rem;
 }
 
 .payment__list {
@@ -3001,7 +3015,7 @@ body {
   visibility: hidden;
 }
 
-.news-slider__slider-pagination.swiper-pagination {
+.news-slider__slider-pagination {
   margin-top: 1.5rem;
 }
 
@@ -3028,15 +3042,15 @@ body {
   }
 }
 
-@supports (padding-bottom: clamp( 1rem , -0.4285714286rem  +  3.8095238095vw , 3rem )) {
+@supports (padding-bottom: clamp( 1.5rem , 0.4285714286rem  +  2.8571428571vw , 3rem )) {
   .news-card {
-    padding-bottom: clamp( 1rem , -0.4285714286rem  +  3.8095238095vw , 3rem );
+    padding-bottom: clamp( 1.5rem , 0.4285714286rem  +  2.8571428571vw , 3rem );
   }
 }
 
-@supports not (padding-bottom: clamp( 1rem , -0.4285714286rem  +  3.8095238095vw , 3rem )) {
+@supports not (padding-bottom: clamp( 1.5rem , 0.4285714286rem  +  2.8571428571vw , 3rem )) {
   .news-card {
-    padding-bottom: calc(1rem + 2 * (100vw - 37.5rem) / 52.5);
+    padding-bottom: calc(1.5rem + 1.5 * (100vw - 37.5rem) / 52.5);
   }
 }
 
@@ -3094,9 +3108,10 @@ body {
   gap: 0.25rem;
 }
 
-.news-card__img-ibg {
+.news-card__img-ibg_contain {
+  background-color: var(--gray-bg-second);
   overflow: hidden;
-  padding-bottom: 47.1600688468%;
+  padding-bottom: 62.700228833%;
 }
 
 .popular-times {
@@ -3428,12 +3443,6 @@ body {
   color: var(--white);
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-}
-
-.row-card--sponsored .row-card__actions {
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
 }
 
 .row-card__content {
@@ -4072,41 +4081,6 @@ body {
   }
 }
 
-.arrow-btn {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 50%;
-  background-color: var(--white);
-  color: var(--blue);
-  font-size: 1.375rem;
-}
-
-.arrow-btn--color {
-  background-color: var(--blue);
-  color: var(--white);
-}
-
-.arrow-btn[data-slider-prevbtn]::before {
-  -webkit-transform: translateX(-2px) scale(-1, 1);
-      -ms-transform: translateX(-2px) scale(-1, 1);
-          transform: translateX(-2px) scale(-1, 1);
-}
-
-.arrow-btn[data-slider-nextbtn]::before {
-  -webkit-transform: translateX(2px);
-      -ms-transform: translateX(2px);
-          transform: translateX(2px);
-}
-
 .testimonials-card {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4115,7 +4089,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  gap: 1rem;
+  gap: 0.6875rem;
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
@@ -4168,7 +4142,7 @@ body {
   }
 }
 
-.testimonials-card__head._icon-quote::before {
+.testimonials-card__head._icon-quote-narrow::before {
   color: var(--blue);
   position: absolute;
   right: 0;
@@ -4176,13 +4150,13 @@ body {
 }
 
 @supports (font-size: clamp( 1.5rem , 0.8559411146rem  +  2.1030494217vw , 2.75rem )) {
-  .testimonials-card__head._icon-quote::before {
+  .testimonials-card__head._icon-quote-narrow::before {
     font-size: clamp( 1.5rem , 0.8559411146rem  +  2.1030494217vw , 2.75rem );
   }
 }
 
 @supports not (font-size: clamp( 1.5rem , 0.8559411146rem  +  2.1030494217vw , 2.75rem )) {
-  .testimonials-card__head._icon-quote::before {
+  .testimonials-card__head._icon-quote-narrow::before {
     font-size: calc(1.5rem + 1.25 * (100vw - 30.625rem) / 59.4375);
   }
 }
@@ -4194,7 +4168,6 @@ body {
 }
 
 .testimonials-card__location {
-  margin-top: 0.125rem;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -4211,17 +4184,17 @@ body {
 }
 
 .testimonials-card__location._icon-time {
-  color: var(--black-medium);
   font-weight: 600;
   gap: 0.625em;
 }
 
 .testimonials-card__location._icon-time::before {
+  color: var(--black);
   font-size: 1.21875rem;
 }
 
 .testimonials-card__answer {
-  margin-top: 1rem;
+  margin-top: 1.3125rem;
   display: -ms-grid;
   display: grid;
   gap: 0.25rem;
@@ -4437,6 +4410,41 @@ body {
 
 .swiper-pagination--dark span::before {
   background-color: var(--black);
+}
+
+.arrow-btn {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background-color: var(--white);
+  color: var(--blue);
+  font-size: 1.375rem;
+}
+
+.arrow-btn--color {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.arrow-btn[data-slider-prevbtn]::before {
+  -webkit-transform: translateX(-2px) scale(-1, 1);
+      -ms-transform: translateX(-2px) scale(-1, 1);
+          transform: translateX(-2px) scale(-1, 1);
+}
+
+.arrow-btn[data-slider-nextbtn]::before {
+  -webkit-transform: translateX(2px);
+      -ms-transform: translateX(2px);
+          transform: translateX(2px);
 }
 
 :root {
@@ -6471,7 +6479,7 @@ html.with-fancybox body.hide-scrollbar {
     display: none;
   }
 
-  .news-card__img-ibg {
+  .news-card__img-ibg_contain {
     border-radius: 0.75rem;
   }
 
@@ -6509,6 +6517,10 @@ html.with-fancybox body.hide-scrollbar {
 
   .slider-testimonials__pagination.swiper-pagination {
     display: none;
+  }
+
+  .testimonials-card__head {
+    margin-bottom: 0.75rem;
   }
 }
 
@@ -6694,7 +6706,7 @@ html.with-fancybox body.hide-scrollbar {
             align-items: start;
   }
 
-  .news-slider__slider-pagination.swiper-pagination {
+  .news-slider__slider-pagination {
     display: none;
   }
 
@@ -6712,6 +6724,12 @@ html.with-fancybox body.hide-scrollbar {
   .row-card__content {
     -ms-grid-rows: auto auto;
     grid-template-rows: auto auto;
+  }
+
+  .row-card__actions {
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
   }
 
 @supports (min-width: clamp( 20.25rem , 13.7600222717rem  +  10.4677060134vw , 23.1875rem )) {
@@ -7181,8 +7199,8 @@ html.with-fancybox body.hide-scrollbar {
     display: none;
   }
 
-  .news-card__img-ibg {
-    padding-bottom: 74.144486692%;
+  .news-card__img-ibg_contain {
+    padding-bottom: 55%;
   }
 
   .popular-times {
@@ -7368,13 +7386,6 @@ html.with-fancybox body.hide-scrollbar {
     right: -1.875rem;
   }
 
-  .arrow-btn {
-    -webkit-box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.2784313725);
-            box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.2784313725);
-    width: 3.75rem;
-    height: 3.75rem;
-  }
-
   .testimonials-card {
     padding: 2.625rem;
   }
@@ -7387,6 +7398,13 @@ html.with-fancybox body.hide-scrollbar {
     gap: 1rem;
     -ms-grid-columns: auto;
     grid-template-columns: auto;
+  }
+
+  .arrow-btn {
+    -webkit-box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.2784313725);
+            box-shadow: 0 0 7px -1px rgba(0, 0, 0, 0.2784313725);
+    width: 3.75rem;
+    height: 3.75rem;
   }
 }
 
@@ -8000,14 +8018,19 @@ html.with-fancybox body.hide-scrollbar {
     font-size: 1rem;
   }
 
-  .news-card__img-ibg {
+  .news-card__img-ibg_contain {
     margin: 0 -1.5rem;
+    padding-bottom: 77.0750988142%;
   }
 
   .news-card__title {
+    margin-top: 0.75rem;
     font-size: 1.5rem;
     line-height: 1.125;
-    margin: 0.75rem 0 0.5rem;
+  }
+
+  .news-card__text {
+    margin-top: 0.5rem;
   }
 
   .popular-times {
@@ -8146,12 +8169,9 @@ html.with-fancybox body.hide-scrollbar {
     margin-bottom: 1.5rem;
   }
 
-  .arrow-btn {
-    display: none;
-  }
-
   .testimonials-card {
     padding: 1.5rem;
+    gap: 1rem;
   }
 
   .testimonials-card__user-name {
@@ -8198,6 +8218,10 @@ html.with-fancybox body.hide-scrollbar {
 
   .working-hours__item:nth-child(2n) {
     padding-left: 0.625rem;
+  }
+
+  .arrow-btn {
+    display: none;
   }
 }
 
@@ -8438,6 +8462,12 @@ html.with-fancybox body.hide-scrollbar {
 
   .footer-menu__link:hover {
     text-decoration: underline;
+  }
+
+  .socials__link {
+    opacity: 0.8;
+    -webkit-transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease;
   }
 
   .socials__link:hover {

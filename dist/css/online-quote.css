@@ -78,6 +78,18 @@
   display: inline-block;
 }
 
+._icon-close:before {
+  content: "\e914";
+}
+
+._icon-phone:before {
+  content: "\e913";
+}
+
+._icon-quote-narrow:before {
+  content: "\e910";
+}
+
 ._icon-quote:before {
   content: "\e90c";
 }
@@ -3073,8 +3085,20 @@ body {
   outline: 0;
 }
 
-.states-map__map .state-map-link:focus {
+.states-map__map .state-map-link:focus .state-fill {
   fill: var(--white);
+}
+
+.states-map__map .state-fill {
+  fill: var(--map-bg);
+  stroke: var(--white);
+  stroke-width: 6;
+}
+
+.states-map__map .state-border {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1;
 }
 
 @supports (margin-top: clamp( 2rem , 0.7118822292rem  +  4.2060988433vw , 4.5rem )) {
@@ -5151,7 +5175,7 @@ body {
     text-decoration: underline;
   }
 
-  .states-map__map .state-map-link:hover {
+  .states-map__map .state-map-link:hover .state-fill {
     fill: var(--white);
   }
 
