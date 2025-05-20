@@ -3599,7 +3599,7 @@
                     const maxLength = input.hasAttribute("data-maxlength") ? Number(input.dataset.maxlength) : null;
                     if (minLength !== null && value.length < minLength) {
                         isError = true;
-                        if (input.id == "year") showTextNotice(input, "Please enter full phone number"); else showTextNotice(input, `Please enter at least ${minLength} characters`);
+                        if (input.id == "year") showTextNotice(input, "Please enter the correct year"); else showTextNotice(input, `Please enter at least ${minLength} characters`);
                         return isError;
                     }
                     if (maxLength !== null && value.length > maxLength) {
@@ -3664,6 +3664,7 @@
             function removeStatus(input) {
                 input.classList.remove("_no-validated", "_validated");
                 input.removeAttribute("aria-invalid");
+                removeTextNotice(input);
             }
             function isEmailValid(formRequiredItem) {
                 return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/.test(formRequiredItem.value);
