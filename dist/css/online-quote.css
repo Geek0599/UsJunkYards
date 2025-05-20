@@ -1,4 +1,6 @@
 .banner-quote-call__quote::after,
+.info-styled a[href^="tel:"]::before,
+.info-card__text a[href^="tel:"]::before,
 [class*=_icon-]:before {
   font-family: "icons";
   font-style: normal;
@@ -18,7 +20,9 @@
   content: "\e914";
 }
 
-._icon-phone:before {
+._icon-phone:before,
+.info-styled a[href^="tel:"]:before,
+.info-card__text a[href^="tel:"]:before {
   content: "\e913";
 }
 
@@ -112,6 +116,7 @@
   --disabled: #AFB4B6;
   --blue: #1272F4;
   --blue-hover: #0091FF;
+  --blue-ultra-light: rgba(18, 114, 244, 0.10);
   --blue-light: rgba(18, 114, 244, 0.17);
   --blue-light-hover: rgba(18, 112, 244, 0.25);
   --blue-transp: #1272f42b;
@@ -652,7 +657,11 @@ Snippet (HTML): cnt
   top: 0.0526315789em;
 }
 
-.call-phone ._icon-phone {
+.call-phone ._icon-phone,
+.call-phone .info-styled a[href^="tel:"],
+.call-phone .info-card__text a[href^="tel:"],
+.info-styled .call-phone a[href^="tel:"],
+.info-card__text .call-phone a[href^="tel:"] {
   font-size: 0.4913157895em;
   width: 1.7139796465em;
   height: 1.7139796465em;
@@ -670,7 +679,11 @@ Snippet (HTML): cnt
   background-color: var(--black-ultra-light);
 }
 
-.call-phone ._icon-phone::before {
+.call-phone ._icon-phone::before,
+.call-phone .info-styled a[href^="tel:"]::before,
+.call-phone .info-card__text a[href^="tel:"]::before,
+.info-styled .call-phone a[href^="tel:"]::before,
+.info-card__text .call-phone a[href^="tel:"]::before {
   position: relative;
   left: -1px;
 }
@@ -702,7 +715,9 @@ Snippet (HTML): cnt
   margin-right: 0.5em;
 }
 
-.call-now__phone._icon-phone::before {
+.call-now__phone._icon-phone::before,
+.info-styled a.call-now__phone[href^="tel:"]::before,
+.info-card__text a.call-now__phone[href^="tel:"]::before {
   font-size: 1em;
   margin-right: 0.8333333333em;
 }
@@ -1578,6 +1593,27 @@ body {
   transition: transform 0.3s ease 0s, -webkit-transform 0.3s ease 0s;
 }
 
+.info-styled a,
+.info-card__text a {
+  color: var(--blue);
+  background-color: var(--blue-ultra-light);
+  font-weight: 700;
+  line-height: 1.625;
+  border-radius: 0.25em;
+  padding: 0rem 0.25em;
+  -webkit-transition: background-color 0.25s ease;
+  transition: background-color 0.25s ease;
+  display: inline-block;
+  margin: 0 0.125rem;
+}
+
+.info-styled a[href^="tel:"]::before,
+.info-card__text a[href^="tel:"]::before {
+  padding: 0 0.125em;
+  font-size: 0.75em;
+  margin-right: 0.25em;
+}
+
 .header {
   position: absolute;
   z-index: 10;
@@ -1938,7 +1974,11 @@ body {
 }
 
 .menu-icon__row .call-phone._icon-call-phone::before,
-.menu-icon__row .call-phone._icon-phone::before {
+.menu-icon__row .call-phone._icon-phone::before,
+.menu-icon__row .info-styled a.call-phone[href^="tel:"]::before,
+.menu-icon__row .info-card__text a.call-phone[href^="tel:"]::before,
+.info-styled .menu-icon__row a.call-phone[href^="tel:"]::before,
+.info-card__text .menu-icon__row a.call-phone[href^="tel:"]::before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1953,7 +1993,11 @@ body {
   margin-right: 0.6666666667em;
 }
 
-.menu-icon__row .call-phone._icon-phone::before {
+.menu-icon__row .call-phone._icon-phone::before,
+.menu-icon__row .info-styled a.call-phone[href^="tel:"]::before,
+.menu-icon__row .info-card__text a.call-phone[href^="tel:"]::before,
+.info-styled .menu-icon__row a.call-phone[href^="tel:"]::before,
+.info-card__text .menu-icon__row a.call-phone[href^="tel:"]::before {
   font-size: 0.75em;
   margin-right: 0.8888888889em;
 }
@@ -2082,7 +2126,9 @@ body {
 }
 
 .header-mobile-bar__btn._icon-call-phone,
-.header-mobile-bar__btn._icon-phone {
+.header-mobile-bar__btn._icon-phone,
+.info-styled a.header-mobile-bar__btn[href^="tel:"],
+.info-card__text a.header-mobile-bar__btn[href^="tel:"] {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 29.7376093294%;
           flex: 1 1 29.7376093294%;
@@ -2269,7 +2315,11 @@ body {
   margin-right: 0.6666666667em;
 }
 
-.footer-aside__phone ._icon-phone {
+.footer-aside__phone ._icon-phone,
+.footer-aside__phone .info-styled a[href^="tel:"],
+.footer-aside__phone .info-card__text a[href^="tel:"],
+.info-styled .footer-aside__phone a[href^="tel:"],
+.info-card__text .footer-aside__phone a[href^="tel:"] {
   font-size: 0.5833333333em;
   width: 1.7142857143em;
   height: 1.7142857143em;
@@ -3603,7 +3653,9 @@ body::after {
   margin-right: 0.75em;
 }
 
-.banner-quote-call__phone._icon-phone::before {
+.banner-quote-call__phone._icon-phone::before,
+.info-styled a.banner-quote-call__phone[href^="tel:"]::before,
+.info-card__text a.banner-quote-call__phone[href^="tel:"]::before {
   font-size: 1em;
   margin-right: 1.1666666667em;
 }
@@ -5132,7 +5184,9 @@ body::after {
     margin-right: 0.5em;
   }
 
-  .banner-quote-call__phone._icon-phone::before {
+  .banner-quote-call__phone._icon-phone::before,
+  .info-styled a.banner-quote-call__phone[href^="tel:"]::before,
+  .info-card__text a.banner-quote-call__phone[href^="tel:"]::before {
     margin-right: 0.8333333333em;
   }
 
@@ -5195,7 +5249,9 @@ body::after {
     margin-right: 0.3333333333em;
   }
 
-  .banner-quote-call__phone._icon-phone::before {
+  .banner-quote-call__phone._icon-phone::before,
+  .info-styled a.banner-quote-call__phone[href^="tel:"]::before,
+  .info-card__text a.banner-quote-call__phone[href^="tel:"]::before {
     margin-right: 0.5em;
   }
 }
@@ -5390,6 +5446,11 @@ body::after {
 
   .btn--bg:hover {
     background-color: var(--blue-light-hover);
+  }
+
+  .info-styled a:hover,
+  .info-card__text a:hover {
+    background-color: var(--blue-light);
   }
 
   .menu__link:hover {
