@@ -7,18 +7,34 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
 	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 	<link rel="preload" href="./fonts/Manrope-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-
 	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
 	<style>
+		@font-face {
+			font-family: "SairaCondensed";
+			font-display: swap;
+			src: url("./fonts/SairaCondensed-Regular.woff2") format("woff2");
+			font-weight: 400;
+			font-style: normal;
+		}
+
+		@font-face {
+			font-family: "SairaCondensed";
+			font-display: swap;
+			src: url("./fonts/SairaCondensed-Black.woff2") format("woff2");
+			font-weight: 900;
+			font-style: normal;
+		}
+
 		@font-face {
 			font-family: "Manrope";
 			font-display: swap;
@@ -44,26 +60,10 @@
 		}
 
 		@font-face {
-			font-family: "SairaCondensed";
-			font-display: swap;
-			src: url("./fonts/SairaCondensed-Regular.woff2") format("woff2");
-			font-weight: 400;
-			font-style: normal;
-		}
-
-		@font-face {
 			font-family: "Manrope";
 			font-display: swap;
 			src: url("./fonts/Manrope-Regular.woff2") format("woff2");
 			font-weight: 400;
-			font-style: normal;
-		}
-
-		@font-face {
-			font-family: "SairaCondensed";
-			font-display: swap;
-			src: url("./fonts/SairaCondensed-Black.woff2") format("woff2");
-			font-weight: 900;
 			font-style: normal;
 		}
 
@@ -84,8 +84,8 @@
 		}
 	</style>
 
-	<link rel="preload" href="css/homepage.min.css?_v=20250506144146" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/homepage.min.css?_v=20250506144146" crossorigin="anonymous">
+	<link rel="preload" href="css/homepage.min.css?_v=20250520155346" as="style" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/homepage.min.css?_v=20250520155346" crossorigin="anonymous">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -212,7 +212,10 @@
 							<div class="main__body">
 								<div class="main__content main-content">
 									<div class="main-content__text-title">Database of</div>
-									<h1 class="main-content__title page-title">JUNKYARDS <span>and</span> <br> AUTO SALVAGE YARDS <span>in USA</span> 🇺🇸</h1>
+									<div class="main-content__title-body">
+										<h1 class="main-content__title page-title">JUNKYARDS <span>and</span> <br> AUTO SALVAGE YARDS <span>in USA</span></h1>
+										<picture><source srcset="img/icons/usa-flag.webp" type="image/webp"><img class="main-content__title-icon img" width="93" height="67" fetchpriority="high" loading="eager" decoding="async" src="img/icons/usa-flag.png" alt="USA flag"></picture>
+									</div>
 									<div data-paste class="main-content__search-form search">
 										<form action="#" class="search__form">
 											<div class="search__item _icon-search">
@@ -261,13 +264,13 @@
 										<div class="banner__reviews based-reviews">
 											<div class="based-reviews__img-users">
 												<div class="based-reviews__image user-ibg">
-													<picture><source srcset="img/reviews/user-3.webp" type="image/webp"><img width="56" height="56" fetchpriority="high" loading="eager" decoding="async" src="img/reviews/user-3.png" alt="user-3 image"></picture>
+													<picture><source srcset="img/reviews/user-3.webp" type="image/webp"><img width="56" height="56" loading="lazy" decoding="async" src="img/reviews/user-3.png" alt="user-3 image"></picture>
 												</div>
 												<div class="based-reviews__image user-ibg">
-													<picture><source srcset="img/reviews/user-2.webp" type="image/webp"><img width="56" height="56" fetchpriority="high" loading="eager" decoding="async" src="img/reviews/user-2.png" alt="user-2 image"></picture>
+													<picture><source srcset="img/reviews/user-2.webp" type="image/webp"><img width="56" height="56" loading="lazy" decoding="async" src="img/reviews/user-2.png" alt="user-2 image"></picture>
 												</div>
 												<div class="based-reviews__image user-ibg">
-													<picture><source srcset="img/reviews/user-1.webp" type="image/webp"><img width="56" height="56" fetchpriority="high" loading="eager" decoding="async" src="img/reviews/user-1.png" alt="user-1 image"></picture>
+													<picture><source srcset="img/reviews/user-1.webp" type="image/webp"><img width="56" height="56" loading="lazy" decoding="async" src="img/reviews/user-1.png" alt="user-1 image"></picture>
 												</div>
 											</div>
 											<div class="based-reviews__rating-body">
@@ -284,7 +287,7 @@
 											<picture>
 												<source srcset="img/backgrounds/tow-truck-mobile.webp, img/backgrounds/tow-truck-mobile@2x.webp 2x" type="image/webp" media="(max-width: 479.98px)">
 												<source srcset="img/backgrounds/tow-truck.webp, img/backgrounds/tow-truck@2x.webp 2x" type="image/webp">
-												<img width="675" height="200" fetchpriority="high" loading="eager" decoding="async" src="img/backgrounds/tow-truck.png" srcset="img/backgrounds/tow-truck@2x.png 2x" alt="tow truck">
+												<img width="675" height="200" loading="lazy" decoding="async" src="img/backgrounds/tow-truck.png" srcset="img/backgrounds/tow-truck@2x.png 2x" alt="tow truck">
 											</picture>
 										</div>
 									</div>
@@ -1281,7 +1284,7 @@
 							<div class="service-availability__title title">Same Day Service Available</div>
 							<div class="service-availability__text text-extr-bold guaranteed _icon-check">Price Quoute Guaranteed</div>
 						</div>
-						<div class="service-availability__image">
+						<div class="service-availability__image-ibg_contain">
 							<picture><source srcset="img/backgrounds/flag-usa.webp, img/backgrounds/flag-usa@2x.webp 2x" type="image/webp"><img class="img" width="249" height="145" loading="lazy" decoding="async" src="img/backgrounds/flag-usa.png" srcset="img/backgrounds/flag-usa@2x.png 2x" alt="Flag USA"></picture>
 						</div>
 						<div class="service-availability__row service-availability__row--right">
@@ -1489,7 +1492,8 @@
 								<h2 class="list-cards__title main-title section-title text-center">Alabama Auto Salvage Yards</h2>
 								<ul class="list-cards__list">
 									<li class="list-cards__item">
-										<div class="list-cards__card row-card w-block">
+										<div class="list-cards__card row-card row-card--sponsored w-block">
+											<span class="row-card__sponsored row-card__sponsored--mobile">Sponsored</span>
 											<div class="row-card__content">
 												<a href="#" class="row-card__image-ibg">
 													<picture><source srcset="img/salvage-yards/01.webp" type="image/webp"><img width="65" height="65" loading="lazy" decoding="async" src="img/salvage-yards/01.png" alt="01 salvage-yards"></picture>
@@ -1498,6 +1502,7 @@
 													<a href="#" class="row-card__title sub-title">
 														Fred Robertson Wrecker Service
 													</a>
+													<span class="row-card__sponsored">Sponsored</span>
 												</div>
 												<div class="row-card__rating-body">
 													<div class="row-card__rating rating" role="img" aria-label="Rating: 4.5 out of 5">
@@ -1513,8 +1518,11 @@
 												</div>
 											</div>
 											<div class="row-card__actions">
-												<a href="#" class="row-card__link text-color">View Junkyard</a>
-												<a href="#" class="row-card__btn btn btn--bg">Sell Car</a>
+												<a href="#" class="row-card__link row-card__link--website text-color">
+													<img width="24" height="24" loading="lazy" decoding="async" src="img/icons/website.svg" alt="website icon">
+													Website
+												</a>
+												<a href="#" class="row-card__btn btn btn--bg">View Junkyard</a>
 											</div>
 										</div>
 									</li>
@@ -1954,7 +1962,7 @@
 			</div>
 		</div>
 	</div>
-	<script async src="js/homepage.min.js?_v=20250506144146"></script>
+	<script async src="js/homepage.min.js?_v=20250520155346"></script>
 </body>
 
 </html>
