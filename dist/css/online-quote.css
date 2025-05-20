@@ -2522,8 +2522,10 @@ body {
 }
 
 .form-item__notice {
+  display: inline-block;
   color: var(--red);
   margin-top: 0.1875rem;
+  font-size: 0.9375rem;
 }
 
 .search {
