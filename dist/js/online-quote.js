@@ -3666,22 +3666,22 @@
                 input.removeAttribute("aria-invalid");
                 removeTextNotice(input);
             }
-            function isEmailValid(formRequiredItem) {
-                return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/.test(formRequiredItem.value);
+            function isEmailValid(input) {
+                return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/.test(input.value);
             }
             function showTextNotice(input, text) {
-                let notice = input.parentElement.nextElementSibling?.classList.contains("form-item__notice") ? input.parentElement.nextElementSibling : null;
+                let notice = input.parentElement.parentElement.querySelector(".form-item__notice");
                 if (notice && notice.textContent !== text) notice.textContent = text; else if (!notice) {
                     notice = document.createElement("label");
                     notice.classList.add("form-item__notice");
-                    notice.for = input.id;
+                    notice.setAttribute("for", input.id);
                     notice.textContent = text;
                     input.parentElement.insertAdjacentElement("afterend", notice);
                 }
                 addError(input);
             }
             function removeTextNotice(input) {
-                const notice = input.parentElement.nextElementSibling?.classList.contains("form-item__notice") ? input.parentElement.nextElementSibling : null;
+                const notice = input.parentElement.parentElement.querySelector(".form-item__notice");
                 notice && notice.remove();
             }
         }
