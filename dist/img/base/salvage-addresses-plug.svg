@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Group 15</title>
+    <g id="Main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Styleguide" transform="translate(-176, -5937)">
+            <g id="Group-15" transform="translate(176, 5937)">
+                <rect id="Rectangle" fill="#1272F4" x="0" y="0" width="128" height="128"></rect>
+                <g id="Stroke-2-Copy-2" transform="translate(47, 44)" fill="#FFFFFF">
+                    <path d="M16.5000415,0 C30.5345494,0 38.1372667,16.4623698 29.0522836,27.179759 L19.275344,38.7134963 C17.8212384,40.4288346 15.1787616,40.4288346 13.724656,38.7134963 L3.94771636,27.179759 C-5.13726666,16.4623698 2.46545065,0 16.4999585,0 Z M16.5,9.2 C12.7215641,9.2 9.65853659,12.2444637 9.65853659,16 C9.65853659,19.7555363 12.7215641,22.8 16.5,22.8 C20.2784359,22.8 23.3414634,19.7555363 23.3414634,16 C23.3414634,12.2444637 20.2784359,9.2 16.5,9.2 Z" id="Combined-Shape"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
