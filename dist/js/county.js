@@ -21,9 +21,6 @@
         }));
     }
     let bodyLockStatus = true;
-    let bodyLockToggle = (delay = 500) => {
-        if (document.documentElement.classList.contains("lock")) bodyUnlock(delay); else bodyLock(delay);
-    };
     let bodyUnlock = (delay = 500) => {
         if (bodyLockStatus) {
             bodyLockStatus = false;
@@ -160,6 +157,24 @@
             }
         }
     }
+    function uniqArray(array) {
+        return array.filter((function(item, index, self) {
+            return self.indexOf(item) === index;
+        }));
+    }
+    function scrollToPositionByDuration({container, targetTop, duration = 500, transitionTimingFunction = false}) {
+        const startTop = container.scrollTop;
+        const distance = targetTop - startTop;
+        const startTime = performance.now();
+        function scroll(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = transitionTimingFunction ? transitionTimingFunction : .5 - Math.cos(progress * Math.PI) / 2;
+            container.scrollTop = startTop + distance * ease;
+            if (progress < 1) requestAnimationFrame(scroll);
+        }
+        requestAnimationFrame(scroll);
+    }
     function initRatings() {
         const ratings = document.querySelectorAll(".rating:not(.rating_initialized)");
         if (ratings.length > 0) ratings.forEach((rating => {
@@ -281,19 +296,73 @@
     headerScroll();
     loadedFontsClass();
     function headerMenu() {
-        const menu = document.querySelector(".menu-icon__menu");
+        const html = document.documentElement;
         const header = document.querySelector("header.header");
-        if (menu) window.addEventListener("click", (e => {
+        const btnMenuIcon = document.querySelector(".icon-menu");
+        const btnMenuFind = document.querySelector(".menu__link--sub-menu-find");
+        const mainMenu = document.querySelector(".menu-icon__menu");
+        const findMenu = document.querySelector(".header__sub-menu-find");
+        const btnSpoller = document.querySelector(".content-menu-find__title-spoller");
+        const DELAY = 300;
+        const overlayClass = "overlay-bg";
+        const showSubMenuClass = "_show";
+        const menuOpenClass = "menu-open";
+        const btnLinkActiveClass = "_active";
+        let animating = false;
+        let isSpollerOpening = false;
+        function lockBody() {
+            animating = true;
+            bodyLock(DELAY);
+            html.classList.add(overlayClass);
+            setTimeout((() => animating = false), DELAY);
+        }
+        function unlockBody() {
+            animating = true;
+            bodyUnlock(DELAY);
+            html.classList.remove(overlayClass);
+            setTimeout((() => animating = false), DELAY);
+        }
+        window.addEventListener("click", (e => {
+            if (animating || !mainMenu) return;
             const target = e.target;
-            if (bodyLockStatus) if (target.closest(".icon-menu")) {
-                bodyLockToggle(300);
-                document.documentElement.classList.toggle("menu-open");
-                if (target.classList.contains("icon-menu--mobile") && window.innerWidth <= 479.98 && window.scrollY <= header.offsetHeight) window.scrollTo({
+            const isMenuOpen = html.classList.contains(menuOpenClass);
+            const isFindMenuOpen = findMenu?.classList.contains(showSubMenuClass);
+            if (btnMenuFind?.contains(target) && findMenu) {
+                e.preventDefault();
+                html.classList.remove(menuOpenClass);
+                findMenu?.classList.toggle(showSubMenuClass, !isFindMenuOpen);
+                btnMenuFind.classList.toggle(btnLinkActiveClass, !isFindMenuOpen);
+            } else if (target.closest(".icon-menu")) {
+                if (isFindMenuOpen) {
+                    findMenu.classList.remove(showSubMenuClass);
+                    btnMenuFind.classList.remove(btnLinkActiveClass);
+                }
+                html.classList.toggle(menuOpenClass);
+                if (html.classList.contains(menuOpenClass) && btnMenuIcon.contains(target) && window.innerWidth <= 480 && window.scrollY <= header.offsetHeight) window.scrollTo({
                     top: 0
                 });
-            } else {
-                bodyUnlock(300);
-                document.documentElement.classList.remove("menu-open");
+            } else if (isFindMenuOpen && !findMenu?.contains(target) && !btnMenuFind?.contains(target)) {
+                findMenu.classList.remove(showSubMenuClass);
+                btnMenuFind.classList.remove(btnLinkActiveClass);
+            } else if (isMenuOpen && !mainMenu.contains(target)) html.classList.remove(menuOpenClass);
+            const newMenuOpen = html.classList.contains(menuOpenClass);
+            const newFindMenuOpen = findMenu?.classList.contains(showSubMenuClass);
+            if (!isMenuOpen && !isFindMenuOpen && (newMenuOpen || newFindMenuOpen)) lockBody(); else if ((isMenuOpen || isFindMenuOpen) && !newMenuOpen && !newFindMenuOpen) unlockBody();
+            if (btnSpoller && btnSpoller.contains(target) && !isSpollerOpening) {
+                const delay = 530;
+                setTimeout((() => {
+                    if (btnSpoller.classList.contains("_spoller-active")) {
+                        isSpollerOpening = true;
+                        setTimeout((() => isSpollerOpening = false), delay);
+                        const rect = btnSpoller.getBoundingClientRect();
+                        const offsetTop = rect.top + mainMenu.scrollTop;
+                        scrollToPositionByDuration({
+                            container: mainMenu,
+                            targetTop: offsetTop - (window.innerWidth <= 480 ? 18 : 29),
+                            duration: delay
+                        });
+                    }
+                }), 0);
             }
         }));
     }
