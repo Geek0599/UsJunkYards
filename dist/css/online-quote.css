@@ -1987,15 +1987,11 @@ body::after {
   color: var(--white);
 }
 
-.loaded .menu__link {
-  -webkit-transition: color 0.3s ease 0s;
-  transition: color 0.3s ease 0s;
-}
-
 .menu__link._active {
   -webkit-transition: background-color 0.25s ease;
   transition: background-color 0.25s ease;
-  background-color: var(--btn-bg-opacity);
+  color: var(--blue);
+  background-color: var(--white);
 }
 
 header._header-pc-scroll .menu__link._active {
@@ -4398,21 +4394,16 @@ header._header-pc-scroll .menu__link._active {
     pointer-events: none;
     position: absolute;
     width: 100%;
-    right: 0;
     margin: 0 auto;
     max-width: 87.9375rem;
-    top: calc(100% + 0.25rem);
+    right: 0;
     --indent-left: rem(34);
+    top: calc(100% - 0.5rem);
     left: var(--indent-left);
   }
 
-  .header__sub-menu-find .aside-menu-find__map {
-    display: none;
-  }
-
-  .loaded .header__sub-menu-find {
-    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+  header._header-pc-scroll .header__sub-menu-find {
+    top: calc(100% + 0.25rem);
   }
 
 @supports (--indent-left: clamp( 0.0000000625rem , -76.4999976875rem  +  75.5555533333vw , 2.125rem )) {
@@ -4426,6 +4417,15 @@ header._header-pc-scroll .menu__link._active {
       --indent-left: calc(0.0000000625rem + 2.1249999375 * (100vw - 101.25rem) / 2.8125);
     }
 }
+
+  .header__sub-menu-find .aside-menu-find__map {
+    display: none;
+  }
+
+  .loaded .header__sub-menu-find {
+    -webkit-transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
 
   .menu-icon__row--find-menu {
     display: none;
@@ -5799,10 +5799,6 @@ header._header-pc-scroll .menu__link._active {
   .states-map__map .state-map-link:hover .state-fill,
   .aside-menu-find__map .state-map-link:hover .state-fill {
     fill: var(--white);
-  }
-
-  .menu__link._active:hover {
-    background-color: var(--btn-bg-opacity-hover);
   }
 
   header._header-pc-scroll .menu__link._active:hover {

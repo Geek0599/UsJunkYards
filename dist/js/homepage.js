@@ -564,39 +564,47 @@
         }), 50);
     }
     function hoverTooltipOnStatesMap() {
-        const stateNameLinks = document.querySelectorAll("[data-state-name]");
-        const activeAttribute = "data-show";
-        const containerOffset = 20;
-        if (stateNameLinks.length) {
-            const tooltip = document.createElement("div");
-            tooltip.setAttribute("data-tooltip", "");
-            tooltip.setAttribute("role", "tooltip");
-            document.body.appendChild(tooltip);
-            stateNameLinks.forEach((state => {
-                state.addEventListener("mousemove", (e => {
-                    tooltip.innerText !== state.dataset.stateName ? tooltip.innerText = state.dataset.stateName : null;
-                    tooltip.style.top = scrollY + (e.y - 29) + "px";
-                    const tooltipWidth = tooltip.offsetWidth + containerOffset;
-                    if (document.documentElement.clientWidth - e.x - tooltipWidth <= 0) tooltip.style.left = e.x - tooltipWidth + containerOffset / 2 + "px"; else tooltip.style.left = e.x + containerOffset + "px";
-                }));
-                state.addEventListener("mouseenter", (e => {
-                    !tooltip.hasAttribute(activeAttribute) ? tooltip.setAttribute(activeAttribute, "") : null;
-                }));
-                state.addEventListener("mouseleave", (e => {
-                    tooltip.hasAttribute(activeAttribute) ? tooltip.removeAttribute(activeAttribute) : null;
-                }));
-                state.addEventListener("focus", (e => {
-                    tooltip.innerText !== state.dataset.stateName ? tooltip.innerText = state.dataset.stateName : null;
-                    tooltip.setAttribute(activeAttribute, "");
-                    const rect = state.getBoundingClientRect();
-                    tooltip.style.top = scrollY + rect.top + "px";
-                    if (rect.left > document.documentElement.clientWidth - tooltip.offsetWidth) tooltip.style.left = rect.left - tooltip.offsetWidth + "px"; else tooltip.style.left = rect.left + "px";
-                }));
-                state.addEventListener("blur", (e => {
-                    tooltip.removeAttribute("data-show");
-                }));
-            }));
+        const activeAttr = "data-show";
+        const offset = 20;
+        const tooltip = document.createElement("div");
+        tooltip.setAttribute("data-tooltip", "");
+        tooltip.setAttribute("role", "tooltip");
+        document.body.appendChild(tooltip);
+        function positionTooltip(e, target) {
+            const name = target.dataset.stateName;
+            if (tooltip.innerText !== name) tooltip.innerText = name;
+            const x = e.clientX;
+            const y = e.clientY;
+            tooltip.style.top = window.scrollY + (y - 29) + "px";
+            const tooltipWidth = tooltip.offsetWidth + offset;
+            if (document.documentElement.clientWidth - x - tooltipWidth <= 0) tooltip.style.left = x - tooltipWidth + offset / 2 + "px"; else tooltip.style.left = x + offset + "px";
         }
+        document.addEventListener("mousemove", (e => {
+            const target = e.target.closest("[data-state-name]");
+            if (target) positionTooltip(e, target);
+        }));
+        document.addEventListener("mouseover", (e => {
+            const target = e.target.closest("[data-state-name]");
+            if (target && !tooltip.hasAttribute(activeAttr)) tooltip.setAttribute(activeAttr, "");
+        }));
+        document.addEventListener("mouseout", (e => {
+            const leaveFrom = e.target.closest("[data-state-name]");
+            const enterTo = e.relatedTarget && e.relatedTarget.closest("[data-state-name]");
+            if (leaveFrom && leaveFrom !== enterTo) tooltip.removeAttribute(activeAttr);
+        }));
+        document.addEventListener("focusin", (e => {
+            const target = e.target.closest("[data-state-name]");
+            if (target) {
+                const rect = target.getBoundingClientRect();
+                tooltip.innerText = target.dataset.stateName;
+                tooltip.setAttribute(activeAttr, "");
+                tooltip.style.top = window.scrollY + rect.top + "px";
+                if (rect.left > document.documentElement.clientWidth - tooltip.offsetWidth) tooltip.style.left = rect.left - tooltip.offsetWidth + "px"; else tooltip.style.left = rect.left + "px";
+            }
+        }));
+        document.addEventListener("focusout", (e => {
+            if (e.target.closest("[data-state-name]")) tooltip.removeAttribute(activeAttr);
+        }));
     }
     function ssr_window_esm_isObject(obj) {
         return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
