@@ -572,6 +572,9 @@ Snippet (HTML): cnt
   font-weight: 700;
   line-height: 1.3333333333;
   min-height: 4rem;
+}
+
+.loaded .btn {
   -webkit-transition: background 0.25s ease, border 0.25s ease;
   transition: background 0.25s ease, border 0.25s ease;
 }
@@ -2272,6 +2275,10 @@ header._header-pc-scroll .menu__link._active {
 
 .aside-menu-find__map {
   margin-top: 0.75rem;
+}
+
+.content-menu-find html:not(.loaded) {
+  display: none;
 }
 
 .content-menu-find__title {
@@ -5833,6 +5840,14 @@ header._header-pc-scroll .menu__link._active {
 
   .header__menu {
     display: none;
+  }
+
+  .header__sub-menu-find {
+    display: none;
+  }
+
+  .loaded .header__sub-menu-find {
+    display: block;
   }
 
   .menu__list {
