@@ -2992,7 +2992,7 @@ header._header-pc-scroll .menu__link._active {
   background: var(--input-bg);
 }
 
-.search--results .search__item {
+.search--results .search__input {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
