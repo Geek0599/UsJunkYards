@@ -3435,6 +3435,8 @@
         pasteExampleIntoInput();
         headerScroll();
         loadedFontsClass();
+        hoverTooltipOnStatesMap();
+        copyMapFromHeaderToSectionMap();
         function headerMenu() {
             const html = document.documentElement;
             const header = document.querySelector("header.header");
@@ -3579,6 +3581,35 @@
             document.addEventListener("focusout", (e => {
                 if (e.target.closest("[data-state-name]")) tooltip.removeAttribute(activeAttr);
             }));
+        }
+        function copyMapFromHeaderToSectionMap() {
+            const svgOriginal = document.querySelector("[data-state-map]");
+            const sectionMap = document.querySelector(".states-map__map");
+            if (!svgOriginal || !sectionMap) return;
+            const svgClone = svgOriginal.cloneNode(true);
+            const prefix = "-copy-";
+            const idMap = new Map;
+            svgClone.querySelectorAll("[id]").forEach((el => {
+                const oldId = el.id;
+                const newId = oldId + prefix;
+                idMap.set(oldId, newId);
+                el.id = newId;
+            }));
+            svgClone.querySelectorAll("*").forEach((el => {
+                for (let i = 0; i < el.attributes.length; i++) {
+                    const attr = el.attributes[i];
+                    let val = attr.value;
+                    if (val.includes("#")) {
+                        idMap.forEach(((newId, oldId) => {
+                            val = val.replaceAll(`url(#${oldId})`, `url(#${newId})`);
+                            val = val.replaceAll(`"#${oldId}"`, `"#${newId}"`);
+                            val = val.replaceAll(`#${oldId}`, `#${newId}`);
+                        }));
+                        attr.value = val;
+                    }
+                }
+            }));
+            sectionMap.insertAdjacentElement("afterbegin", svgClone);
         }
         function clickOnLabelKeyEnter() {
             const inputs = document.querySelectorAll("[data-tabi-input]");
@@ -3775,7 +3806,6 @@
                 }));
             }
         }
-        hoverTooltipOnStatesMap();
         clickOnLabelKeyEnter();
         formValidate();
         setInputmode();

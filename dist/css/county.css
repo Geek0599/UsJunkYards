@@ -1696,7 +1696,8 @@ body::after {
   transition: opacity 0.3s ease, filter 0.15s ease, -webkit-filter 0.15s ease;
 }
 
-.overlay-bg body::after {
+.overlay-bg body::after,
+.popup-open body::after {
   opacity: 1;
   pointer-events: auto;
 }

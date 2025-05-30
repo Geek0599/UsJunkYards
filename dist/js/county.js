@@ -295,6 +295,8 @@
     pasteExampleIntoInput();
     headerScroll();
     loadedFontsClass();
+    hoverTooltipOnStatesMap();
+    copyMapFromHeaderToSectionMap();
     function headerMenu() {
         const html = document.documentElement;
         const header = document.querySelector("header.header");
@@ -396,6 +398,78 @@
     async function loadedFontsClass() {
         await document.fonts.ready;
         document.documentElement.classList.add("loaded-fonts");
+    }
+    function hoverTooltipOnStatesMap() {
+        const activeAttr = "data-show";
+        const offset = 20;
+        const tooltip = document.createElement("div");
+        tooltip.setAttribute("data-tooltip", "");
+        tooltip.setAttribute("role", "tooltip");
+        document.body.appendChild(tooltip);
+        function positionTooltip(e, target) {
+            const name = target.dataset.stateName;
+            if (tooltip.innerText !== name) tooltip.innerText = name;
+            const x = e.clientX;
+            const y = e.clientY;
+            tooltip.style.top = window.scrollY + (y - 29) + "px";
+            const tooltipWidth = tooltip.offsetWidth + offset;
+            if (document.documentElement.clientWidth - x - tooltipWidth <= 0) tooltip.style.left = x - tooltipWidth + offset / 2 + "px"; else tooltip.style.left = x + offset + "px";
+        }
+        document.addEventListener("mousemove", (e => {
+            const target = e.target.closest("[data-state-name]");
+            if (target) positionTooltip(e, target);
+        }));
+        document.addEventListener("mouseover", (e => {
+            const target = e.target.closest("[data-state-name]");
+            if (target && !tooltip.hasAttribute(activeAttr)) tooltip.setAttribute(activeAttr, "");
+        }));
+        document.addEventListener("mouseout", (e => {
+            const leaveFrom = e.target.closest("[data-state-name]");
+            const enterTo = e.relatedTarget && e.relatedTarget.closest("[data-state-name]");
+            if (leaveFrom && leaveFrom !== enterTo) tooltip.removeAttribute(activeAttr);
+        }));
+        document.addEventListener("focusin", (e => {
+            const target = e.target.closest("[data-state-name]");
+            if (target) {
+                const rect = target.getBoundingClientRect();
+                tooltip.innerText = target.dataset.stateName;
+                tooltip.setAttribute(activeAttr, "");
+                tooltip.style.top = window.scrollY + rect.top + "px";
+                if (rect.left > document.documentElement.clientWidth - tooltip.offsetWidth) tooltip.style.left = rect.left - tooltip.offsetWidth + "px"; else tooltip.style.left = rect.left + "px";
+            }
+        }));
+        document.addEventListener("focusout", (e => {
+            if (e.target.closest("[data-state-name]")) tooltip.removeAttribute(activeAttr);
+        }));
+    }
+    function copyMapFromHeaderToSectionMap() {
+        const svgOriginal = document.querySelector("[data-state-map]");
+        const sectionMap = document.querySelector(".states-map__map");
+        if (!svgOriginal || !sectionMap) return;
+        const svgClone = svgOriginal.cloneNode(true);
+        const prefix = "-copy-";
+        const idMap = new Map;
+        svgClone.querySelectorAll("[id]").forEach((el => {
+            const oldId = el.id;
+            const newId = oldId + prefix;
+            idMap.set(oldId, newId);
+            el.id = newId;
+        }));
+        svgClone.querySelectorAll("*").forEach((el => {
+            for (let i = 0; i < el.attributes.length; i++) {
+                const attr = el.attributes[i];
+                let val = attr.value;
+                if (val.includes("#")) {
+                    idMap.forEach(((newId, oldId) => {
+                        val = val.replaceAll(`url(#${oldId})`, `url(#${newId})`);
+                        val = val.replaceAll(`"#${oldId}"`, `"#${newId}"`);
+                        val = val.replaceAll(`#${oldId}`, `#${newId}`);
+                    }));
+                    attr.value = val;
+                }
+            }
+        }));
+        sectionMap.insertAdjacentElement("afterbegin", svgClone);
     }
     function spollers() {
         const spollersArray = document.querySelectorAll("[data-spollers]");
