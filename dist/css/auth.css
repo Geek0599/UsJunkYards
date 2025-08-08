@@ -2235,16 +2235,21 @@ header._header-pc-scroll .menu__link._active {
   margin-bottom: 0.5rem;
 }
 
-.menu-icon__list {
-  display: -ms-grid;
-  display: grid;
-  justify-items: start;
+.menu-icon__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
 }
 
 .menu-icon__link {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -2254,9 +2259,11 @@ header._header-pc-scroll .menu__link._active {
 
 .menu-icon__link::before {
   font-size: 1.3125rem;
-  -webkit-box-flex: 0;
-      -ms-flex: 0 0 1.5rem;
-          flex: 0 0 1.5rem;
+  width: 1.5rem;
+  -ms-flex-preferred-size: 1.5rem;
+      flex-basis: 1.5rem;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
