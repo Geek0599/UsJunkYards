@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Online Quote</title>
+	<title>Sign in</title>
 	<meta charset="UTF-8">
 	<meta name="format-detection" content="telephone=no">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,8 +84,8 @@
 		}
 	</style>
 
-	<link rel="preload" href="css/online-quote.min.css?_v=20250808190046" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/online-quote.min.css?_v=20250808190046" crossorigin="anonymous">
+	<link rel="preload" href="css/auth.min.css?_v=20250808190046" as="style" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/auth.min.css?_v=20250808190046" crossorigin="anonymous">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -151,7 +151,7 @@
 		</symbol>
 	</svg>
 	<div class="wrapper">
-		<header class="header header--partial-hidden">
+		<header class="header">
 			<div class="header__wrapper">
 				<div class="header__wrapper-body">
 					<div class="header__container">
@@ -1155,496 +1155,61 @@
 				</div>
 			</div>
 		</header>
-		<main class="page">
+		<main class="page page--auth">
 			<section class="page__main">
 				<div class="w-full w-full--main">
-					<div class="w-full__content main main--bottom online-quote">
-						<div class="main__container online-quote__container">
-							<h1 class="online-quote__title text-white main-title">Cash for Junk Cars Online Quote</h1>
-							<div class="online-quote__text text text--lh text-white">
-								<p>Looking to sell junk car and get an instant quote? At USJunkYards.com, we buy all types of vehicles, including junk, damaged, flooded, and old cars. Tell us about your salvage or scrap car and we'll provide an instant quote.</p>
-							</div>
-							<div class="online-quote__banner w-block w-block--adaptive banner-quote-call">
-								<div class="banner-quote-call__text sub-title">Just Call us and say,</div>
-								<a href="tel:18888530481" class="banner-quote-call__link">
-									<span class="banner-quote-call__quote _icon-quote">Junk My Car near me</span>
-									<span class="banner-quote-call__phone call-phone _icon-call-phone underline"><span>1-888-853-0481</span></span>
-								</a>
-							</div>
-							<div class="online-quote__form w-block w-block--adaptive banner quote-form">
-								<div class="quote-form__title sub-title">Or fill out an online form, and we will contact you!</div>
-								<form data-validate action="#" enctype="multipart/form-data" class="quote-form__form">
-									<div class="quote-form__steps">
-										<div class="quote-form__step">
-											<div class="quote-form__step-title">Give us basic information about your car</div>
-											<div class="quote-form__items">
-												<div class="quote-form__item form-item">
-													<label for="year" class="form-item__label">Year</label>
-													<div class="form-item__input-body">
-														<div class="form-item__icon">
-															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/car.svg" alt="car icon">
+					<div class="w-full__content main">
+						<div class="main__container">
+							<div class="main__body">
+								<div class="main__content">
+									<div class="auth-form w-block">
+										<div class="auth-form__item-part">
+											<h1 class="auth-form__title sub-title">Sign in</h1>
+											<form action="#" class="auth-form__body">
+												<div class="auth-form__items">
+													<div class="auth-form__item form-item">
+														<label for="email" class="form-item__label form-item__label--no-req">Email</label>
+														<div class="form-item__input-body">
+															<div class="form-item__icon">
+																<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/email.svg" alt="email icon">
+															</div>
+															<input required id="email" name="email" autocomplete="email" type="email" placeholder="Enter your email" class="form-item__input">
 														</div>
-														<input required data-number-format data-inputmode="numeric" data-minlength="4" data-maxlength="4" data-min-value="1930" data-max-value="2025" id="year" name="year" type="text" placeholder="Enter Year" class="form-item__input">
+													</div>
+													<div class="auth-form__item form-item">
+														<label for="password" class="form-item__label form-item__label--no-req">Password</label>
+														<div class="form-item__input-body">
+															<div class="form-item__icon">
+																<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass.svg" alt="password icon">
+															</div>
+															<input required autocomplete="current-password" id="password" name="password" type="password" placeholder="Enter your password" class="form-item__input">
+														</div>
 													</div>
 												</div>
-												<div class="quote-form__item form-item">
-													<label for="make" class="form-item__label">Make</label>
-													<div class="form-item__input-body">
-														<div class="form-item__icon">
-															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/car.svg" alt="car icon">
-														</div>
-														<select required name="make" id="make" class="form-item__select">
-															<option value="" selected>Select Make</option>
-															<option value="AM General">AM General</option>
-															<option value="AMC">AMC</option>
-															<option value="Acura">Acura</option>
-															<option value="Alfa Romeo">Alfa Romeo</option>
-															<option value="Aston Martin">Aston Martin</option>
-															<option value="Audi">Audi</option>
-															<option value="BMW">BMW</option>
-															<option value="Buick">Buick</option>
-															<option value="Cadillac">Cadillac</option>
-															<option value="Chevrolet">Chevrolet</option>
-															<option value="Chrysler">Chrysler</option>
-															<option value="Datsun">Datsun</option>
-															<option value="Dodge">Dodge</option>
-															<option value="Eagle">Eagle</option>
-															<option value="FIAT">FIAT</option>
-															<option value="Fisker">Fisker</option>
-															<option value="Ford">Ford</option>
-															<option value="Freightliner">Freightliner</option>
-															<option value="GMC">GMC</option>
-															<option value="Genesis">Genesis</option>
-															<option value="Geo">Geo</option>
-															<option value="Honda">Honda</option>
-															<option value="Hummer">Hummer</option>
-															<option value="Hyundai">Hyundai</option>
-															<option value="INFINITI">INFINITI</option>
-															<option value="Isuzu">Isuzu</option>
-															<option value="Jaguar">Jaguar</option>
-															<option value="Jeep">Jeep</option>
-															<option value="Karma">Karma</option>
-															<option value="Kia">Kia</option>
-															<option value="Land Rover">Land Rover</option>
-															<option value="Lexus">Lexus</option>
-															<option value="Lincoln">Lincoln</option>
-															<option value="Lotus">Lotus</option>
-															<option value="MINI">MINI</option>
-															<option value="Maserati">Maserati</option>
-															<option value="Maybach">Maybach</option>
-															<option value="Mazda">Mazda</option>
-															<option value="Mercedes-Benz">Mercedes-Benz</option>
-															<option value="Mercury">Mercury</option>
-															<option value="Mitsubishi">Mitsubishi</option>
-															<option value="Nissan">Nissan</option>
-															<option value="Oldsmobile">Oldsmobile</option>
-															<option value="Plymouth">Plymouth</option>
-															<option value="Pontiac">Pontiac</option>
-															<option value="Porsche">Porsche</option>
-															<option value="RAM">RAM</option>
-															<option value="Renault">Renault</option>
-															<option value="Rover">Rover</option>
-															<option value="Saab">Saab</option>
-															<option value="Saturn">Saturn</option>
-															<option value="Scion">Scion</option>
-															<option value="Shelby">Shelby</option>
-															<option value="Sterling">Sterling</option>
-															<option value="Subaru">Subaru</option>
-															<option value="Suzuki">Suzuki</option>
-															<option value="Tesla">Tesla</option>
-															<option value="Toyota">Toyota</option>
-															<option value="Volkswagen">Volkswagen</option>
-															<option value="Volvo">Volvo</option>
-															<option value="smart">smart</option>
-														</select>
-													</div>
+												<div class="auth-form__row">
+													<label class="auth-form__checkbox checkbox-item">
+														<input name="remember" type="checkbox" class="checkbox-item__input">
+														<span class="checkbox-item__mark _icon-chevron-check-rounded"></span>
+														<span class="checkbox-item__label">Remember me</span>
+													</label>
+													<a href="#" class="auth-form__link text-color sub-title-small">Forgot password</a>
 												</div>
-												<div class="quote-form__item form-item">
-													<label for="model" class="form-item__label">Model</label>
-													<div class="form-item__input-body">
-														<div class="form-item__icon">
-															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/car.svg" alt="car icon">
-														</div>
-														<select required name="model" id="model" class="form-item__select">
-															<option value="" selected>Select Model</option>
-															<option value="Some Model">Some Model</option>
-														</select>
-													</div>
-												</div>
-											</div>
+												<button type="submit" class="auth-form__btn btn">Sign in</button>
+											</form>
 										</div>
-										<div class="quote-form__step">
-											<div class="quote-form__step-title">How we can contact with you?</div>
-											<div class="quote-form__items">
-												<div class="quote-form__item form-item">
-													<label for="name" class="form-item__label">Name</label>
-													<div class="form-item__input-body">
-														<div class="form-item__icon">
-															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/user.svg" alt="user icon">
-														</div>
-														<input required data-text-format data-minlength="2" id="name" autocomplete="name" name="name" type="text" placeholder="Your Name" class="form-item__input">
-													</div>
-												</div>
-												<div class="quote-form__item form-item">
-													<label for="zip" class="form-item__label">Zip</label>
-													<div class="form-item__input-body">
-														<div class="form-item__icon">
-															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/zip.svg" alt="zip icon">
-														</div>
-														<input required data-number-format data-inputmode="numeric" data-minlength="5" data-maxlength="5" autocomplete="postal-code" id="zip" name="zip" type="text" placeholder="Zip Code" class="form-item__input">
-													</div>
-												</div>
-												<div class="quote-form__item form-item">
-													<label for="phone" class="form-item__label">Phone</label>
-													<div class="form-item__input-body">
-														<div class="form-item__icon">
-															<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/phone.svg" alt="phone icon">
-														</div>
-														<input required data-phone-mask data-inputmode="numeric" autocomplete="tel" id="phone" name="phone" type="tel" class="form-item__input">
-													</div>
-												</div>
-											</div>
+										<div class="auth-form__item-part">
+											<h2 class="auth-form__title sub-title">Don’t registered yet?</h2>
+											<a href="#" class="auth-form__btn btn btn--bg">Sign up</a>
 										</div>
 									</div>
-									<div class="quote-form__additional">
-										<div class="quote-form__title-body">
-											<div class="quote-form__step-title">How we can contact with you?</div>
-											<div class="quote-form__text">(Not Required)</div>
-										</div>
-										<div class="quote-form__items">
-											<div class="quote-form__item form-item">
-												<label for="email" class="form-item__label form-item__label--no-req">Email</label>
-												<div class="form-item__input-body">
-													<div class="form-item__icon">
-														<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/email.svg" alt="email icon">
-													</div>
-													<input id="email" name="email" autocomplete="email" type="email" placeholder="Your Email" class="form-item__input">
-												</div>
-											</div>
-											<div class="quote-form__item form-item">
-												<div class="form-item__label form-item__label--no-req">Attach photos</div>
-												<div class="form-item__input-body">
-													<div class="file">
-														<div class="file__item">
-															<input data-tabi-input tabindex="-1" class="file__input" type="file" accept=".png,.jpg,.jpeg" name="photos" multiple id="photos">
-															<label data-tabi-label tabindex="0" for="photos" class="file__label btn btn--border">Upload photos</label>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="quote-form__item quote-form__item--textarea form-item">
-												<label for="textarea" class="form-item__label form-item__label--no-req">Briefly describe what’s wrong with the vehicle</label>
-												<div class="form-item__input-body">
-													<textarea id="textarea" name="description" placeholder="Text us about state of your car" class="form-item__textarea"></textarea>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="quote-form__bottom">
-										<div class="quote-form__note text-small">Fields marked with an asterisk (*) are required.</div>
-										<button type="submit" class="quote-form__btn-submit btn _icon-chevron-check">Get Cash Offer</button>
-									</div>
-								</form>
+								</div>
 							</div>
 						</div>
 					</div>
-					<img class="w-full__bg" width="1888" height="853" fetchpriority="high" loading="eager" decoding="async" src="img/backgrounds/main-bg-high.svg" alt="main background">
+					<img class="w-full__bg" width="1888" height="853" fetchpriority="high" loading="eager" decoding="async" src="img/backgrounds/main-bg-second.svg" alt="main background">
 				</div>
 			</section>
-			<section class="page__sections-padding page__sections-padding--bottom">
-				<div class="hiw">
-					<div class="hiw__outside-container">
-						<h2 class="hiw__title main-title section-title text-center">Want to sell your junk car for cash?</h2>
-						<div class="hiw__indent">
-							<ul class="hiw__banners">
-								<li class="hiw__banner banner-row w-block">
-									<div class="banner-row__image">
-										<picture><source srcset="img/how-it-works/dollards.webp, img/how-it-works/dollards@2x.webp 2x" type="image/webp"><img class="img" width="160" height="121" loading="lazy" decoding="async" src="img/how-it-works/dollards.png" srcset="img/how-it-works/dollards@2x.png 2x" alt="dollars cash"></picture>
-									</div>
-									<div class="banner-row__content">
-										<div class="banner-row__title title">We pay Top dollar</div>
-										<div class="banner-row__text text">
-											<p>For any vehicle, no matter how old or wrecked. You can sell your junk car today!</p>
-										</div>
-									</div>
-								</li>
-								<li class="hiw__banner banner-row w-block">
-									<div class="banner-row__image banner-row__image--indent">
-										<picture><source srcset="img/how-it-works/clock.webp, img/how-it-works/clock@2x.webp 2x" type="image/webp"><img class="img" width="184" height="108" loading="lazy" decoding="async" src="img/how-it-works/clock.png" srcset="img/how-it-works/clock@2x.png 2x" alt="clock"></picture>
-									</div>
-									<div class="banner-row__content">
-										<div class="banner-row__title title">Instant Offer for Your Car</div>
-										<div class="banner-row__text text">
-											<p>Get an instant quote and a guaranteed offer on your junk car by completing our online quote form!</p>
-										</div>
-									</div>
-								</li>
-							</ul>
 
-							<div class="hiw__steps hiw-steps w-block">
-								<div class="hiw-steps__title title text-center">How it works</div>
-								<ul class="hiw-steps__list">
-									<li class="hiw-steps__item hiw-step">
-										<div class="hiw-step__step w-block w-block--gray">Step</div>
-										<div class="hiw-step__image-ibg_contain">
-											<img width="206" height="128" loading="lazy" decoding="async" src="img/how-it-works/usa-map.svg" alt="USA map icon">
-										</div>
-										<div class="hiw-step__content text-center">
-											<div class="hiw-step__title sub-title">Call us on Book Online</div>
-											<div class="hiw-step__text text">Tell us about your car and it's location and will give you an offer!</div>
-										</div>
-									</li>
-									<li class="hiw-steps__item hiw-step">
-										<div class="hiw-step__step w-block w-block--gray">Step</div>
-										<div class="hiw-step__image-ibg_contain">
-											<img width="156" height="128" loading="lazy" decoding="async" src="img/how-it-works/calendar.svg" alt="calendar icon">
-										</div>
-										<div class="hiw-step__content text-center">
-											<div class="hiw-step__title sub-title">Accept our Offer</div>
-											<div class="hiw-step__text text">Once you accept our offer will schedule a convenient pickup time!</div>
-										</div>
-									</li>
-									<li class="hiw-steps__item hiw-step">
-										<div class="hiw-step__step w-block w-block--gray">Step</div>
-										<div class="hiw-step__image-ibg_contain">
-											<img width="138" height="128" loading="lazy" decoding="async" src="img/how-it-works/cash.svg" alt="cash icon">
-										</div>
-										<div class="hiw-step__content text-center">
-											<div class="hiw-step__title sub-title">Get paid!</div>
-											<div class="hiw-step__text text">Get paid in cash instantly <br> when we arrive!</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<div class="page__service-availability service-availability">
-				<div class="service-availability__container">
-					<div class="service-availability__body">
-						<div class="service-availability__row">
-							<div class="service-availability__title title">Same Day Service Available</div>
-							<div class="service-availability__text text-extr-bold guaranteed _icon-check">Price Quoute Guaranteed</div>
-						</div>
-						<div class="service-availability__image-ibg_contain">
-							<picture><source srcset="img/backgrounds/flag-usa.webp, img/backgrounds/flag-usa@2x.webp 2x" type="image/webp"><img class="img" width="249" height="145" loading="lazy" decoding="async" src="img/backgrounds/flag-usa.png" srcset="img/backgrounds/flag-usa@2x.png 2x" alt="Flag USA"></picture>
-						</div>
-						<div class="service-availability__row service-availability__row--right">
-							<div class="service-availability__title title">Top Dollar Paid for
-								Your Vehicle!</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<section class="page__benefits">
-				<div class="w-full w-full--white">
-					<div class="w-full__content benefits">
-						<div class="benefits__container">
-							<div class="benefits__image-ibg">
-								<picture><source srcset="img/benefits/towing-bg.webp, img/benefits/towing-bg@2x.webp 2x" type="image/webp"><img width="1060" height="796" loading="lazy" decoding="async" src="img/benefits/towing-bg.png" srcset="img/benefits/towing-bg@2x.png 2x" alt="towing car"></picture>
-							</div>
-							<div class="benefits__content">
-								<h2 class="benefits__title main-title section-title">Benefits</h2>
-								<ul class="benefits__items">
-									<li class="benefits__item benefit-item">
-										<div class="benefit-item__icon">
-											<img class="img" width="64" height="64" loading="lazy" decoding="async" src="img/benefits/calendar.svg" alt="calendar icon">
-										</div>
-										<div class="benefit-item__content">
-											<div class="benefit-item__title title">Book Online</div>
-											<div class="benefit-item__text text">Save Your Yime, Guaranteed Online Quote!</div>
-										</div>
-									</li>
-									<li class="benefits__item benefit-item">
-										<div class="benefit-item__icon">
-											<img class="img" width="64" height="64" loading="lazy" decoding="async" src="img/benefits/star.svg" alt="star icon">
-										</div>
-										<div class="benefit-item__content">
-											<div class="benefit-item__title title">Professional & Experienced</div>
-											<div class="benefit-item__text text">We Are Junk Car Buyers With Over 30 years in the Industry, Working Since 1992</div>
-										</div>
-									</li>
-									<li class="benefits__item benefit-item">
-										<div class="benefit-item__icon">
-											<img class="img" width="64" height="64" loading="lazy" decoding="async" src="img/benefits/cash.svg" alt="cash icon">
-										</div>
-										<div class="benefit-item__content">
-											<div class="benefit-item__title title">Guaranteed Highest Offer</div>
-											<div class="benefit-item__text text">We Pay Cash for Junk Cars</div>
-										</div>
-									</li>
-									<li class="benefits__item benefit-item">
-										<div class="benefit-item__icon">
-											<img class="img" width="64" height="64" loading="lazy" decoding="async" src="img/benefits/towing.svg" alt="towing icon">
-										</div>
-										<div class="benefit-item__content">
-											<div class="benefit-item__title title">Free Towing</div>
-											<div class="benefit-item__text text">Same-Day Pick-Up Available</div>
-										</div>
-									</li>
-								</ul>
-							</div>
-							<div class="benefits__bg">
-								<img width="1500" height="822" loading="lazy" decoding="async" src="img/backgrounds/grid-bg.svg" alt="grid background">
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-			<div class="page__sections-padding page__sections-padding--static info">
-				<div class="info__outside-container">
-					<div class="info__body">
-						<div class="info__columns">
-							<div class="info__column info-card w-block">
-								<div class="info-card__title title">Since 2012</div>
-								<div class="info-card__text text">
-									<p>At USJunkYards.com, we buy junk cars and offer junk car removal services nationwide, with the exception of Puerto Rico. Get an instant quote and cash for your junk car today!</p>
-									<p>The actual junk removal simply requires appropriate strength and a fleet of trucks.</p>
-								</div>
-							</div>
-							<div class="info__column info-card w-block">
-								<div class="info-card__title title">We cover the whole USA</div>
-								<div class="info-card__text text">
-									<p>Scheduling pickups and finding the right drop-off points are the two major challenges for a junk removal business owner</p>
-								</div>
-								<div class="info-card__image-map">
-									<img class="img" width="137" height="88" loading="lazy" decoding="async" src="img/backgrounds/usa-map-mini.svg" alt="USA icon">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<section class="page__states-map">
-				<div class="w-full w-full--white">
-					<div class="w-full__content states-map">
-						<div class="states-map__container">
-							<div class="states-map__map-body">
-								<h2 class="states-map__title main-title">States We Serve</h2>
-								<div class="states-map__map">
-
-								</div>
-								<div data-paste class="states-map__search search search--color">
-									<form action="#" class="search__form">
-										<div class="search__item search__item--bg _icon-search">
-											<input data-paste-input required type="text" name="search" placeholder="Zip or City Name" class="search__input">
-											<button type="submit" class="search__btn btn">Find</button>
-										</div>
-									</form>
-									<div class="search__example search__example--color">For example:
-										<div class="search__example-row">
-											<div class="search__example-item">
-												<button data-paste-btn class="underline underline--thin _icon-pointer-simple"><span>New-York</span></button>,
-											</div>
-											<div class="search__example-item">
-												<button data-paste-btn class="underline underline--thin"><span>10001</span></button>,
-											</div>
-											<div class="search__example-item">
-												<button data-paste-btn class="underline underline--thin"><span>NY King Junk Yard</span></button>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="states-map__list list-items">
-								<ul class="list-items__list">
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Alabama</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Alaska</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Arizona</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Arkansas</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">California</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Colorado</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Connecticut</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Delaware</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Florida</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Georgia</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Alabama</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Alaska</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Arizona</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Arkansas</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">California</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Colorado</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Connecticut</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Delaware</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Florida</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Georgia</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Alabama</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Alaska</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Arizona</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Arkansas</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">California</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Colorado</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Connecticut</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Delaware</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Florida</a>
-									</li>
-									<li class="list-items__item">
-										<a href="#" class="list-items__link btn btn--border">Georgia</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
 		</main>
 		<footer class="footer">
 			<div class="w-full w-full--white">
@@ -1739,7 +1304,7 @@
 		</footer>
 	</div>
 
-	<script async src="js/online-quote.min.js?_v=20250808190046"></script>
+	<script async src="js/auth.min.js?_v=20250808190046"></script>
 </body>
 
 </html>
