@@ -3286,6 +3286,10 @@ header._header-pc-scroll .menu__link._active {
   grid-template-columns: 1fr;
 }
 
+.search-results__item--no-found {
+  min-height: 4.625rem;
+}
+
 .search-results__btn {
   min-height: 2rem;
   padding: 0.25rem 0.6875rem;

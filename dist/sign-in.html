@@ -7,16 +7,16 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2">
 
-	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-SemiBold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2">
 
-	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2">
 
 	<style>
 		@font-face {
@@ -84,8 +84,8 @@
 		}
 	</style>
 
-	<link rel="preload" href="css/auth.min.css?_v=20250808193344" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/auth.min.css?_v=20250808193344" crossorigin="anonymous">
+	<link rel="preload" href="css/auth.min.css?_v=20250811143906" as="style">
+	<link rel="stylesheet" href="css/auth.min.css?_v=20250811143906">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -1165,7 +1165,7 @@
 									<div class="auth-form w-block">
 										<div class="auth-form__item-part">
 											<h1 class="auth-form__title sub-title">Sign in</h1>
-											<form action="#" class="auth-form__body">
+											<form data-auth="sign-in" data-validate-notice data-validate action="#" class="auth-form__body">
 												<div class="auth-form__items">
 													<div class="auth-form__item form-item">
 														<label for="email" class="form-item__label form-item__label--no-req">Email</label>
@@ -1182,16 +1182,24 @@
 															<div class="form-item__icon">
 																<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass.svg" alt="password icon">
 															</div>
+															<button data-show-hide-password type="button" class="form-item__icon-password icon-change _active">
+																<i class="icon-change__icon-box">
+																	<img class="img icon-change__icon--hide" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass-hide.svg" alt="hide password icon">
+																	<img class="img icon-change__icon--show" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass-view.svg" alt="show password icon">
+																</i>
+															</button>
 															<input required autocomplete="current-password" id="password" name="password" type="password" placeholder="Enter your password" class="form-item__input">
 														</div>
 													</div>
 												</div>
 												<div class="auth-form__row">
-													<label class="auth-form__checkbox checkbox-item">
-														<input name="remember" type="checkbox" class="checkbox-item__input">
-														<span class="checkbox-item__mark _icon-chevron-check-rounded"></span>
-														<span class="checkbox-item__label">Remember me</span>
-													</label>
+													<div class="auth-form__checkbox">
+														<label class="checkbox-item">
+															<input name="remember" type="checkbox" class="checkbox-item__input">
+															<span class="checkbox-item__mark _icon-chevron-check-rounded"></span>
+															<span class="checkbox-item__label">Remember me</span>
+														</label>
+													</div>
 													<a href="#" class="auth-form__link text-color sub-title-small">Forgot password</a>
 												</div>
 												<button type="submit" class="auth-form__btn btn">Sign in</button>
@@ -1304,7 +1312,7 @@
 		</footer>
 	</div>
 
-	<script async src="js/auth.min.js?_v=20250808193344"></script>
+	<script async src="js/auth.min.js?_v=20250811143906"></script>
 </body>
 
 </html>

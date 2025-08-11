@@ -2957,6 +2957,10 @@ header._header-pc-scroll .menu__link._active {
   grid-template-columns: 1fr;
 }
 
+.search-results__item--no-found {
+  min-height: 4.625rem;
+}
+
 .search-results__btn {
   min-height: 2rem;
   padding: 0.25rem 0.6875rem;
@@ -3023,6 +3027,21 @@ header._header-pc-scroll .menu__link._active {
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+.form-item__icon-password {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  right: 1.5rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.form-item__icon-password .icon-change__icon-box {
+  display: block;
 }
 
 .form-item__input,
@@ -3157,6 +3176,7 @@ header._header-pc-scroll .menu__link._active {
   color: var(--red);
   margin-top: 0.1875rem;
   font-size: 0.9375rem;
+  font-weight: 500;
 }
 
 .checkbox-item {
@@ -3239,11 +3259,14 @@ header._header-pc-scroll .menu__link._active {
 .radio-group {
   display: -ms-grid;
   display: grid;
-  gap: 1rem;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
   justify-items: start;
+}
+
+.radio-group .radio-item:not(:first-child) {
+  margin-top: 1rem;
 }
 
 .radio-item {
@@ -3310,6 +3333,10 @@ header._header-pc-scroll .menu__link._active {
 .radio-item__label {
   font-weight: 600;
   line-height: 0.9375;
+}
+
+.wrapper:has(.page--auth) .header-mobile-bar {
+  display: none;
 }
 
 @supports (padding-bottom: clamp( 2.5rem , -7.1659242762rem  +  15.5902004454vw , 6.875rem )) {
@@ -3392,6 +3419,11 @@ header._header-pc-scroll .menu__link._active {
   gap: 1.5rem;
 }
 
+.auth-form__checkbox {
+  display: -ms-grid;
+  display: grid;
+}
+
 .auth-form__radio:not(:last-child) {
   margin-bottom: 2rem;
 }
@@ -3413,6 +3445,7 @@ header._header-pc-scroll .menu__link._active {
 }
 
 .auth-form__btn-selected {
+  cursor: pointer;
   width: 100%;
   padding-left: 1.5rem;
 }
@@ -3590,6 +3623,10 @@ header._header-pc-scroll .menu__link._active {
     -ms-grid-column-span: 1;
     grid-column: 2/3;
     grid-row: 1/-1;
+  }
+
+  .form-item__icon-password ~ .form-item__input {
+    padding-right: 3.375rem;
   }
 }
 
@@ -4362,9 +4399,23 @@ header._header-pc-scroll .menu__link._active {
     width: 100%;
   }
 
+  .form-item__icon-password {
+    display: none;
+  }
+
   .form-item__textarea {
     resize: vertical;
     max-height: 21.875rem;
+  }
+
+  .auth-form__row {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+        -ms-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
   }
 }
 

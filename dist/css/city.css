@@ -3290,6 +3290,10 @@ header._header-pc-scroll .menu__link._active {
   grid-template-columns: 1fr;
 }
 
+.search-results__item--no-found {
+  min-height: 4.625rem;
+}
+
 .search-results__btn {
   min-height: 2rem;
   padding: 0.25rem 0.6875rem;
@@ -3356,6 +3360,21 @@ header._header-pc-scroll .menu__link._active {
   -webkit-transform: translateY(-50%);
       -ms-transform: translateY(-50%);
           transform: translateY(-50%);
+}
+
+.form-item__icon-password {
+  position: absolute;
+  width: 1.5rem;
+  height: 1.5rem;
+  right: 1.5rem;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.form-item__icon-password .icon-change__icon-box {
+  display: block;
 }
 
 .form-item__input,
@@ -3490,6 +3509,7 @@ header._header-pc-scroll .menu__link._active {
   color: var(--red);
   margin-top: 0.1875rem;
   font-size: 0.9375rem;
+  font-weight: 500;
 }
 
 .call-us-banner__title {
@@ -5646,6 +5666,10 @@ header._header-pc-scroll .menu__link._active {
     grid-row: 1/-1;
   }
 
+  .form-item__icon-password ~ .form-item__input {
+    padding-right: 3.375rem;
+  }
+
   .info-banner__image-ibg_contain {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 43.6079545455%;
@@ -7343,6 +7367,10 @@ header._header-pc-scroll .menu__link._active {
   .search-results__btn {
     margin-top: 0.5rem;
     width: 100%;
+  }
+
+  .form-item__icon-password {
+    display: none;
   }
 
   .form-item__textarea {

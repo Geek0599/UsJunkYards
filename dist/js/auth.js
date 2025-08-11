@@ -546,4 +546,421 @@
         }));
         sectionMap.insertAdjacentElement("afterbegin", svgClone);
     }
+    function setOnFocusPlaceholder() {
+        const inputs = document.querySelectorAll("[data-focus-placeholder]");
+        inputs.forEach((input => {
+            const focusPlaceholder = input.getAttribute("data-focus-placeholder");
+            const initialPlaceholder = input.placeholder;
+            input.addEventListener("focus", (e => {
+                input.setAttribute("placeholder", focusPlaceholder);
+            }));
+            input.addEventListener("blur", (e => {
+                input.setAttribute("placeholder", initialPlaceholder);
+            }));
+        }));
+    }
+    function formValidate() {
+        const validateForms = document.querySelectorAll("[data-validate]");
+        if (validateForms.length) validateForms.forEach((form => {
+            const btnSubmit = form.querySelector('button[type="submit"]');
+            const inputs = Array.from(form.querySelectorAll("input:not([data-no-required]), select, textarea"));
+            const groupRadios = findRadioCheckboxGroup(form, "radio");
+            const groupCheckbox = findRadioCheckboxGroup(form, "checkbox");
+            [ groupRadios, groupCheckbox ].forEach((groupType => {
+                (groupType || []).forEach((group => inputs.push(group)));
+            }));
+            if (inputs.length > 0) {
+                form.addEventListener("submit", (e => {
+                    checkInputs({
+                        inputs,
+                        form,
+                        event: e
+                    });
+                }));
+                form.addEventListener("update-validation", (e => {
+                    checkInputs({
+                        inputs,
+                        form,
+                        event: e
+                    });
+                }));
+                btnSubmit && btnSubmit.addEventListener("click", (e => {
+                    checkInputs({
+                        inputs,
+                        form,
+                        event: e
+                    });
+                }));
+                inputs.forEach((input => {
+                    if (!Array.isArray(input)) {
+                        input.addEventListener("input", (e => formatInput(input)));
+                        input.addEventListener("change", (() => setTimeout((() => {
+                            checkInput({
+                                input
+                            });
+                        }), 0)));
+                        input.addEventListener("blur", (() => {
+                            setTimeout((() => {
+                                if (input.value !== "") checkInput({
+                                    input
+                                });
+                            }), 0);
+                        }));
+                    }
+                }));
+                form.addEventListener("reset", (e => {
+                    inputs.forEach((input => removeStatus({
+                        input
+                    })));
+                }));
+            }
+        }));
+        async function checkInputs({inputs, form, event, onSuccessFormValidateCallback, onErrorFormValidateCallback}) {
+            if (event) event.preventDefault();
+            const isShowNotice = form?.hasAttribute("data-validate-notice");
+            !isShowNotice ? form.reportValidity() : null;
+            form.setAttribute("novalidate", true);
+            let errors = 0;
+            let firstErrorFound = false;
+            form.dispatchEvent(new CustomEvent("start-validation"));
+            for (const input of inputs) if (checkInput({
+                input
+            })) {
+                errors++;
+                if (!firstErrorFound) {
+                    scrollToInput({
+                        input
+                    });
+                    firstErrorFound = true;
+                }
+            }
+            form.dispatchEvent(new CustomEvent("end-validation"));
+            if (!errors) {
+                const successEvent = new Event("form-validation-success");
+                form.dispatchEvent(successEvent);
+                if (onSuccessFormValidateCallback) onSuccessFormValidateCallback();
+            } else {
+                const errorEvent = new Event("form-validation-error");
+                form.dispatchEvent(errorEvent);
+                if (onErrorFormValidateCallback) onErrorFormValidateCallback();
+            }
+        }
+        function checkInput({input, isTextNotice = false}) {
+            let isError = false;
+            if (Array.isArray(input)) {
+                const isRequired = input.every((radioOrCheckbox => radioOrCheckbox.required === true));
+                let isGroupFilled = input.some((radioOrCheckbox => radioOrCheckbox.checked === true));
+                if (isRequired && !isGroupFilled) {
+                    showTextNotice({
+                        input,
+                        text: "Choose value",
+                        isTextNotice
+                    });
+                    return isError = true;
+                }
+                return isError = false;
+            }
+            const value = input.value.trim();
+            if (input.required || input.hasAttribute("data-required") || value !== "") {
+                if (value === "") {
+                    showTextNotice({
+                        input,
+                        text: "This field is required",
+                        isTextNotice
+                    });
+                    return isError = true;
+                }
+                if (input.hasAttribute("data-math-field")) {
+                    const forMathField = input.getAttribute("data-math-field");
+                    const forMatchInput = input.form.querySelector("input[data-for-math]");
+                    if (forMathField && forMatchInput && forMathField === forMatchInput.getAttribute("data-for-math")) if (input.value !== forMatchInput.value) {
+                        showTextNotice({
+                            input,
+                            text: `This field must match ${forMathField} field`,
+                            isTextNotice
+                        });
+                        return isError = true;
+                    }
+                }
+                if (input.hasAttribute("data-number-format")) {
+                    const isValidDecimal = /^(\d+([.,]\d+)?)?$/.test(value);
+                    if (!isValidDecimal) {
+                        showTextNotice({
+                            input,
+                            text: "Only numbers are allowed",
+                            isTextNotice
+                        });
+                        return isError = true;
+                    }
+                }
+                if (input.hasAttribute("data-number-float-format")) {
+                    const value = input.value;
+                    const isValidDecimal = /^(\d+[.,]?\d*|\d*[.,]?\d+)$/g.test(value);
+                    if (!isValidDecimal) {
+                        showTextNotice({
+                            input,
+                            text: "Only valid numbers are allowed",
+                            isTextNotice
+                        });
+                        return isError = true;
+                    }
+                }
+                if (input.hasAttribute("data-text-format")) if (!/^[a-zA-Z\s]+$/.test(value)) {
+                    showTextNotice({
+                        input,
+                        text: `Only ${/[а-яА-Я]/.test(value) ? "Latin" : ""} letters are allowed`,
+                        isTextNotice
+                    });
+                    return isError = true;
+                }
+                if (input.type === "email") if (value !== "" && !isEmailValid(input)) {
+                    showTextNotice({
+                        input,
+                        text: "Your email address must be in the format of name@domain.com",
+                        isTextNotice
+                    });
+                    return isError = true;
+                }
+                const minLength = input.hasAttribute("data-minlength") ? Number(input.dataset.minlength) : null;
+                const maxLength = input.hasAttribute("data-maxlength") ? Number(input.dataset.maxlength) : null;
+                if (minLength !== null && value.length < minLength) {
+                    if (input.id == "year") showTextNotice({
+                        input,
+                        text: "Please enter the correct year",
+                        isTextNotice
+                    }); else showTextNotice({
+                        input,
+                        text: `Please enter at least ${minLength} characters`,
+                        isTextNotice
+                    });
+                    return isError = true;
+                }
+                if (maxLength !== null && value.length > maxLength) {
+                    showTextNotice({
+                        input,
+                        text: `Please enter less than ${minLength} characters`,
+                        isTextNotice
+                    });
+                    return isError = true;
+                }
+                const minValue = input.hasAttribute("data-min-value") ? Number(input.dataset.minValue) : null;
+                const maxValue = input.hasAttribute("data-max-value") ? Number(input.dataset.maxValue) : null;
+                if (minValue !== null && Number(value) < minValue) {
+                    showTextNotice({
+                        input,
+                        text: `Please enter a value greater than or equal to ${minValue}`,
+                        isTextNotice
+                    });
+                    return isError = true;
+                }
+                if (maxValue !== null && Number(value) > maxValue) {
+                    showTextNotice({
+                        input,
+                        text: `Please enter a value less than or equal to ${maxValue}`,
+                        isTextNotice
+                    });
+                    return isError = true;
+                }
+                if (input.inputmask) {
+                    const status = !input.inputmask.isComplete();
+                    if (status && value !== "") {
+                        showTextNotice({
+                            input,
+                            text: "Please enter full phone number",
+                            isTextNotice
+                        });
+                        return isError = true;
+                    }
+                }
+                if (input.required || input.hasAttribute("data-required") || value !== "") if (isError) addError({
+                    input
+                }); else if (input) removeError({
+                    input
+                });
+            } else if (value === "") removeStatus({
+                input
+            }); else removeError({
+                input
+            });
+            return isError;
+        }
+        function formatInput(input) {
+            if (input.hasAttribute("data-maxlength")) {
+                const maxLength = input.getAttribute("data-maxlength");
+                if (input.value.length > maxLength) input.value = input.value.slice(0, maxLength);
+            }
+            if (input.hasAttribute("data-number-format")) input.value = input.value.replace(/\D/g, "");
+            if (input.hasAttribute("data-number-float-format")) {
+                input.type = "text";
+                const start = input.selectionStart;
+                const end = input.selectionEnd;
+                let value = input.value;
+                value = value.replace(/[^0-9.,]/g, "");
+                const parts = value.split(/[.,]/);
+                if (parts.length > 2) value = parts[0] + (value.includes(".") ? "." : ",") + parts[1];
+                input.value = value;
+                input.setSelectionRange(start, end);
+            }
+        }
+        function addError({input}) {
+            input.classList.remove("_validated");
+            input.classList.add("_no-validated");
+            input.setAttribute("aria-invalid", "true");
+            if (!input.wasError) {
+                input.addEventListener("input", (() => setTimeout((() => {
+                    checkInput({
+                        input
+                    });
+                }), 0)));
+                input.wasError = true;
+            }
+        }
+        function removeError({input}) {
+            input.classList.remove("_no-validated");
+            input.classList.add("_validated");
+            input.setAttribute("aria-invalid", "false");
+            removeTextNotice({
+                input
+            });
+        }
+        function removeStatus({input}) {
+            input.classList.remove("_no-validated", "_validated");
+            input.removeAttribute("aria-invalid");
+            removeTextNotice({
+                input
+            });
+        }
+        function isEmailValid(input) {
+            return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/.test(input.value);
+        }
+        function showTextNotice({input, text, isTextNotice = false}) {
+            input = Array.isArray(input) ? input[0] : input;
+            const isShowNotice = isTextNotice || input.closest("[data-validate]")?.hasAttribute("data-validate-notice");
+            let notice = input.parentElement.parentElement.querySelector(".form-item__notice");
+            const textNotice = input.hasAttribute("data-error-notice") ? input.getAttribute("data-error-notice") : text;
+            if (isShowNotice) if (notice && notice.textContent !== textNotice) notice.textContent = textNotice; else if (!notice) {
+                notice = document.createElement("label");
+                notice.classList.add("form-item__notice");
+                input.id ? notice.setAttribute("for", input.id) : null;
+                notice.textContent = textNotice;
+                if ([ "radio", "checkbox" ].includes(input.type)) input.parentElement.parentElement.insertAdjacentElement("beforeend", notice); else input.parentElement.insertAdjacentElement("afterend", notice);
+            }
+            addError({
+                input
+            });
+        }
+        function removeTextNotice({input}) {
+            const notice = input.parentElement.parentElement.querySelector(".form-item__notice");
+            notice && notice.remove();
+        }
+        function scrollToInput({input}) {
+            const inputWithError = Array.isArray(input) ? input[0] : input;
+            const errorNotice = input.parentElement.parentElement.querySelector(".form-item__notice");
+            (errorNotice && inputWithError.offsetWidth === 0 ? errorNotice : inputWithError).scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+        function findRadioCheckboxGroup(parentSelector, type) {
+            const groups = new Map;
+            parentSelector.querySelectorAll(`input[type="${type}"]`).forEach((radioCheckbox => {
+                const name = radioCheckbox.getAttribute("name");
+                if (!groups.has(name)) groups.set(name, []);
+                groups.get(name).push(radioCheckbox);
+            }));
+            return groups;
+        }
+        window.formValidate = {
+            showTextNotice,
+            removeTextNotice,
+            removeError,
+            removeStatus,
+            addError,
+            checkInputs,
+            checkInput,
+            scrollToInput
+        };
+        return {
+            showTextNotice,
+            removeTextNotice,
+            removeError,
+            removeStatus,
+            addError,
+            checkInputs,
+            checkInput,
+            scrollToInput
+        };
+    }
+    setOnFocusPlaceholder();
+    const {removeTextNotice, showTextNotice, scrollToInput} = formValidate();
+    function authFormSignUp() {
+        const form = document.querySelector('[data-auth="sign-up"]');
+        if (!form) return;
+        const searchWrapper = form.querySelector(".auth-form__search");
+        const searchBtn = searchWrapper.querySelector(".search__btn");
+        const searchInput = searchWrapper.querySelector(".search__input");
+        const searchResults = form.querySelector(".search-results");
+        const selectedCompanyBtn = form.querySelector(".auth-form__btn-selected");
+        const selectedCompanyInput = selectedCompanyBtn.querySelector("input");
+        const selectedCompanyText = selectedCompanyBtn.querySelector("span");
+        const hideSearchResults = () => searchResults.classList.add("_hide");
+        const showSearchResults = () => searchResults.classList.remove("_hide");
+        const selectCompany = companyName => {
+            selectedCompanyText.textContent = companyName;
+            selectedCompanyInput.value = companyName;
+            showSearchResults();
+            searchWrapper.style.display = "none";
+            selectedCompanyBtn.style.removeProperty("display");
+            removeTextNotice({
+                input: selectedCompanyInput
+            });
+        };
+        const resetCompanySelection = () => {
+            selectedCompanyBtn.style.display = "none";
+            searchWrapper.style.removeProperty("display");
+            selectedCompanyInput.value = "";
+        };
+        searchBtn.addEventListener("click", (() => searchInput.focus()));
+        searchInput.addEventListener("focus", showSearchResults);
+        document.addEventListener("click", (e => {
+            const target = e.target;
+            if (!target.closest(".auth-form__search") && !target.closest(".search-results")) hideSearchResults();
+            if (target.closest(".search-results__btn")) {
+                const item = target.closest(".search-results__item");
+                const name = item.querySelector(".search-results__name").textContent.trim();
+                selectCompany(name);
+            }
+        }));
+        selectedCompanyBtn.addEventListener("click", resetCompanySelection);
+        selectedCompanyBtn.addEventListener("keydown", (e => {
+            if (e.key === "Enter") resetCompanySelection();
+        }));
+        form.addEventListener("form-validation-success", (() => form.submit()));
+    }
+    authFormSignUp();
+    function authFormSignIn() {
+        const form = document.querySelector('[data-auth="sign-in"]');
+        if (form) form.addEventListener("form-validation-success", (e => {
+            form.submit();
+        }));
+    }
+    authFormSignIn();
+    function authFormPasswordReset() {
+        const form = document.querySelector('[data-auth="password-reset"]');
+        if (form) form.addEventListener("form-validation-success", (e => {
+            form.submit();
+        }));
+    }
+    authFormPasswordReset();
+    function toggleShowPasswordIcon() {
+        const btns = document.querySelectorAll("[data-show-hide-password]");
+        btns.forEach((btn => {
+            btn.addEventListener("click", (() => {
+                const input = btn.parentElement.querySelector("input");
+                btn.classList.toggle("_active");
+                input.type = input.type === "password" ? "text" : "password";
+            }));
+        }));
+    }
+    toggleShowPasswordIcon();
 })();

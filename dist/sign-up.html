@@ -7,16 +7,16 @@
 	<meta name="format-detection" content="telephone=no">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/SairaCondensed-Black.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/SairaCondensed-Regular.woff2" as="font" type="font/woff2">
 
-	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-SemiBold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/Manrope-ExtraBold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Bold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-SemiBold.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Medium.woff2" as="font" type="font/woff2">
+	<link rel="preload" href="./fonts/Manrope-Regular.woff2" as="font" type="font/woff2">
 
-	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/icons.woff2" as="font" type="font/woff2">
 
 	<style>
 		@font-face {
@@ -84,8 +84,8 @@
 		}
 	</style>
 
-	<link rel="preload" href="css/auth.min.css?_v=20250808193344" as="style" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/auth.min.css?_v=20250808193344" crossorigin="anonymous">
+	<link rel="preload" href="css/auth.min.css?_v=20250811143906" as="style">
+	<link rel="stylesheet" href="css/auth.min.css?_v=20250811143906">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -1161,7 +1161,7 @@
 					<div class="w-full__content main">
 						<div class="main__container">
 							<div class="main__body">
-								<form action="#" class="main__content">
+								<form data-validate-notice data-auth="sign-up" data-validate action="#" class="main__content">
 									<div class="auth-form w-block">
 										<div class="auth-form__item-part">
 											<h1 class="auth-form__title sub-title">Sign up</h1>
@@ -1171,7 +1171,7 @@
 													<div class="form-item__icon">
 														<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/user.svg" alt="user icon">
 													</div>
-													<input required id="name" name="name" autocomplete="username" type="text" placeholder="Enter your name" class="form-item__input">
+													<input data-minlength="2" data-text-format required id="name" name="name" autocomplete="username" type="text" placeholder="Enter your name" class="form-item__input">
 												</div>
 											</div>
 										</div>
@@ -1198,7 +1198,13 @@
 															<div class="form-item__icon">
 																<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass.svg" alt="password icon">
 															</div>
-															<input required autocomplete="new-password" id="password" name="password" type="password" placeholder="Enter your password" class="form-item__input">
+															<button data-show-hide-password type="button" class="form-item__icon-password icon-change _active">
+																<i class="icon-change__icon-box">
+																	<img class="img icon-change__icon--hide" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass-hide.svg" alt="hide password icon">
+																	<img class="img icon-change__icon--show" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass-view.svg" alt="show password icon">
+																</i>
+															</button>
+															<input data-for-math="password" data-minlength="8" required autocomplete="new-password" id="password" name="password" type="password" placeholder="Enter your password" class="form-item__input">
 														</div>
 													</div>
 													<div class="auth-form__item form-item">
@@ -1210,7 +1216,13 @@
 															<div class="form-item__icon">
 																<img class="img" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass.svg" alt="password icon">
 															</div>
-															<input required autocomplete="new-password" id="password-confirm" name="password_confirmation" type="password" placeholder="Repeat password" class="form-item__input">
+															<button data-show-hide-password type="button" class="form-item__icon-password icon-change _active">
+																<i class="icon-change__icon-box">
+																	<img class="img icon-change__icon--hide" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass-hide.svg" alt="hide password icon">
+																	<img class="img icon-change__icon--show" width="24" height="24" loading="lazy" decoding="async" src="img/icons/pass-view.svg" alt="show password icon">
+																</i>
+															</button>
+															<input data-math-field="password" required autocomplete="new-password" id="password-confirm" name="password_confirmation" type="password" placeholder="Repeat password" class="form-item__input">
 														</div>
 													</div>
 												</div>
@@ -1221,7 +1233,7 @@
 												site?</h2>
 											<div class="auth-form__radio radio-group">
 												<label class="radio-item">
-													<input required checked type="radio" name="owner_company" value="true" class="radio-item__input">
+													<input checked required type="radio" name="owner_company" value="true" class="radio-item__input">
 													<span class="radio-item__mark"></span>
 													<span class="radio-item__label">Yes</span>
 												</label>
@@ -1237,7 +1249,7 @@
 												<div class="search search--mobile">
 													<div class="search__form">
 														<div class="search__item _icon-search">
-															<input required type="text" name="search" placeholder="Junkyards Search..." class="search__input" autocomplete="none">
+															<input type="text" name="search" data-focus-placeholder="Start entering..." placeholder="Junkyards Search..." class="search__input" autocomplete="off">
 															<button type="button" class="search__btn btn btn--bg">Find</button>
 														</div>
 													</div>
@@ -1245,70 +1257,94 @@
 														<ul class="search-results__list">
 															<li class="search-results__list-item">
 																<div class="search-results__item">
-																	<div class="search-results__name">Barry's U Pull It Auto Parts</div>
-																	<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																	</div>
+																	<a target="_blank" href="#" class="search-results__link">
+																		<div class="search-results__name">Barry's U Pull It Auto Parts</div>
+																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
+																		</div>
+																	</a>
 																	<button type="button" class="search-results__btn">Select</button>
 																</div>
 															</li>
 															<li class="search-results__list-item">
 																<div class="search-results__item">
-																	<div class="search-results__name">EZ Pull N Pay</div>
-																	<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																	</div>
+																	<a target="_blank" href="#" class="search-results__link">
+																		<div class="search-results__name">EZ Pull N Pay</div>
+																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601</div>
+																	</a>
 																	<button type="button" class="search-results__btn">Select</button>
 																</div>
 															</li>
 															<li class="search-results__list-item">
 																<div class="search-results__item">
-																	<div class="search-results__name">Johnson's Wrecking Used & Rebuilt Auto & Truck Parts </div>
-																	<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																	</div>
+																	<a target="_blank" href="#" class="search-results__link">
+																		<div class="search-results__name">Johnson's Wrecking Used & Rebuilt Auto & Truck Parts </div>
+																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601</div>
+																	</a>
 																	<button type="button" class="search-results__btn">Select</button>
 																</div>
 															</li>
 															<li class="search-results__list-item">
 																<div class="search-results__item">
-																	<div class="search-results__name">Buddy's U Pull Used Auto Parts</div>
-																	<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																	</div>
+																	<a target="_blank" href="#" class="search-results__link">
+																		<div class="search-results__name">Buddy's U Pull Used Auto Parts</div>
+																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
+																		</div>
+																	</a>
 																	<button type="button" class="search-results__btn">Select</button>
 																</div>
 															</li>
 															<li class="search-results__list-item">
 																<div class="search-results__item">
-																	<div class="search-results__name">Mission Wrecker Service – Car Towing & Heavy Duty Recovery</div>
-																	<div class="search-results__text">4535 Farm to Market 1516, Converse, TX, United States</div>
+																	<a target="_blank" href="#" class="search-results__link">
+																		<div class="search-results__name">Mission Wrecker Service – Car Towing & Heavy Duty Recovery</div>
+																		<div class="search-results__text">4535 Farm to Market 1516, Converse, TX, United States</div>
+																	</a>
 																	<button type="button" class="search-results__btn">Select</button>
 																</div>
 															</li>
 															<li class="search-results__list-item">
 																<div class="search-results__item">
-																	<div class="search-results__name">Barry's U Pull It Auto Parts</div>
-																	<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																	</div>
+																	<a target="_blank" href="#" class="search-results__link">
+																		<div class="search-results__name">Barry's U Pull It Auto Parts</div>
+																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
+																		</div>
+																	</a>
 																	<button type="button" class="search-results__btn">Select</button>
 																</div>
 															</li>
 															<li class="search-results__list-item">
 																<div class="search-results__item">
-																	<div class="search-results__name">Barry's U Pull It Auto Parts</div>
-																	<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																	</div>
+																	<a target="_blank" href="#" class="search-results__link">
+																		<div class="search-results__name">Barry's U Pull It Auto Parts</div>
+																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
+																		</div>
+																	</a>
 																	<button type="button" class="search-results__btn">Select</button>
+																</div>
+															</li>
+
+															<li class="search-results__list-item">
+																<div class="search-results__item">
+																	<div class="search-results__loading text-center">
+																		<img width="45" height="45" loading="lazy" decoding="async" src="img/icons/loader.svg" alt="loader spinner">
+																	</div>
+																</div>
+															</li>
+															<li class="search-results__list-item">
+																<div class="search-results__item search-results__item--no-found">
+																	<div class="search-results__text text-center">Nothing was found</div>
 																</div>
 															</li>
 														</ul>
 													</div>
 												</div>
 											</div>
-											<div style="display: none;" role="button" class="auth-form__btn-selected btn btn--bg">
-												<input type="hidden" name="company_name" value="">
+											<div tabindex="0" style="display: none;" role="button" class="auth-form__btn-selected btn btn--bg">
+												<input data-required data-error-notice="Please find and select your company" type="hidden" name="company_name" value="">
 												<span></span>
 												<img width="32" height="32" loading="lazy" decoding="async" src="img/icons/close-rounded.svg" alt="close icon">
 											</div>
-											<div class="auth-form__text-small text-small">You’ll need to verify that you’re the business
-												owner to manage the listing.</div>
+											<div class="auth-form__text-small text-small">You’ll need to verify that you’re the businessowner to manage the listing.</div>
 											<button type="submit" class="auth-form__btn btn">Sign up</button>
 										</div>
 									</div>
@@ -1413,50 +1449,51 @@
 		</footer>
 	</div>
 
-	<script>
-		const search = document.querySelector('.auth-form__search');
-		const searchBtn = search.querySelector('.search__btn');
-		const searchInput = search.querySelector('.search__input');
-		const searchResults = document.querySelector('.search-results');
-		const searchResultBtn = document.querySelector('.auth-form__btn-selected ');
-		const searchResultBtnTextSpan = searchResultBtn.querySelector('span');
-		const searchResultBtnInput = searchResultBtn.querySelector('input');
-		const initialPlaceholder = searchInput.getAttribute('placeholder')
+	<!-- <script>
+	const search = document.querySelector('.auth-form__search');
+	const searchBtn = search.querySelector('.search__btn');
+	const searchInput = search.querySelector('.search__input');
+	const searchResults = document.querySelector('.search-results');
+	const searchResultBtn = document.querySelector('.auth-form__btn-selected ');
+	const searchResultBtnTextSpan = searchResultBtn.querySelector('span');
+	const searchResultBtnInput = searchResultBtn.querySelector('input');
+	const initialPlaceholder = searchInput.getAttribute('placeholder')
 
-		searchBtn.addEventListener('click', (e) => {
-			searchInput.focus()
-			searchInput.setAttribute('placeholder', 'Start entering...')
-		})
-		searchInput.addEventListener('click', (e) => {
-			searchResults.classList.remove('_hide');
-			searchInput.setAttribute('placeholder', 'Start entering...')
-		})
-		document.addEventListener('click', (e) => {
-			if (!e.target.closest('.auth-form__search') && !e.target.closest('.search-results')) {
-				searchResults.classList.add('_hide');
-				searchInput.setAttribute('placeholder', initialPlaceholder)
-			}
-
-			if (e.target.closest('.search-results__btn')) {
-				const name = e.target.closest('.search-results__item').querySelector('.search-results__name').textContent;
-
-				searchResultBtnTextSpan.textContent = name
-				searchResultBtnInput.value = name
-				searchResults.classList.remove('_hide');
-
-				search.style.display = 'none'
-				searchResultBtn.removeAttribute('style');
-			}
-		})
-
-		searchResultBtn.addEventListener('click', (e) => {
-			searchResultBtn.style.display = 'none'
-			search.removeAttribute('style');
+	searchBtn.addEventListener('click', (e) => {
+		searchInput.focus()
+		searchInput.setAttribute('placeholder', 'Start entering...')
+	})
+	searchInput.addEventListener('click', (e) => {
+		searchResults.classList.remove('_hide');
+		searchInput.setAttribute('placeholder', 'Start entering...')
+	})
+	document.addEventListener('click', (e) => {
+		if (!e.target.closest('.auth-form__search') && !e.target.closest('.search-results')) {
+			searchResults.classList.add('_hide');
 			searchInput.setAttribute('placeholder', initialPlaceholder)
-		})
-	</script>
+		}
 
-	<script async src="js/auth.min.js?_v=20250808193344"></script>
+		if (e.target.closest('.search-results__btn')) {
+			const name = e.target.closest('.search-results__item').querySelector('.search-results__name').textContent;
+
+			searchResultBtnTextSpan.textContent = name
+			searchResultBtnInput.value = name
+			searchResults.classList.remove('_hide');
+
+			search.style.display = 'none'
+			searchResultBtn.removeAttribute('style');
+		}
+	})
+
+	searchResultBtn.addEventListener('click', (e)=>{
+		searchResultBtn.style.display = 'none'
+		search.removeAttribute('style');
+		searchInput.setAttribute('placeholder', initialPlaceholder)
+	})
+
+</script> -->
+
+	<script async src="js/auth.min.js?_v=20250811143906"></script>
 </body>
 
 </html>
