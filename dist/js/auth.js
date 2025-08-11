@@ -909,15 +909,15 @@
             selectedCompanyText.textContent = companyName;
             selectedCompanyInput.value = companyName;
             showSearchResults();
-            searchWrapper.style.display = "none";
-            selectedCompanyBtn.style.removeProperty("display");
+            searchWrapper.classList.add("hidden");
+            selectedCompanyBtn.classList.remove("hidden");
             removeTextNotice({
                 input: selectedCompanyInput
             });
         };
         const resetCompanySelection = () => {
-            selectedCompanyBtn.style.display = "none";
-            searchWrapper.style.removeProperty("display");
+            selectedCompanyBtn.classList.add("hidden");
+            searchWrapper.classList.remove("hidden");
             selectedCompanyInput.value = "";
         };
         searchBtn.addEventListener("click", (() => searchInput.focus()));
