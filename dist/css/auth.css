@@ -4408,6 +4408,10 @@ header._header-pc-scroll .menu__link._active {
     max-height: 21.875rem;
   }
 
+  .wrapper:has(.page--auth):has(header._header-full-scroll) {
+    padding-bottom: 0.5rem;
+  }
+
   .auth-form__row {
     -webkit-box-orient: vertical;
     -webkit-box-direction: reverse;
