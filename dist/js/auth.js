@@ -952,6 +952,13 @@
         }));
     }
     authFormPasswordReset();
+    function authFormNewPassword() {
+        const form = document.querySelector('[data-auth="new-password"]');
+        if (form) form.addEventListener("form-validation-success", (e => {
+            form.submit();
+        }));
+    }
+    authFormNewPassword();
     function toggleShowPasswordIcon() {
         const btns = document.querySelectorAll("[data-show-hide-password]");
         btns.forEach((btn => {

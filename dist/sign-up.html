@@ -84,8 +84,8 @@
 		}
 	</style>
 
-	<link rel="preload" href="css/auth.min.css?_v=20250812072853" as="style">
-	<link rel="stylesheet" href="css/auth.min.css?_v=20250812072853">
+	<link rel="preload" href="css/auth.min.css?_v=20250812092534" as="style">
+	<link rel="stylesheet" href="css/auth.min.css?_v=20250812092534">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -1437,51 +1437,7 @@
 		</footer>
 	</div>
 
-	<!-- <script>
-	const search = document.querySelector('.auth-form__search');
-	const searchBtn = search.querySelector('.search__btn');
-	const searchInput = search.querySelector('.search__input');
-	const searchResults = document.querySelector('.search-results');
-	const searchResultBtn = document.querySelector('.auth-form__btn-selected ');
-	const searchResultBtnTextSpan = searchResultBtn.querySelector('span');
-	const searchResultBtnInput = searchResultBtn.querySelector('input');
-	const initialPlaceholder = searchInput.getAttribute('placeholder')
-
-	searchBtn.addEventListener('click', (e) => {
-		searchInput.focus()
-		searchInput.setAttribute('placeholder', 'Start entering...')
-	})
-	searchInput.addEventListener('click', (e) => {
-		searchResults.classList.remove('_hide');
-		searchInput.setAttribute('placeholder', 'Start entering...')
-	})
-	document.addEventListener('click', (e) => {
-		if (!e.target.closest('.auth-form__search') && !e.target.closest('.search-results')) {
-			searchResults.classList.add('_hide');
-			searchInput.setAttribute('placeholder', initialPlaceholder)
-		}
-
-		if (e.target.closest('.search-results__btn')) {
-			const name = e.target.closest('.search-results__item').querySelector('.search-results__name').textContent;
-
-			searchResultBtnTextSpan.textContent = name
-			searchResultBtnInput.value = name
-			searchResults.classList.remove('_hide');
-
-			search.style.display = 'none'
-			searchResultBtn.removeAttribute('style');
-		}
-	})
-
-	searchResultBtn.addEventListener('click', (e)=>{
-		searchResultBtn.style.display = 'none'
-		search.removeAttribute('style');
-		searchInput.setAttribute('placeholder', initialPlaceholder)
-	})
-
-</script> -->
-
-	<script async src="js/auth.min.js?_v=20250812072853"></script>
+	<script async src="js/auth.min.js?_v=20250812092534"></script>
 </body>
 
 </html>
