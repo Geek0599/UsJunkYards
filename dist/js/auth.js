@@ -647,6 +647,7 @@
         }
         function checkInput({input, isTextNotice = false}) {
             let isError = false;
+            if (!Array.isArray(input) && input.hasAttribute("data-skip-validation")) return isError = false;
             if (Array.isArray(input)) {
                 const isRequired = input.every((radioOrCheckbox => radioOrCheckbox.required === true));
                 let isGroupFilled = input.some((radioOrCheckbox => radioOrCheckbox.checked === true));

@@ -3908,6 +3908,7 @@
             }
             function checkInput({input, isTextNotice = false}) {
                 let isError = false;
+                if (!Array.isArray(input) && input.hasAttribute("data-skip-validation")) return isError = false;
                 if (Array.isArray(input)) {
                     const isRequired = input.every((radioOrCheckbox => radioOrCheckbox.required === true));
                     let isGroupFilled = input.some((radioOrCheckbox => radioOrCheckbox.checked === true));
@@ -4422,10 +4423,30 @@
             window.popupSimple = new PopupSimple(bodyLock, bodyUnlock);
         }
         clickOnLabelKeyEnter();
-        formValidate();
+        const {removeStatus} = formValidate();
         setInputmode();
         initInputMask();
         initUploadPhotoInput();
         initPopupSimple();
+        function showHideWithValidationTrimField() {
+            const yearInput = document.getElementById("year");
+            const trimInput = document.getElementById("trim");
+            const trimFormItem = trimInput.closest(".form-item");
+            yearInput.addEventListener("input", (e => {
+                const value = e.target.value;
+                if (Number(value) >= 2e3) {
+                    trimInput.removeAttribute("data-skip-validation");
+                    trimFormItem.classList.remove("hidden");
+                } else if (!trimInput.hasAttribute("data-skip-validation")) {
+                    trimInput.setAttribute("data-skip-validation", "");
+                    trimFormItem.classList.add("hidden");
+                    trimInput.value = "";
+                    removeStatus({
+                        input: trimInput
+                    });
+                }
+            }));
+        }
+        showHideWithValidationTrimField();
     })();
 })();
