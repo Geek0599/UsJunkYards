@@ -825,11 +825,19 @@
             });
         }
         function removeStatus({input}) {
-            input.classList.remove("_no-validated", "_validated");
-            input.removeAttribute("aria-invalid");
-            removeTextNotice({
-                input
-            });
+            if (!Array.isArray(input)) {
+                input.classList.remove("_no-validated", "_validated");
+                input.removeAttribute("aria-invalid");
+                removeTextNotice({
+                    input
+                });
+            } else input.forEach((elInput => {
+                elInput.classList.remove("_no-validated", "_validated");
+                elInput.removeAttribute("aria-invalid");
+                removeTextNotice({
+                    input: elInput
+                });
+            }));
         }
         function isEmailValid(input) {
             return /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,63}$/.test(input.value);
@@ -856,7 +864,7 @@
         }
         function scrollToInput({input}) {
             const inputWithError = Array.isArray(input) ? input[0] : input;
-            const errorNotice = input.parentElement.parentElement.querySelector(".form-item__notice");
+            const errorNotice = inputWithError.parentElement.parentElement.querySelector(".form-item__notice");
             (errorNotice && inputWithError.offsetWidth === 0 ? errorNotice : inputWithError).scrollIntoView({
                 behavior: "smooth",
                 block: "center"
