@@ -4439,8 +4439,8 @@
         function showHideWithValidationTrimField() {
             const yearInput = document.getElementById("year");
             const trimInput = document.getElementById("trim");
-            if (!yearInput || !trimInput) return;
-            const trimFormItem = trimInput.closest(".form-item");
+            const trimFormItem = trimInput?.closest(".form-item");
+            if (!yearInput || !trimInput || !trimFormItem) return;
             yearInput.addEventListener("input", (e => {
                 const value = e.target.value;
                 if (Number(value) >= 2e3) {
