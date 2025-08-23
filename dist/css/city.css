@@ -16,6 +16,14 @@
   display: inline-block;
 }
 
+._icon-dashboard:before {
+  content: "\e917";
+}
+
+._icon-sign-out:before {
+  content: "\e918";
+}
+
 ._icon-chevron-check-rounded:before {
   content: "\e916";
 }
@@ -2249,6 +2257,11 @@ header._header-pc-scroll .menu__link._active {
       -ms-flex-align: start;
           align-items: flex-start;
   gap: 0.5rem;
+}
+
+.menu-icon__row--items .schedule-time__icon {
+  gap: 0.25rem;
+  margin-top: 0.125rem;
 }
 
 .menu-icon__title {
@@ -7253,10 +7266,6 @@ header._header-pc-scroll .menu__link._active {
 
   .header._header-full-scroll .menu-icon__row--head .menu-icon__btn {
     display: none;
-  }
-
-  .menu-icon__row--items {
-    gap: 0.25rem;
   }
 
   .menu-icon__row--items .schedule-time__icon {

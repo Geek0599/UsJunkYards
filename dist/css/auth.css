@@ -14,6 +14,14 @@
   display: inline-block;
 }
 
+._icon-dashboard:before {
+  content: "\e917";
+}
+
+._icon-sign-out:before {
+  content: "\e918";
+}
+
 ._icon-chevron-check-rounded:before {
   content: "\e916";
 }
@@ -2231,6 +2239,11 @@ header._header-pc-scroll .menu__link._active {
   gap: 0.5rem;
 }
 
+.menu-icon__row--items .schedule-time__icon {
+  gap: 0.25rem;
+  margin-top: 0.125rem;
+}
+
 .menu-icon__title {
   margin-bottom: 0.5rem;
 }
@@ -3384,6 +3397,14 @@ header._header-pc-scroll .menu__link._active {
   border-bottom: 0.0625rem solid var(--border);
 }
 
+.auth-form__item-inner:not(:first-child) {
+  margin-top: 2rem;
+}
+
+.auth-form__item-inner:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
 .auth-form__title {
   margin-bottom: 1.5rem;
 }
@@ -3425,19 +3446,11 @@ header._header-pc-scroll .menu__link._active {
 }
 
 .auth-form__radio:not(:last-child) {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .auth-form__text:not(:last-child) {
   margin-bottom: 1.5rem;
-}
-
-.auth-form__text-small:not(:first-child) {
-  margin-top: 1.5rem;
-}
-
-.auth-form__text-small:not(:last-child) {
-  margin-bottom: 2rem;
 }
 
 .auth-form__btn {
@@ -3448,6 +3461,19 @@ header._header-pc-scroll .menu__link._active {
   cursor: pointer;
   width: 100%;
   padding-left: 1.5rem;
+}
+
+.auth-form__text-banner:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+.text-banner {
+  padding: 1rem 1.5rem;
+  background-color: var(--gray-bg-second);
+  border-radius: 0.75rem;
+  display: -ms-grid;
+  display: grid;
+  gap: 0.75rem;
 }
 
 @media (min-width: 29.99875em) {
@@ -4321,10 +4347,6 @@ header._header-pc-scroll .menu__link._active {
 
   .header._header-full-scroll .menu-icon__row--head .menu-icon__btn {
     display: none;
-  }
-
-  .menu-icon__row--items {
-    gap: 0.25rem;
   }
 
   .menu-icon__row--items .schedule-time__icon {

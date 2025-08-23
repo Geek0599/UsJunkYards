@@ -84,8 +84,8 @@
 		}
 	</style>
 
-	<link rel="preload" href="css/auth.min.css?_v=20250822110417" as="style">
-	<link rel="stylesheet" href="css/auth.min.css?_v=20250822110417">
+	<link rel="preload" href="css/auth.min.css?_v=20250823125230" as="style">
+	<link rel="stylesheet" href="css/auth.min.css?_v=20250823125230">
 
 	<link rel="icon" type="image/png" href="img/favicon/favicon-96x96.png" sizes="96x96">
 	<link rel="icon" type="image/svg+xml" href="img/favicon/favicon.svg">
@@ -226,6 +226,12 @@
 												</li>
 												<li class="menu-icon__item">
 													<a href="#" class="menu-icon__link text-title _icon-sign-in">Sign in</a>
+												</li>
+												<li class="menu-icon__item">
+													<a href="#" class="menu-icon__link text-title _icon-sign-out">Sign out</a>
+												</li>
+												<li class="menu-icon__item">
+													<a href="#" class="menu-icon__link text-title _icon-dashboard">Dashboard</a>
 												</li>
 											</ul>
 										</div>
@@ -1217,122 +1223,131 @@
 											</div>
 										</div>
 										<div class="auth-form__item-part">
-											<h2 class="auth-form__sub-title text--extr-bold">Is your business already listed on our
-												site?</h2>
-											<div class="auth-form__radio radio-group">
-												<label class="radio-item">
-													<input checked required type="radio" name="owner_company" value="true" class="radio-item__input">
-													<span class="radio-item__mark"></span>
-													<span class="radio-item__label">Yes</span>
-												</label>
+											<div class="auth-form__item-inner">
+												<h2 class="auth-form__sub-title text--extr-bold">Find and select your company</h2>
+												<div class="auth-form__text-banner text-banner text text--lh">
+													<p>You can select one junkyard during registration. Additional junkyards can be added right after registration in your account.</p>
+												</div>
+												<div class="auth-form__search">
+													<div class="search search--mobile">
+														<div class="search__form">
+															<div class="search__item _icon-search">
+																<input type="text" name="search" data-focus-placeholder="Start entering..." placeholder="Junkyards Search..." class="search__input" autocomplete="off">
+																<button type="button" class="search__btn btn btn--bg">Find</button>
+															</div>
+														</div>
+														<div class="search-results scrollbar _hide">
+															<ul class="search-results__list">
+																<li class="search-results__list-item">
+																	<div class="search-results__item">
+																		<a target="_blank" href="#" class="search-results__link">
+																			<div class="search-results__name">Barry's U Pull It Auto Parts</div>
+																			<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
+																			</div>
+																		</a>
+																		<button type="button" class="search-results__btn">Select</button>
+																	</div>
+																</li>
+																<li class="search-results__list-item">
+																	<div class="search-results__item">
+																		<a target="_blank" href="#" class="search-results__link">
+																			<div class="search-results__name">EZ Pull N Pay</div>
+																			<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601</div>
+																		</a>
+																		<button type="button" class="search-results__btn">Select</button>
+																	</div>
+																</li>
+																<li class="search-results__list-item">
+																	<div class="search-results__item">
+																		<a target="_blank" href="#" class="search-results__link">
+																			<div class="search-results__name">Johnson's Wrecking Used & Rebuilt Auto & Truck Parts </div>
+																			<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601</div>
+																		</a>
+																		<button type="button" class="search-results__btn">Select</button>
+																	</div>
+																</li>
+																<li class="search-results__list-item">
+																	<div class="search-results__item">
+																		<a target="_blank" href="#" class="search-results__link">
+																			<div class="search-results__name">Buddy's U Pull Used Auto Parts</div>
+																			<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
+																			</div>
+																		</a>
+																		<button type="button" class="search-results__btn">Select</button>
+																	</div>
+																</li>
+																<li class="search-results__list-item">
+																	<div class="search-results__item">
+																		<a target="_blank" href="#" class="search-results__link">
+																			<div class="search-results__name">Mission Wrecker Service – Car Towing & Heavy Duty Recovery</div>
+																			<div class="search-results__text">4535 Farm to Market 1516, Converse, TX, United States</div>
+																		</a>
+																		<button type="button" class="search-results__btn">Select</button>
+																	</div>
+																</li>
+																<li class="search-results__list-item">
+																	<div class="search-results__item">
+																		<a target="_blank" href="#" class="search-results__link">
+																			<div class="search-results__name">Barry's U Pull It Auto Parts</div>
+																			<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
+																			</div>
+																		</a>
+																		<button type="button" class="search-results__btn">Select</button>
+																	</div>
+																</li>
+																<li class="search-results__list-item">
+																	<div class="search-results__item">
+																		<a target="_blank" href="#" class="search-results__link">
+																			<div class="search-results__name">Barry's U Pull It Auto Parts</div>
+																			<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
+																			</div>
+																		</a>
+																		<button type="button" class="search-results__btn">Select</button>
+																	</div>
+																</li>
 
-												<label class="radio-item">
-													<input required type="radio" name="owner_company" value="false" class="radio-item__input">
-													<span class="radio-item__mark"></span>
-													<span class="radio-item__label">No, I want to register one</span>
-												</label>
-											</div>
-											<h2 class="auth-form__sub-title text--extr-bold">Find and select your company</h2>
-											<div class="auth-form__search">
-												<div class="search search--mobile">
-													<div class="search__form">
-														<div class="search__item _icon-search">
-															<input type="text" name="search" data-focus-placeholder="Start entering..." placeholder="Junkyards Search..." class="search__input" autocomplete="off">
-															<button type="button" class="search__btn btn btn--bg">Find</button>
+																<li class="search-results__list-item">
+																	<div class="search-results__item">
+																		<div class="search-results__loading text-center">
+																			<img width="45" height="45" loading="lazy" decoding="async" src="img/icons/loader.svg" alt="loader spinner">
+																		</div>
+																	</div>
+																</li>
+																<li class="search-results__list-item">
+																	<div class="search-results__item search-results__item--no-found">
+																		<div class="search-results__text text-center">Nothing was found</div>
+																	</div>
+																</li>
+															</ul>
 														</div>
 													</div>
-													<div class="search-results scrollbar _hide">
-														<ul class="search-results__list">
-															<li class="search-results__list-item">
-																<div class="search-results__item">
-																	<a target="_blank" href="#" class="search-results__link">
-																		<div class="search-results__name">Barry's U Pull It Auto Parts</div>
-																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																		</div>
-																	</a>
-																	<button type="button" class="search-results__btn">Select</button>
-																</div>
-															</li>
-															<li class="search-results__list-item">
-																<div class="search-results__item">
-																	<a target="_blank" href="#" class="search-results__link">
-																		<div class="search-results__name">EZ Pull N Pay</div>
-																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601</div>
-																	</a>
-																	<button type="button" class="search-results__btn">Select</button>
-																</div>
-															</li>
-															<li class="search-results__list-item">
-																<div class="search-results__item">
-																	<a target="_blank" href="#" class="search-results__link">
-																		<div class="search-results__name">Johnson's Wrecking Used & Rebuilt Auto & Truck Parts </div>
-																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601</div>
-																	</a>
-																	<button type="button" class="search-results__btn">Select</button>
-																</div>
-															</li>
-															<li class="search-results__list-item">
-																<div class="search-results__item">
-																	<a target="_blank" href="#" class="search-results__link">
-																		<div class="search-results__name">Buddy's U Pull Used Auto Parts</div>
-																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																		</div>
-																	</a>
-																	<button type="button" class="search-results__btn">Select</button>
-																</div>
-															</li>
-															<li class="search-results__list-item">
-																<div class="search-results__item">
-																	<a target="_blank" href="#" class="search-results__link">
-																		<div class="search-results__name">Mission Wrecker Service – Car Towing & Heavy Duty Recovery</div>
-																		<div class="search-results__text">4535 Farm to Market 1516, Converse, TX, United States</div>
-																	</a>
-																	<button type="button" class="search-results__btn">Select</button>
-																</div>
-															</li>
-															<li class="search-results__list-item">
-																<div class="search-results__item">
-																	<a target="_blank" href="#" class="search-results__link">
-																		<div class="search-results__name">Barry's U Pull It Auto Parts</div>
-																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																		</div>
-																	</a>
-																	<button type="button" class="search-results__btn">Select</button>
-																</div>
-															</li>
-															<li class="search-results__list-item">
-																<div class="search-results__item">
-																	<a target="_blank" href="#" class="search-results__link">
-																		<div class="search-results__name">Barry's U Pull It Auto Parts</div>
-																		<div class="search-results__text">9402 W Lake Rd, Abilene, TX 79601
-																		</div>
-																	</a>
-																	<button type="button" class="search-results__btn">Select</button>
-																</div>
-															</li>
-
-															<li class="search-results__list-item">
-																<div class="search-results__item">
-																	<div class="search-results__loading text-center">
-																		<img width="45" height="45" loading="lazy" decoding="async" src="img/icons/loader.svg" alt="loader spinner">
-																	</div>
-																</div>
-															</li>
-															<li class="search-results__list-item">
-																<div class="search-results__item search-results__item--no-found">
-																	<div class="search-results__text text-center">Nothing was found</div>
-																</div>
-															</li>
-														</ul>
-													</div>
+												</div>
+												<div tabindex="0" role="button" class="auth-form__btn-selected btn btn--bg hidden">
+													<input id="company_name" data-required data-error-notice="Please find and select your company" type="hidden" name="company_name" value="">
+													<span></span>
+													<img width="32" height="32" loading="lazy" decoding="async" src="img/icons/close-rounded.svg" alt="close icon">
 												</div>
 											</div>
-											<div tabindex="0" role="button" class="auth-form__btn-selected btn btn--bg hidden">
-												<input data-required data-error-notice="Please find and select your company" type="hidden" name="company_name" value="">
-												<span></span>
-												<img width="32" height="32" loading="lazy" decoding="async" src="img/icons/close-rounded.svg" alt="close icon">
+											<div class="auth-form__item-inner">
+												<h2 class="auth-form__sub-title text--extr-bold">Which best describes your role in the business?</h2>
+												<div class="auth-form__radio radio-group">
+													<label class="radio-item">
+														<input data-radio-text-value="owner" checked required type="radio" name="role" value="owner" class="radio-item__input">
+														<span class="radio-item__mark"></span>
+														<span class="radio-item__label">I’m the owner</span>
+													</label>
+
+													<label class="radio-item">
+														<input data-radio-text-value="manager" required type="radio" name="role" value="manager" class="radio-item__input">
+														<span class="radio-item__mark"></span>
+														<span class="radio-item__label">I’m a manager</span>
+													</label>
+												</div>
+												<div class="auth-form__text-banner text-banner text text--lh">
+													<p data-radio-text="owner">Owners go through a short verification process.</p>
+													<p data-radio-text="manager" class="hidden">Managers need their role confirmed by the owner.</p>
+												</div>
 											</div>
-											<div class="auth-form__text-small text-small">You’ll need to verify that you’re the businessowner to manage the listing.</div>
 											<button type="submit" class="auth-form__btn btn">Sign up</button>
 										</div>
 									</div>
@@ -1437,7 +1452,7 @@
 		</footer>
 	</div>
 
-	<script async src="js/auth.min.js?_v=20250822110417"></script>
+	<script async src="js/auth.min.js?_v=20250823125230"></script>
 </body>
 
 </html>

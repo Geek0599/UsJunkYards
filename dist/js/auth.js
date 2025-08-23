@@ -979,4 +979,23 @@
         }));
     }
     toggleShowPasswordIcon();
+    function onChangeRadioText() {
+        const classHidden = "hidden";
+        const radiosTextValueAttribute = "data-radio-text-value";
+        const textsRadioAttribute = "data-radio-text";
+        const inputsRadio = document.querySelectorAll(`[${radiosTextValueAttribute}]`);
+        const textsRadio = document.querySelectorAll(`[${textsRadioAttribute}]`);
+        if (!inputsRadio.length || !textsRadio.length) return;
+        inputsRadio.forEach((radio => {
+            radio.addEventListener("change", (e => {
+                const radioTextValue = radio.getAttribute(radiosTextValueAttribute);
+                textsRadio.forEach((text => {
+                    const textValue = text.getAttribute(textsRadioAttribute);
+                    text.classList.add(classHidden);
+                    if (radioTextValue === textValue) text.classList.remove(classHidden);
+                }));
+            }));
+        }));
+    }
+    onChangeRadioText();
 })();

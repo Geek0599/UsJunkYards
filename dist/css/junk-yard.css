@@ -15,6 +15,14 @@
   display: inline-block;
 }
 
+._icon-dashboard:before {
+  content: "\e917";
+}
+
+._icon-sign-out:before {
+  content: "\e918";
+}
+
 ._icon-chevron-check-rounded:before {
   content: "\e916";
 }
@@ -2244,6 +2252,11 @@ header._header-pc-scroll .menu__link._active {
   gap: 0.5rem;
 }
 
+.menu-icon__row--items .schedule-time__icon {
+  gap: 0.25rem;
+  margin-top: 0.125rem;
+}
+
 .menu-icon__title {
   margin-bottom: 0.5rem;
 }
@@ -3524,6 +3537,18 @@ header._header-pc-scroll .menu__link._active {
 
 .socials__link img {
   width: 3rem;
+}
+
+.phone-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-column-gap: 1.5rem;
+     -moz-column-gap: 1.5rem;
+          column-gap: 1.5rem;
+  row-gap: 1rem;
 }
 
 .info__body {
@@ -8969,10 +8994,6 @@ html.with-fancybox body.hide-scrollbar {
 
   .header._header-full-scroll .menu-icon__row--head .menu-icon__btn {
     display: none;
-  }
-
-  .menu-icon__row--items {
-    gap: 0.25rem;
   }
 
   .menu-icon__row--items .schedule-time__icon {

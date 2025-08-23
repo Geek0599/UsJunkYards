@@ -4437,24 +4437,29 @@
         initUploadPhotoInput();
         initPopupSimple();
         function showHideWithValidationTrimField() {
-            const yearInput = document.getElementById("year");
-            const trimInput = document.getElementById("trim");
+            const form = document.querySelector("[data-online-quote-form]");
+            if (!form) return;
+            const yearInput = form.querySelector("#year");
+            const trimInput = form.querySelector("#trim");
             const trimFormItem = trimInput?.closest(".form-item");
             if (!yearInput || !trimInput || !trimFormItem) return;
+            function show() {
+                trimInput.removeAttribute("data-skip-validation");
+                trimFormItem.classList.remove("hidden");
+            }
+            function hide() {
+                trimInput.setAttribute("data-skip-validation", "");
+                trimFormItem.classList.add("hidden");
+                trimInput.value = "";
+                removeStatus({
+                    input: trimInput
+                });
+            }
             yearInput.addEventListener("input", (e => {
                 const value = e.target.value;
-                if (Number(value) >= 2e3) {
-                    trimInput.removeAttribute("data-skip-validation");
-                    trimFormItem.classList.remove("hidden");
-                } else if (!trimInput.hasAttribute("data-skip-validation")) {
-                    trimInput.setAttribute("data-skip-validation", "");
-                    trimFormItem.classList.add("hidden");
-                    trimInput.value = "";
-                    removeStatus({
-                        input: trimInput
-                    });
-                }
+                if (Number(value) >= 2e3) show(); else if (!trimInput.hasAttribute("data-skip-validation")) hide();
             }));
+            form.addEventListener("reset", hide);
         }
         showHideWithValidationTrimField();
     })();

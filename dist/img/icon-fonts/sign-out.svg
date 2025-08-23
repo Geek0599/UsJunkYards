@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="20px" viewBox="0 0 16 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Shape</title>
+    <g id="Main" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Styleguide" transform="translate(-1037, -5406)" fill="#1272F4">
+            <g id="Group-2-Copy" transform="translate(1001, 5098)">
+                <g id="Group-5" transform="translate(32, 258)" fill-rule="nonzero">
+                    <g id="Sign-out" transform="translate(0, 48)">
+                        <path d="M5,2 L19,2 C19.5523,2 20,2.44772 20,3 L20,21 C20,21.5523 19.5523,22 19,22 L5,22 C4.44772,22 4,21.5523 4,21 L4,3 C4,2.44772 4.44772,2 5,2 Z M9,11 L9,8 L4,12 L9,16 L9,13 L15,13 L15,11 L9,11 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
