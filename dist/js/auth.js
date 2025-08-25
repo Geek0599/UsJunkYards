@@ -986,16 +986,19 @@
         const inputsRadio = document.querySelectorAll(`[${radiosTextValueAttribute}]`);
         const textsRadio = document.querySelectorAll(`[${textsRadioAttribute}]`);
         if (!inputsRadio.length || !textsRadio.length) return;
-        inputsRadio.forEach((radio => {
-            radio.addEventListener("change", (e => {
-                const radioTextValue = radio.getAttribute(radiosTextValueAttribute);
-                textsRadio.forEach((text => {
-                    const textValue = text.getAttribute(textsRadioAttribute);
-                    text.classList.add(classHidden);
-                    if (radioTextValue === textValue) text.classList.remove(classHidden);
-                }));
+        const updateTexts = () => {
+            const checkedRadio = document.querySelector(`[${radiosTextValueAttribute}]:checked`);
+            const checkedValue = checkedRadio ? checkedRadio.getAttribute(radiosTextValueAttribute) : null;
+            textsRadio.forEach((text => {
+                const textValue = text.getAttribute(textsRadioAttribute);
+                text.classList.add(classHidden);
+                if (checkedValue && textValue === checkedValue) text.classList.remove(classHidden);
             }));
+        };
+        inputsRadio.forEach((radio => {
+            radio.addEventListener("change", updateTexts);
         }));
+        updateTexts();
     }
     onChangeRadioText();
 })();
