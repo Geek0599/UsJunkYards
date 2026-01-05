@@ -847,7 +847,7 @@
             const isShowNotice = isTextNotice || input.closest("[data-validate]")?.hasAttribute("data-validate-notice");
             let notice = input.parentElement.parentElement.querySelector(".form-item__notice");
             const textNotice = input.hasAttribute("data-error-notice") ? input.getAttribute("data-error-notice") : text;
-            if (isShowNotice) if (notice && notice.textContent !== textNotice) notice.textContent = textNotice; else if (!notice) {
+            if (isShowNotice && textNotice) if (notice && notice.textContent !== textNotice) notice.textContent = textNotice; else if (!notice) {
                 notice = document.createElement("label");
                 notice.classList.add("form-item__notice");
                 input.id ? notice.setAttribute("for", input.id) : null;
@@ -909,11 +909,18 @@
         const searchBtn = searchWrapper.querySelector(".search__btn");
         const searchInput = searchWrapper.querySelector(".search__input");
         const searchResults = form.querySelector(".search-results");
+        const textBanner = form.querySelector(".auth-form__text-banner");
         const selectedCompanyBtn = form.querySelector(".auth-form__btn-selected");
         const selectedCompanyInput = selectedCompanyBtn.querySelector("input");
         const selectedCompanyText = selectedCompanyBtn.querySelector("span");
-        const hideSearchResults = () => searchResults.classList.add("_hide");
-        const showSearchResults = () => searchResults.classList.remove("_hide");
+        const hideSearchResults = () => {
+            searchResults.classList.add("_hide");
+            textBanner.classList.remove("_focus");
+        };
+        const showSearchResults = () => {
+            searchResults.classList.remove("_hide");
+            textBanner.classList.add("_focus");
+        };
         const selectCompany = companyName => {
             selectedCompanyText.textContent = companyName;
             selectedCompanyInput.value = companyName;
@@ -923,11 +930,13 @@
             removeTextNotice({
                 input: selectedCompanyInput
             });
+            textBanner.classList.add("_focus-select");
         };
         const resetCompanySelection = () => {
             selectedCompanyBtn.classList.add("hidden");
             searchWrapper.classList.remove("hidden");
             selectedCompanyInput.value = "";
+            textBanner.classList.remove("_focus-select");
         };
         searchBtn.addEventListener("click", (() => searchInput.focus()));
         searchInput.addEventListener("focus", showSearchResults);
@@ -979,26 +988,4 @@
         }));
     }
     toggleShowPasswordIcon();
-    function onChangeRadioText() {
-        const classHidden = "hidden";
-        const radiosTextValueAttribute = "data-radio-text-value";
-        const textsRadioAttribute = "data-radio-text";
-        const inputsRadio = document.querySelectorAll(`[${radiosTextValueAttribute}]`);
-        const textsRadio = document.querySelectorAll(`[${textsRadioAttribute}]`);
-        if (!inputsRadio.length || !textsRadio.length) return;
-        const updateTexts = () => {
-            const checkedRadio = document.querySelector(`[${radiosTextValueAttribute}]:checked`);
-            const checkedValue = checkedRadio ? checkedRadio.getAttribute(radiosTextValueAttribute) : null;
-            textsRadio.forEach((text => {
-                const textValue = text.getAttribute(textsRadioAttribute);
-                text.classList.add(classHidden);
-                if (checkedValue && textValue === checkedValue) text.classList.remove(classHidden);
-            }));
-        };
-        inputsRadio.forEach((radio => {
-            radio.addEventListener("change", updateTexts);
-        }));
-        updateTexts();
-    }
-    onChangeRadioText();
 })();

@@ -127,6 +127,7 @@
   --black-ultra-light: rgba(44, 40, 51, 0.2);
   --gray: #2c2833a6;
   --gray-bg: rgba(44, 40, 51, 0.05);
+  --gray-bg-dark: rgba(44, 40, 51, 0.25);
   --gray-bg-second: rgba(216, 216, 216, 0.2);
   --disabled: #AFB4B6;
   --blue: #1272F4;
@@ -154,6 +155,8 @@
   --border: rgba(216, 216, 216, 0.5);
   --border-second: #979797;
   --border-dark: rgba(0, 0, 0, 0.2);
+  --border-gray: rgba(74, 96, 178, 0.2);
+  --border-gray-dark: rgba(74, 96, 178, 0.5);
   --main-border-radius: 1.5rem;
   --small-border-radius: 0.75rem;
   --input-bg: #f5f5f5;

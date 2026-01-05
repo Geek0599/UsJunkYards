@@ -4108,7 +4108,7 @@
                 const isShowNotice = isTextNotice || input.closest("[data-validate]")?.hasAttribute("data-validate-notice");
                 let notice = input.parentElement.parentElement.querySelector(".form-item__notice");
                 const textNotice = input.hasAttribute("data-error-notice") ? input.getAttribute("data-error-notice") : text;
-                if (isShowNotice) if (notice && notice.textContent !== textNotice) notice.textContent = textNotice; else if (!notice) {
+                if (isShowNotice && textNotice) if (notice && notice.textContent !== textNotice) notice.textContent = textNotice; else if (!notice) {
                     notice = document.createElement("label");
                     notice.classList.add("form-item__notice");
                     input.id ? notice.setAttribute("for", input.id) : null;
@@ -4431,11 +4431,11 @@
             window.popupSimple = new PopupSimple(bodyLock, bodyUnlock);
         }
         clickOnLabelKeyEnter();
-        const {removeStatus} = formValidate();
         setInputmode();
         initInputMask();
         initUploadPhotoInput();
         initPopupSimple();
+        const {removeStatus} = formValidate();
         function showHideWithValidationTrimField() {
             const form = document.querySelector("[data-online-quote-form]");
             if (!form) return;
