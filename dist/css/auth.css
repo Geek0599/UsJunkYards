@@ -3217,7 +3217,7 @@ header._header-pc-scroll .menu__link._active {
   pointer-events: none;
 }
 
-.checkbox-item__input:focus + .checkbox-item__mark {
+.checkbox-item__input:focus-visible + .checkbox-item__mark {
   background-color: var(--white);
 }
 
@@ -3491,7 +3491,7 @@ header._header-pc-scroll .menu__link._active {
 }
 
 .auth-form__text-banner._focus,
-.auth-form__text-banner._focus-select {
+.auth-form__text-banner._focus-selected {
   background-color: var(--border-gray);
 }
 

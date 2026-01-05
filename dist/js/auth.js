@@ -930,16 +930,20 @@
             removeTextNotice({
                 input: selectedCompanyInput
             });
-            textBanner.classList.add("_focus-select");
+            textBanner.classList.add("_focus-selected");
         };
         const resetCompanySelection = () => {
             selectedCompanyBtn.classList.add("hidden");
             searchWrapper.classList.remove("hidden");
             selectedCompanyInput.value = "";
-            textBanner.classList.remove("_focus-select");
+            textBanner.classList.remove("_focus-selected");
         };
         searchBtn.addEventListener("click", (() => searchInput.focus()));
         searchInput.addEventListener("focus", showSearchResults);
+        searchWrapper.addEventListener("focusout", (e => {
+            const relatedTarget = e.relatedTarget;
+            if (!searchWrapper.contains(relatedTarget)) hideSearchResults();
+        }));
         document.addEventListener("click", (e => {
             const target = e.target;
             if (!target.closest(".auth-form__search") && !target.closest(".search-results")) hideSearchResults();
