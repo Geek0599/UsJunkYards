@@ -752,6 +752,57 @@
             select.style.width = `${measurer.offsetWidth + 2}px`;
         }
     }
+    function truncateTextByWords(options = {}) {
+        const {maxWords = 50, buttonHTML = '<button class="expand-btn">Expand review</button>', collapsedClass = "is-collapsed"} = options;
+        let wordReg;
+        try {
+            wordReg = new RegExp("[\\p{L}\\p{N}]+(?:[-'][\\p{L}\\p{N}]+)*", "gu");
+            "a".match(wordReg);
+        } catch {
+            wordReg = /[A-Za-z0-9А-Яа-яЁёЇїІіЄєҐґ]+(?:[-'][A-Za-z0-9А-Яа-яЁёЇїІіЄєҐґ]+)*/g;
+        }
+        function checkWords(text, maxWords) {
+            if (!text) return false;
+            const matches = text.match(wordReg);
+            return matches && matches.length > maxWords;
+        }
+        function truncate(target) {
+            if (!target || target.nodeType !== 1) return;
+            const originalText = target.textContent?.trim();
+            if (!originalText || !checkWords(originalText, maxWords)) return;
+            let match;
+            let count = 0;
+            let cutIndex = -1;
+            wordReg.lastIndex = 0;
+            while ((match = wordReg.exec(originalText)) !== null) {
+                count++;
+                if (count === maxWords) {
+                    cutIndex = match.index + match[0].length;
+                    break;
+                }
+            }
+            if (cutIndex === -1) return;
+            let truncated = originalText.slice(0, cutIndex);
+            try {
+                truncated = truncated.replace(/[^\p{L}\p{N}\s]+$/u, "").replace(/\s+$/u, "");
+            } catch {
+                truncated = truncated.replace(/[^A-Za-z0-9А-Яа-яЁёЇїІіЄєҐґ\s]+$/, "").replace(/\s+$/, "");
+            }
+            target.textContent = truncated + "...";
+            target.insertAdjacentHTML("beforeend", ` ${buttonHTML}`);
+            target.parentElement?.classList.add(collapsedClass);
+            target.lastElementChild?.addEventListener("click", (() => {
+                target.textContent = originalText;
+                target.parentElement?.classList.remove(collapsedClass);
+            }), {
+                once: true
+            });
+        }
+        return {
+            truncate,
+            checkWords
+        };
+    }
     function ssr_window_esm_isObject(obj) {
         return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
     }
@@ -9136,4 +9187,13 @@
     sortSelect();
     setSelectWidth();
     initPopupSimple();
+    const {truncate, checkWords} = truncateTextByWords({
+        maxWords: 50
+    });
+    document.querySelectorAll(".testimonials-card").forEach((card => {
+        const text = card.querySelector(".testimonials-card__text p");
+        const answer = card.querySelector(".testimonials-card__answer .testimonials-card__text p");
+        text && truncate(text);
+        if (answer && !checkWords(text.textContent)) truncate(answer);
+    }));
 })();

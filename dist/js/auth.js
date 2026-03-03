@@ -942,7 +942,8 @@
         searchInput.addEventListener("focus", showSearchResults);
         searchWrapper.addEventListener("focusout", (e => {
             const relatedTarget = e.relatedTarget;
-            if (!searchWrapper.contains(relatedTarget)) hideSearchResults();
+            console.log(relatedTarget);
+            if (relatedTarget && !searchWrapper.contains(relatedTarget)) hideSearchResults();
         }));
         document.addEventListener("click", (e => {
             const target = e.target;

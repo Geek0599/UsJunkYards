@@ -595,6 +595,13 @@ Snippet (HTML): cnt
   min-height: 4rem;
 }
 
+.btn .btn-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .loaded .btn {
   -webkit-transition: background 0.25s ease, border 0.25s ease;
   transition: background 0.25s ease, border 0.25s ease;
