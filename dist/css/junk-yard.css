@@ -9462,6 +9462,10 @@ html.with-fancybox body.hide-scrollbar {
     gap: 2.5rem;
   }
 
+  .testimonials-list__bg-ibg_contain {
+    padding-bottom: 41%;
+  }
+
   .testimonials-list__bg-ibg_contain img {
     width: 140%;
   }
