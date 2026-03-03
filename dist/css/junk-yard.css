@@ -4891,9 +4891,6 @@ header._header-pc-scroll .menu__link._active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: row-reverse;
-      -ms-flex: row-reverse;
-          flex: row-reverse;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
