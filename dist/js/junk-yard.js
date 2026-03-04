@@ -115,6 +115,17 @@
     let _slideToggle = (target, duration = 500) => {
         if (target.hidden) return _slideDown(target, duration); else return _slideUp(target, duration);
     };
+    function functions_throttle(mainFunction, delay) {
+        let timerFlag = null;
+        return (...args) => {
+            if (timerFlag === null) {
+                mainFunction(...args);
+                timerFlag = setTimeout((() => {
+                    timerFlag = null;
+                }), delay);
+            }
+        };
+    }
     function dataMediaQueries(array, dataSetValue) {
         const media = Array.from(array).filter((function(item, index, self) {
             if (item.dataset[dataSetValue]) return item.dataset[dataSetValue].split(",")[0];
@@ -717,6 +728,11 @@
                     const hiddenItems = items.filter((item => item.classList.contains(hiddenElemClass)));
                     hiddenItems.slice(0, showMoreValue).forEach((item => {
                         item.classList.remove(hiddenElemClass);
+                        window.dispatchEvent(new CustomEvent("item-show-more", {
+                            detail: {
+                                item
+                            }
+                        }));
                     }));
                     if (hiddenItems.length <= showMoreValue) showMoreBtn.classList.add("hidden");
                 }));
@@ -9019,14 +9035,23 @@
             const match = sorted.find((m => w >= m.min));
             return match ? match.line : this.lines;
         }
-        constructor(el, lines = 3, buttonHTML = null, linesMedia = []) {
+        constructor(el, lines = 3, buttonText = null, linesMedia = []) {
             this.el = el;
             this.lines = lines;
             this.linesMedia = linesMedia;
-            this.buttonHTML = buttonHTML;
+            this.buttonText = buttonText;
             this.originalHTML = el.innerHTML.trim();
             this.expanded = false;
-            this._onResize = () => this.update();
+            this._lastWidth = window.innerWidth;
+            this._onResize = functions_throttle((() => {
+                const currentWidth = window.innerWidth;
+                if (currentWidth !== this._lastWidth) {
+                    this._lastWidth = currentWidth;
+                    setTimeout((() => {
+                        this.update();
+                    }), 300);
+                }
+            }), 150);
             this.el.id = this._generateId();
             this._setup();
             window.addEventListener("resize", this._onResize, {
@@ -9043,10 +9068,10 @@
             this.inner.innerHTML = this.originalHTML;
             this.el.innerHTML = "";
             this.el.appendChild(this.inner);
-            if (this.buttonHTML) {
+            if (this.buttonText) {
                 this.btn = document.createElement("button");
                 this.btn.className = "expand-btn";
-                this.btn.innerHTML = this.buttonHTML;
+                this.btn.innerHTML = this.buttonText;
                 this.btn.style.display = "inline";
                 this.btn.setAttribute("aria-expanded", false);
                 this.btn.setAttribute("aria-controls", this.el.id);
@@ -9060,9 +9085,6 @@
                 requestAnimationFrame((() => this.update()));
             }), 0);
             document.fonts.ready.then((() => this.update()));
-            window.addEventListener("click", (e => {
-                if (e.target.closest("[data-show-more-btn]")) this.update();
-            }));
         }
         _getTextNodes(root) {
             const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
@@ -9342,11 +9364,20 @@
             min: 300,
             line: 8
         } ];
+        const findTextClamp = card => ({
+            review: card.querySelector(".testimonials-card__text p"),
+            reply: card.querySelector(".testimonials-card__answer .testimonials-card__text p")
+        });
         testimonialsCards.forEach((card => {
-            const review = card.querySelector(".testimonials-card__text p");
-            const reply = card.querySelector(".testimonials-card__answer .testimonials-card__text p");
-            new ClampTextWithButton(review, linesDefault, "Expand review", adapiveLines);
-            reply && new ClampTextWithButton(reply, linesDefault, "Expand reply", adapiveLines);
+            const {review, reply} = findTextClamp(card);
+            review && (review.clampTextWithButton = new ClampTextWithButton(review, linesDefault, "Expand review", adapiveLines));
+            reply && (reply.clampTextWithButton = new ClampTextWithButton(reply, linesDefault, "Expand reply", adapiveLines));
+        }));
+        window.addEventListener("item-show-more", (e => {
+            if (!e.detail.item) return;
+            const {review, reply} = findTextClamp(e.detail.item);
+            review && review?.clampTextWithButton?.update();
+            reply && reply?.clampTextWithButton?.update();
         }));
     }
 })();
