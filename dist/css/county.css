@@ -1695,7 +1695,7 @@ body {
 [data-tooltip] {
   pointer-events: none;
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   font-size: 1.125rem;
   padding: 0.1875rem 0.375rem;
   font-weight: 500;
@@ -4657,13 +4657,6 @@ header._header-pc-scroll .menu__link._active {
   font-size: 1.21875rem;
 }
 
-.testimonials-card__answer {
-  margin-top: 1.3125rem;
-  display: -ms-grid;
-  display: grid;
-  gap: 0.25rem;
-}
-
 .testimonials-card--listed {
   padding: 2.5rem 3rem;
   gap: 1.5rem;
@@ -4672,10 +4665,6 @@ header._header-pc-scroll .menu__link._active {
 .testimonials-card--listed .testimonials-card__head {
   margin-bottom: 0;
   padding-right: 0;
-}
-
-.testimonials-card--listed .testimonials-card__answer {
-  margin-top: 0;
 }
 
 .testimonials-card--listed .testimonials-card__details {
@@ -7231,10 +7220,6 @@ header._header-pc-scroll .menu__link._active {
 
   .testimonials-card__user-name {
     font-size: 1.5rem;
-  }
-
-  .testimonials-card__answer {
-    margin-top: 0.75rem;
   }
 
   .list-cards {

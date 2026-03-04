@@ -752,57 +752,6 @@
             select.style.width = `${measurer.offsetWidth + 2}px`;
         }
     }
-    function truncateTextByWords(options = {}) {
-        const {maxWords = 50, buttonHTML = '<button class="expand-btn">Expand review</button>', collapsedClass = "is-collapsed"} = options;
-        let wordReg;
-        try {
-            wordReg = new RegExp("[\\p{L}\\p{N}]+(?:[-'][\\p{L}\\p{N}]+)*", "gu");
-            "a".match(wordReg);
-        } catch {
-            wordReg = /[A-Za-z0-9А-Яа-яЁёЇїІіЄєҐґ]+(?:[-'][A-Za-z0-9А-Яа-яЁёЇїІіЄєҐґ]+)*/g;
-        }
-        function checkWords(text, maxWords) {
-            if (!text) return false;
-            const matches = text.match(wordReg);
-            return matches && matches.length > maxWords;
-        }
-        function truncate(target) {
-            if (!target || target.nodeType !== 1) return;
-            const originalText = target.textContent?.trim();
-            if (!originalText || !checkWords(originalText, maxWords)) return;
-            let match;
-            let count = 0;
-            let cutIndex = -1;
-            wordReg.lastIndex = 0;
-            while ((match = wordReg.exec(originalText)) !== null) {
-                count++;
-                if (count === maxWords) {
-                    cutIndex = match.index + match[0].length;
-                    break;
-                }
-            }
-            if (cutIndex === -1) return;
-            let truncated = originalText.slice(0, cutIndex);
-            try {
-                truncated = truncated.replace(/[^\p{L}\p{N}\s]+$/u, "").replace(/\s+$/u, "");
-            } catch {
-                truncated = truncated.replace(/[^A-Za-z0-9А-Яа-яЁёЇїІіЄєҐґ\s]+$/, "").replace(/\s+$/, "");
-            }
-            target.textContent = truncated + "...";
-            target.insertAdjacentHTML("beforeend", ` ${buttonHTML}`);
-            target.parentElement?.classList.add(collapsedClass);
-            target.lastElementChild?.addEventListener("click", (() => {
-                target.textContent = originalText;
-                target.parentElement?.classList.remove(collapsedClass);
-            }), {
-                once: true
-            });
-        }
-        return {
-            truncate,
-            checkWords
-        };
-    }
     function ssr_window_esm_isObject(obj) {
         return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
     }
@@ -9062,6 +9011,177 @@
             }
         });
     }
+    class ClampInlineButton {
+        _getLines() {
+            if (!this.linesMedia.length) return this.lines;
+            const w = window.innerWidth;
+            const sorted = [ ...this.linesMedia ].sort(((a, b) => b.min - a.min));
+            const match = sorted.find((m => w >= m.min));
+            return match ? match.line : this.lines;
+        }
+        constructor(el, lines = 3, buttonHTML = null, linesMedia = []) {
+            this.el = el;
+            this.lines = lines;
+            this.linesMedia = linesMedia;
+            this.buttonHTML = buttonHTML;
+            this.originalHTML = el.innerHTML.trim();
+            this.expanded = false;
+            this._onResize = () => this.update();
+            this._setup();
+            window.addEventListener("resize", this._onResize, {
+                passive: true
+            });
+        }
+        _setup() {
+            this.el.style.wordBreak = "break-word";
+            this.inner = document.createElement("span");
+            this.inner.className = "clamp-inner";
+            this.inner.innerHTML = this.originalHTML;
+            this.el.innerHTML = "";
+            this.el.appendChild(this.inner);
+            if (this.buttonHTML) {
+                this.btn = document.createElement("button");
+                this.btn.className = "expand-btn";
+                this.btn.innerHTML = this.buttonHTML;
+                this.btn.style.display = "inline";
+                this.btn.addEventListener("click", (() => this.expand()), {
+                    once: true
+                });
+                this.el.appendChild(this.btn);
+            }
+            this.lineHeight = this._getLineHeight();
+            this.update();
+            requestAnimationFrame((() => this.update()));
+            document.fonts.ready.then((() => this.update()));
+            window.addEventListener("click", (e => {
+                if (e.target.closest("[data-show-more-btn]")) this.update();
+            }));
+        }
+        _getLineHeight() {
+            const temp = document.createElement("span");
+            temp.style.cssText = "visibility:hidden;position:absolute;white-space:nowrap";
+            temp.textContent = "A";
+            this.el.appendChild(temp);
+            const h = temp.getBoundingClientRect().height;
+            this.el.removeChild(temp);
+            return h || parseFloat(getComputedStyle(this.el).lineHeight) || 20;
+        }
+        _getTextNodes(root) {
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+            const nodes = [];
+            let node;
+            while (node = walker.nextNode()) nodes.push(node);
+            return nodes;
+        }
+        _totalTextLength(root) {
+            return this._getTextNodes(root).reduce(((sum, n) => sum + n.nodeValue.length), 0);
+        }
+        _trimToChars(charCount) {
+            this.inner.innerHTML = this.originalHTML;
+            const textNodes = this._getTextNodes(this.inner);
+            let remaining = charCount;
+            for (const node of textNodes) {
+                const len = node.nodeValue.length;
+                if (remaining <= 0) {
+                    this._removeNodeAndAfter(node);
+                    break;
+                }
+                if (len > remaining) {
+                    node.nodeValue = node.nodeValue.slice(0, remaining);
+                    this._removeNodeAndAfter(node, true);
+                    break;
+                }
+                remaining -= len;
+            }
+        }
+        _removeNodeAndAfter(startNode, skipSelf = false) {
+            const toRemove = [];
+            const walker = document.createTreeWalker(this.inner, NodeFilter.SHOW_ALL);
+            let found = false;
+            let node;
+            while (node = walker.nextNode()) {
+                if (!found) {
+                    if (node === startNode) {
+                        found = true;
+                        if (!skipSelf) toRemove.push(node);
+                    }
+                    continue;
+                }
+                toRemove.push(node);
+            }
+            for (const n of toRemove) {
+                let cur = n;
+                while (cur && cur !== this.inner) {
+                    const parent = cur.parentNode;
+                    if (parent) parent.removeChild(cur);
+                    if (parent && parent !== this.inner && parent.childNodes.length > 0) break;
+                    cur = parent;
+                }
+            }
+        }
+        _needsClamp() {
+            this.inner.innerHTML = this.originalHTML;
+            if (this.btn) this.btn.style.display = "none";
+            const fullHeight = this.el.scrollHeight;
+            if (this.btn) this.btn.style.display = "inline";
+            return fullHeight > this._getLines() * this.lineHeight + 1;
+        }
+        update() {
+            if (this.expanded) return;
+            const maxHeight = this._getLines() * this.lineHeight;
+            if (!this._needsClamp()) {
+                this.inner.innerHTML = this.originalHTML;
+                if (this.btn) this.btn.style.display = "none";
+                this._setEllipsis(false);
+                return;
+            }
+            if (this.btn) this.btn.style.display = "inline";
+            const totalChars = this._totalTextLength((() => {
+                const t = document.createElement("div");
+                t.innerHTML = this.originalHTML;
+                return t;
+            })());
+            let low = 0, high = totalChars, fitCount = 0;
+            while (low <= high) {
+                const mid = Math.floor((low + high) / 2);
+                this._trimToChars(mid);
+                this._setEllipsis(true);
+                if (this.el.scrollHeight > maxHeight) high = mid - 1; else {
+                    fitCount = mid;
+                    low = mid + 1;
+                }
+            }
+            this._trimToChars(fitCount);
+            this._setEllipsis(true);
+        }
+        _setEllipsis(show) {
+            if (this._ellipsisNode) {
+                this._ellipsisNode.remove();
+                this._ellipsisNode = null;
+            }
+            if (show) {
+                this._ellipsisNode = document.createTextNode("… ");
+                this.el.insertBefore(this._ellipsisNode, this.btn || null);
+            }
+        }
+        expand() {
+            this.expanded = true;
+            this._setEllipsis(false);
+            this.inner.innerHTML = this.originalHTML;
+            if (this.btn) {
+                this.btn.remove();
+                this.btn = null;
+            }
+        }
+        collapse() {
+            this.expanded = false;
+            this.update();
+        }
+        destroy() {
+            window.removeEventListener("resize", this._onResize);
+            this.el.innerHTML = this.originalHTML;
+        }
+    }
     function initPopupSimple() {
         class PopupSimple {
             constructor(bodyLock, bodyUnlock) {
@@ -9187,13 +9307,20 @@
     sortSelect();
     setSelectWidth();
     initPopupSimple();
-    const {truncate, checkWords} = truncateTextByWords({
-        maxWords: 50
-    });
-    document.querySelectorAll(".testimonials-card").forEach((card => {
-        const text = card.querySelector(".testimonials-card__text p");
-        const answer = card.querySelector(".testimonials-card__answer .testimonials-card__text p");
-        text && truncate(text);
-        if (answer && !checkWords(text.textContent)) truncate(answer);
-    }));
+    clampTextByLines();
+    function clampTextByLines() {
+        document.querySelectorAll(".testimonials-card").forEach((card => {
+            const text = card.querySelector(".testimonials-card__text p");
+            new ClampInlineButton(text, 4, "Expand review", [ {
+                min: 1025,
+                line: 4
+            }, {
+                min: 767,
+                line: 6
+            }, {
+                min: 300,
+                line: 8
+            } ]);
+        }));
+    }
 })();
