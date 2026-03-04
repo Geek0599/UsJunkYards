@@ -9011,7 +9011,7 @@
             }
         });
     }
-    class ClampInlineButton {
+    class ClampTextWithButton {
         _getLines() {
             if (!this.linesMedia.length) return this.lines;
             const w = window.innerWidth;
@@ -9027,10 +9027,14 @@
             this.originalHTML = el.innerHTML.trim();
             this.expanded = false;
             this._onResize = () => this.update();
+            this.el.id = this._generateId();
             this._setup();
             window.addEventListener("resize", this._onResize, {
                 passive: true
             });
+        }
+        _generateId() {
+            return crypto.randomUUID();
         }
         _setup() {
             this.el.style.wordBreak = "break-word";
@@ -9044,27 +9048,21 @@
                 this.btn.className = "expand-btn";
                 this.btn.innerHTML = this.buttonHTML;
                 this.btn.style.display = "inline";
+                this.btn.setAttribute("aria-expanded", false);
+                this.btn.setAttribute("aria-controls", this.el.id);
                 this.btn.addEventListener("click", (() => this.expand()), {
                     once: true
                 });
                 this.el.appendChild(this.btn);
             }
-            this.lineHeight = this._getLineHeight();
             this.update();
-            requestAnimationFrame((() => this.update()));
+            setTimeout((() => {
+                requestAnimationFrame((() => this.update()));
+            }), 0);
             document.fonts.ready.then((() => this.update()));
             window.addEventListener("click", (e => {
                 if (e.target.closest("[data-show-more-btn]")) this.update();
             }));
-        }
-        _getLineHeight() {
-            const temp = document.createElement("span");
-            temp.style.cssText = "visibility:hidden;position:absolute;white-space:nowrap";
-            temp.textContent = "A";
-            this.el.appendChild(temp);
-            const h = temp.getBoundingClientRect().height;
-            this.el.removeChild(temp);
-            return h || parseFloat(getComputedStyle(this.el).lineHeight) || 20;
         }
         _getTextNodes(root) {
             const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
@@ -9119,16 +9117,36 @@
                 }
             }
         }
+        _getClampedHeight() {
+            const lines = this._getLines();
+            const prevDisplay = this.inner.style.display;
+            const prevOrient = this.inner.style.webkitBoxOrient;
+            const prevClamp = this.inner.style.webkitLineClamp;
+            const prevOverflow = this.inner.style.overflow;
+            this.inner.style.display = "-webkit-box";
+            this.inner.style.webkitBoxOrient = "vertical";
+            this.inner.style.webkitLineClamp = lines;
+            this.inner.style.overflow = "hidden";
+            const clampedHeight = this.inner.getBoundingClientRect().height;
+            this.inner.style.display = prevDisplay;
+            this.inner.style.webkitBoxOrient = prevOrient;
+            this.inner.style.webkitLineClamp = prevClamp;
+            this.inner.style.overflow = prevOverflow;
+            return clampedHeight;
+        }
         _needsClamp() {
             this.inner.innerHTML = this.originalHTML;
+            this.inner.style.display = "";
+            this.inner.style.webkitLineClamp = "";
+            this.inner.style.overflow = "";
             if (this.btn) this.btn.style.display = "none";
-            const fullHeight = this.el.scrollHeight;
+            const fullHeight = this.inner.getBoundingClientRect().height;
             if (this.btn) this.btn.style.display = "inline";
-            return fullHeight > this._getLines() * this.lineHeight + 1;
+            const clampedHeight = this._getClampedHeight();
+            return fullHeight > clampedHeight + 1;
         }
         update() {
             if (this.expanded) return;
-            const maxHeight = this._getLines() * this.lineHeight;
             if (!this._needsClamp()) {
                 this.inner.innerHTML = this.originalHTML;
                 if (this.btn) this.btn.style.display = "none";
@@ -9136,6 +9154,7 @@
                 return;
             }
             if (this.btn) this.btn.style.display = "inline";
+            const maxHeight = this._getClampedHeight();
             const totalChars = this._totalTextLength((() => {
                 const t = document.createElement("div");
                 t.innerHTML = this.originalHTML;
@@ -9146,7 +9165,7 @@
                 const mid = Math.floor((low + high) / 2);
                 this._trimToChars(mid);
                 this._setEllipsis(true);
-                if (this.el.scrollHeight > maxHeight) high = mid - 1; else {
+                if (this.el.getBoundingClientRect().height > maxHeight) high = mid - 1; else {
                     fitCount = mid;
                     low = mid + 1;
                 }
@@ -9169,6 +9188,7 @@
             this._setEllipsis(false);
             this.inner.innerHTML = this.originalHTML;
             if (this.btn) {
+                this.btn.setAttribute("aria-expanded", true);
                 this.btn.remove();
                 this.btn = null;
             }
@@ -9309,18 +9329,24 @@
     initPopupSimple();
     clampTextByLines();
     function clampTextByLines() {
-        document.querySelectorAll(".testimonials-card").forEach((card => {
-            const text = card.querySelector(".testimonials-card__text p");
-            new ClampInlineButton(text, 4, "Expand review", [ {
-                min: 1025,
-                line: 4
-            }, {
-                min: 767,
-                line: 6
-            }, {
-                min: 300,
-                line: 8
-            } ]);
+        const testimonialsCards = document.querySelectorAll(".testimonials-card");
+        if (!testimonialsCards.length) return;
+        const linesDefault = 4;
+        const adapiveLines = [ {
+            min: 1025,
+            line: 4
+        }, {
+            min: 767,
+            line: 6
+        }, {
+            min: 300,
+            line: 8
+        } ];
+        testimonialsCards.forEach((card => {
+            const review = card.querySelector(".testimonials-card__text p");
+            const reply = card.querySelector(".testimonials-card__answer .testimonials-card__text p");
+            new ClampTextWithButton(review, linesDefault, "Expand review", adapiveLines);
+            reply && new ClampTextWithButton(reply, linesDefault, "Expand reply", adapiveLines);
         }));
     }
 })();

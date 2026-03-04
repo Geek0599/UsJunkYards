@@ -4834,6 +4834,10 @@ header._header-pc-scroll .menu__link._active {
   }
 }
 
+.testimonials-card__user-name {
+  word-break: break-word;
+}
+
 .testimonials-card__text {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
@@ -4866,6 +4870,13 @@ header._header-pc-scroll .menu__link._active {
   font-size: 1.21875rem;
 }
 
+.testimonials-card__answer {
+  margin-top: 1.3125rem;
+  display: -ms-grid;
+  display: grid;
+  gap: 0.25rem;
+}
+
 .testimonials-card--listed {
   padding: 2.5rem 3rem;
   gap: 1.5rem;
@@ -4874,6 +4885,15 @@ header._header-pc-scroll .menu__link._active {
 .testimonials-card--listed .testimonials-card__head {
   margin-bottom: 0;
   padding-right: 0;
+}
+
+.testimonials-card--listed .testimonials-card__answer {
+  margin-top: 0;
+}
+
+.testimonials-card--listed .testimonials-card__title {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .testimonials-card--listed .testimonials-card__details {
@@ -4889,29 +4909,6 @@ header._header-pc-scroll .menu__link._active {
      -moz-column-gap: 2rem;
           column-gap: 2rem;
   row-gap: 0.5rem;
-}
-
-@supports (overflow: clip) {
-@media (min-width: 61.99875em) {
-    .wrapper {
-      overflow: clip;
-    }
-}
-
-@media (min-width: 61.99875em) {
-    .page__testimonials-list .w-full {
-      overflow: clip;
-    }
-
-    .page__testimonials-list .testimonials-list__head {
-      position: sticky;
-      top: 6.125rem;
-    }
-}
-
-  .page__testimonials-list .testimonials-list__title {
-    margin-bottom: 0;
-  }
 }
 
 .testimonials-list {
@@ -5001,6 +4998,7 @@ header._header-pc-scroll .menu__link._active {
 
 .testimonials-list__item._hidden-elem {
   position: absolute;
+  bottom: 0;
   opacity: 0;
   visibility: hidden;
   -webkit-transform: translateY(10%);
@@ -5019,12 +5017,23 @@ header._header-pc-scroll .menu__link._active {
   margin-top: 1.5rem;
 }
 
-.testimonials-list .testimonials-card__text span.text.text--extr-bold,
-.testimonials-list .testimonials-card__text span.text--extr-bold.search-results__text,
-.testimonials-list .testimonials-card__text span.search-results__name {
-  margin-top: 24px;
-  display: block;
-  margin-bottom: 4px;
+@supports (overflow: clip) {
+@media (min-width: 61.99875em) {
+    .wrapper {
+      overflow: clip;
+    }
+}
+
+@media (min-width: 61.99875em) {
+    .page__testimonials-list .w-full {
+      overflow: clip;
+    }
+
+    .page__testimonials-list .testimonials-list__head {
+      position: sticky;
+      top: 6.125rem;
+    }
+}
 }
 
 .expand-btn {
@@ -9440,6 +9449,10 @@ html.with-fancybox body.hide-scrollbar {
     font-size: 1.5rem;
   }
 
+  .testimonials-card__answer {
+    margin-top: 0.75rem;
+  }
+
   .testimonials-list {
     padding-bottom: 2rem;
   }
@@ -9454,10 +9467,6 @@ html.with-fancybox body.hide-scrollbar {
 
   .testimonials-list__bg-ibg_contain {
     display: none;
-  }
-
-  .testimonials-list__title {
-    margin-bottom: 2.5rem;
   }
 
   .service-location__table {
