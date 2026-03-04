@@ -712,17 +712,18 @@
         if (showMoreContainers.length > 0) {
             const hiddenElemClass = "_hidden-elem";
             showMoreContainers.forEach((container => {
-                const showMoreValue = parseInt(container.getAttribute("data-show-more")) || 2;
                 const showMoreList = container.querySelector("[data-show-more-list]");
                 const showMoreBtn = container.querySelector("[data-show-more-btn]");
                 if (!showMoreList || !showMoreBtn) return;
+                const showMoreInitialVisible = parseInt(showMoreList.getAttribute("data-show-more-list")) || 2;
+                const showMoreValue = parseInt(showMoreBtn.getAttribute("data-show-more-btn")) || 2;
                 const items = Array.from(showMoreList.children);
-                if (items.length <= showMoreValue) {
+                if (items.length <= showMoreInitialVisible) {
                     showMoreBtn.classList.add("hidden");
                     return;
                 }
                 items.forEach(((item, index) => {
-                    if (index >= showMoreValue) item.classList.add(hiddenElemClass);
+                    if (index >= showMoreInitialVisible) item.classList.add(hiddenElemClass);
                 }));
                 showMoreBtn.addEventListener("click", (() => {
                     const hiddenItems = items.filter((item => item.classList.contains(hiddenElemClass)));
@@ -9047,6 +9048,7 @@
                 const currentWidth = window.innerWidth;
                 if (currentWidth !== this._lastWidth) {
                     this._lastWidth = currentWidth;
+                    if (this.el.closest("._hidden-elem")) return;
                     setTimeout((() => {
                         this.update();
                     }), 300);
@@ -9169,6 +9171,7 @@
         }
         update() {
             if (this.expanded) return;
+            console.log(this.el);
             if (!this._needsClamp()) {
                 this.inner.innerHTML = this.originalHTML;
                 if (this.btn) this.btn.style.display = "none";
